@@ -10,38 +10,75 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.ToolBar?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.gamereferee.MainController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.layout.AnchorPane?>
 
+<?import javafx.scene.control.Separator?>
+
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gamereferee.MainController">
     <children>
-        <StackPane>
+        <VBox prefHeight="400" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <MenuBar>
-                    <menus>
-                        <Menu text="Spiel">
-                            <MenuItem text="Start"/>
-                            <MenuItem text="Stop"/>
-                        </Menu>
-                        <Menu text="Spieler A">
-                            <MenuItem text="Placeholer"/>
-                        </Menu>
-                        <Menu text="Spieler B">
-                            <MenuItem text="Placeholer"/>
-                        </Menu>
-                    </menus>
-                </MenuBar>
-                <ToolBar>
-
-                </ToolBar>
-                <Label text="Placeholder"/>
-                <ToolBar>
-
+                <StackPane>
+                    <children>
+                        <MenuBar>
+                            <menus>
+                                <Menu text="Spiel" mnemonicParsing="false">
+                                    <items>
+                                        <MenuItem text="Neues Spiel"/>
+                                        <SeparatorMenuItem/>
+                                        <MenuItem text="Start"/>
+                                        <MenuItem text="Stop"/>
+                                    </items>
+                                </Menu>
+                                <Menu text="Spieler A" mnemonicParsing="false">
+                                    <fx:define>
+                                        <ToggleGroup fx:id="playerA"/>
+                                    </fx:define>
+                                    <fx:define>
+                                        <ToggleGroup fx:id="playerB"/>
+                                    </fx:define>
+                                    <items>
+                                        <RadioMenuItem text="Mensch" toggleGroup="$playerA"/>
+                                        <RadioMenuItem text="AI" toggleGroup="$playerA"/>
+                                        <RadioMenuItem text="AI2" toggleGroup="$playerA"/>
+                                    </items>
+                                </Menu>
+                                <Menu text="Spieler B" mnemonicParsing="false">
+                                    <items>
+                                        <RadioMenuItem text="AI" toggleGroup="$playerB"/>
+                                        <RadioMenuItem text="AI2" toggleGroup="$playerB"/>
+                                    </items>
+                                </Menu>
+                            </menus>
+                        </MenuBar>
+                    </children>
+                </StackPane>
+                <StackPane>
+                    <children>
+                        <ToolBar prefHeight="40.0">
+                            <Button text="Neu"/>
+                            <Button text="Button 1"/>
+                            <Separator/>
+                            <Button text="Start"/>
+                            <Button text="Stop"/>
+                        </ToolBar>
+                    </children>
+                </StackPane>
+                <AnchorPane VBox.vgrow="ALWAYS">
+                    <Label text="Filler"/>
+                </AnchorPane>
+                <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                        <Button text="Placeholder" />
+                    </items>
                 </ToolBar>
             </children>
-        </StackPane>
+        </VBox>
     </children>
-
-</VBox>
+</AnchorPane>
