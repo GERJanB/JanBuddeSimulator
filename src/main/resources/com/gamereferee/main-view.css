@@ -1,3 +1,7 @@
-#statusUpdates {
-    
+#play {
+    -fx-background-image: url(Icons/play.png);
+}
+
+#stop {
+    -fx-background-image: url(Icons/Stop.png);
 }
