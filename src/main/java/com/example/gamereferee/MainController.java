@@ -2,11 +2,9 @@ package com.example.gamereferee;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 
-public class HelloController {
+public class MainController {
     @FXML
     private Label welcomeText;
 
