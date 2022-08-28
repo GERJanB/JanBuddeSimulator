@@ -1,4 +1,4 @@
-package com.example.gamereferee;
+package com.gamereferee;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
