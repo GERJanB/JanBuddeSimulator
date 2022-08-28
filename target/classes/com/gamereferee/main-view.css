@@ -1,0 +1,18 @@
+#play {
+    -fx-background-image: url(Icons/play.png);
+}
+
+#stop {
+    -fx-background-image: url(Icons/Stop.png);
+}
+
+#new {
+    -fx-background-image: url(Icons/new.png);
+}
+
+.button {
+    -fx-min-width: 32.0;
+    -fx-min-height: 32.0;
+    -fx-max-width: 32.0;
+    -fx-max-height: 32.0;
+}

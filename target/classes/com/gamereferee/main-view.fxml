@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
@@ -14,12 +13,14 @@
 
 <?import javafx.scene.control.Separator?>
 
-<?import javafx.scene.control.CheckMenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.ToggleGroup?>
+
+<?import javafx.scene.control.Tooltip?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gamereferee.MainController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gamereferee.MainController" stylesheets="@main-view.css">
+
     <children>
         <VBox prefHeight="400" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -34,6 +35,7 @@
                                         <SeparatorMenuItem/>
                                         <MenuItem text="Start"/>
                                         <MenuItem text="Stop"/>
+                                        <MenuItem text="Beenden"/>
                                     </items>
                                 </Menu>
                                 <Menu text="Spieler A" mnemonicParsing="false">
@@ -44,14 +46,14 @@
                                         <ToggleGroup fx:id="playerB"/>
                                     </fx:define>
                                     <items>
-                                        <RadioMenuItem text="Mensch" toggleGroup="$playerA"/>
+                                        <RadioMenuItem text="Mensch" toggleGroup="$playerA" selected="true"/>
                                         <RadioMenuItem text="AI" toggleGroup="$playerA"/>
                                         <RadioMenuItem text="AI2" toggleGroup="$playerA"/>
                                     </items>
                                 </Menu>
                                 <Menu text="Spieler B" mnemonicParsing="false">
                                     <items>
-                                        <RadioMenuItem text="AI" toggleGroup="$playerB"/>
+                                        <RadioMenuItem text="AI" toggleGroup="$playerB" selected="true"/>
                                         <RadioMenuItem text="AI2" toggleGroup="$playerB"/>
                                     </items>
                                 </Menu>
@@ -62,20 +64,26 @@
                 <StackPane>
                     <children>
                         <ToolBar prefHeight="40.0">
-                            <Button text="Neu"/>
-                            <Button text="Button 1"/>
+                            <Button fx:id="new">
+                                <tooltip><Tooltip text="Neues Spiel"/> </tooltip>
+                            </Button>
                             <Separator/>
-                            <Button text="Start"/>
-                            <Button text="Stop"/>
+                            <Button fx:id="play">
+                                <tooltip><Tooltip text="Spiel starten"/> </tooltip>
+                            </Button>
+                            <Button fx:id="stop">
+                                <tooltip><Tooltip text="Spiel beenden"/> </tooltip>
+                            </Button>
                         </ToolBar>
                     </children>
                 </StackPane>
                 <AnchorPane VBox.vgrow="ALWAYS">
-                    <Label text="Filler"/>
+                    <Label text="Placeholder"/>
                 </AnchorPane>
                 <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="0.0">
                     <items>
-                        <Button text="Placeholder" />
+                        <Label text="Herzlich Willkommen beim Spiel Mühle"
+                               fx:id="statusUpdates"/>
                     </items>
                 </ToolBar>
             </children>
