@@ -32,6 +32,7 @@
                                 <Menu text="Spiel" mnemonicParsing="false">
                                     <items>
                                         <MenuItem text="Neues Spiel"/>
+                                        <MenuItem text="Drucken"/>
                                         <SeparatorMenuItem/>
                                         <MenuItem text="Start"/>
                                         <MenuItem text="Stop"/>
