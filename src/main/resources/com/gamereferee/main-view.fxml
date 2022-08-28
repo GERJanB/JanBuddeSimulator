@@ -17,6 +17,7 @@
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.ToggleGroup?>
 
+<?import javafx.scene.control.Tooltip?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gamereferee.MainController" stylesheets="@main-view.css">
 
@@ -63,11 +64,16 @@
                 <StackPane>
                     <children>
                         <ToolBar prefHeight="40.0">
-                            <Button text="Neu"/>
-                            <Button text="Button 1"/>
+                            <Button fx:id="new">
+                                <tooltip><Tooltip text="Neues Spiel"/> </tooltip>
+                            </Button>
                             <Separator/>
-                            <Button fx:id="play" prefHeight="32.0" prefWidth="32.0"/>
-                            <Button fx:id="stop" prefHeight="32.0" prefWidth="32.0"/>
+                            <Button fx:id="play">
+                                <tooltip><Tooltip text="Spiel starten"/> </tooltip>
+                            </Button>
+                            <Button fx:id="stop">
+                                <tooltip><Tooltip text="Spiel beenden"/> </tooltip>
+                            </Button>
                         </ToolBar>
                     </children>
                 </StackPane>
