@@ -31,11 +31,11 @@
                             <menus>
                                 <Menu text="_Spiel">
                                     <items>
-                                        <MenuItem text="_Neues Spiel"/>
+                                        <MenuItem text="_Neues Spiel" accelerator="Shortcut+N"/>
                                         <SeparatorMenuItem/>
-                                        <MenuItem text="St_art"/>
-                                        <MenuItem text="St_op"/>
-                                        <MenuItem text="_Beenden"/>
+                                        <MenuItem text="St_art" accelerator="Shortcut+R"/>
+                                        <MenuItem text="St_op" accelerator="Shortcut+S"/>
+                                        <MenuItem text="_Beenden" accelerator="Shortcut+Q"/>
                                     </items>
                                 </Menu>
                                 <Menu text="Spieler _A">
