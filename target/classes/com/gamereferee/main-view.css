@@ -11,7 +11,7 @@
 }
 
 #print {
-    -fx-background-image: url(Icons/new.png);
+    -fx-background-image: url(Icons/print.png);
 }
 
 .button {
