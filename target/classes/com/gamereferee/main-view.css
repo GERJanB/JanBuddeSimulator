@@ -10,8 +10,8 @@
     -fx-background-image: url(Icons/new.png);
 }
 
-#sa,sb {
-    -fx-alignment: center;
+#print {
+    -fx-background-image: url(Icons/new.png);
 }
 
 .button {
