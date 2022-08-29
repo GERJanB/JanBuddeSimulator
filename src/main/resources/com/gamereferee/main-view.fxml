@@ -1,29 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.AnchorPane?>
-
-<?import javafx.scene.control.Separator?>
-
-<?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.RadioMenuItem?>
-<?import javafx.scene.control.ToggleGroup?>
-
-<?import javafx.scene.control.Tooltip?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gamereferee.MainController" stylesheets="@main-view.css">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@main-view.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.gamereferee.MainController">
 
     <children>
-        <VBox prefHeight="400" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox prefHeight="400" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <StackPane>
                     <children>
@@ -31,30 +15,36 @@
                             <menus>
                                 <Menu text="_Spiel">
                                     <items>
-                                        <MenuItem text="_Neues Spiel" accelerator="Shortcut+N"/>
-                                        <SeparatorMenuItem/>
-                                        <MenuItem text="St_art" accelerator="Shortcut+R"/>
-                                        <MenuItem text="St_op" accelerator="Shortcut+S"/>
-                                        <MenuItem text="_Beenden" accelerator="Shortcut+Q"/>
+                                        <MenuItem accelerator="Shortcut+N" text="_Neues Spiel" />
+                                        <SeparatorMenuItem />
+                                        <MenuItem accelerator="Shortcut+R" text="St_art" />
+                                        <MenuItem accelerator="Shortcut+S" text="St_op" />
+                                        <MenuItem accelerator="Shortcut+Q" text="_Beenden" />
                                     </items>
                                 </Menu>
                                 <Menu text="Spieler _A">
                                     <fx:define>
-                                        <ToggleGroup fx:id="playerA"/>
+                                        <ToggleGroup fx:id="playerA" />
                                     </fx:define>
                                     <fx:define>
-                                        <ToggleGroup fx:id="playerB"/>
+                                        <ToggleGroup fx:id="playerB" />
                                     </fx:define>
                                     <items>
-                                        <RadioMenuItem text="Mensch" toggleGroup="$playerA" selected="true"/>
-                                        <RadioMenuItem text="AI" toggleGroup="$playerA"/>
-                                        <RadioMenuItem text="AI2" toggleGroup="$playerA"/>
+                                        <RadioMenuItem selected="true" text="Mensch">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="playerA" />
+                                 </toggleGroup></RadioMenuItem>
+                                        <RadioMenuItem text="AI" toggleGroup="$playerA" />
+                                        <RadioMenuItem text="AI2" toggleGroup="$playerA" />
                                     </items>
                                 </Menu>
                                 <Menu text="Spieler _B">
                                     <items>
-                                        <RadioMenuItem text="AI" toggleGroup="$playerB" selected="true"/>
-                                        <RadioMenuItem text="AI2" toggleGroup="$playerB"/>
+                                        <RadioMenuItem selected="true" text="AI">
+                                 <toggleGroup>
+                                    <ToggleGroup fx:id="playerB" />
+                                 </toggleGroup></RadioMenuItem>
+                                        <RadioMenuItem text="AI2" toggleGroup="$playerB" />
                                     </items>
                                 </Menu>
                             </menus>
@@ -65,36 +55,42 @@
                     <children>
                         <ToolBar prefHeight="40.0">
                             <Button fx:id="new">
-                                <tooltip><Tooltip text="Neues Spiel"/> </tooltip>
+                                <tooltip><Tooltip text="Neues Spiel" /> </tooltip>
                             </Button>
                             <Button fx:id="print">
-                                <tooltip><Tooltip text="Spielfeld drucken"/> </tooltip>
+                                <tooltip><Tooltip text="Spielfeld drucken" /> </tooltip>
                             </Button>
-                            <Separator/>
+                            <Separator />
                             <Button fx:id="play">
-                                <tooltip><Tooltip text="Spiel starten"/> </tooltip>
+                                <tooltip><Tooltip text="Spiel starten" /> </tooltip>
                             </Button>
                             <Button fx:id="stop">
-                                <tooltip><Tooltip text="Spiel beenden"/> </tooltip>
+                                <tooltip><Tooltip text="Spiel beenden" /> </tooltip>
                             </Button>
                         </ToolBar>
                     </children>
                 </StackPane>
-                <AnchorPane VBox.vgrow="ALWAYS">
-                    <children>
-                        <Label fx:id="sA" text="Spieler A"/>
-                        <StackPane>
-                            <children>
-                                <Label text="Placeholder"/>
-                            </children>
-                        </StackPane>
-                        <Label fx:id="sB" text="Spieler B"/>
-                    </children>
-                </AnchorPane>
+                <BorderPane VBox.vgrow="ALWAYS">
+                    <top>
+                        <HBox alignment="TOP_CENTER">
+                            <Label fx:id="sA" text="Spieler A" />
+                        </HBox>
+                    </top>
+                    <center>
+                        <Label text="Spielfeld" />
+                    </center>
+                    <bottom>
+                        <HBox alignment="BOTTOM_CENTER">
+                            <Label fx:id="sB" text="Spieler B" />
+                        </HBox>
+                    </bottom>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+                </BorderPane>
                 <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="0.0">
                     <items>
-                        <Label text="Herzlich Willkommen beim Spiel Mühle"
-                               fx:id="statusUpdates"/>
+                        <Label fx:id="statusUpdates" text="Herzlich Willkommen beim Spiel Mühle" />
                     </items>
                 </ToolBar>
             </children>
