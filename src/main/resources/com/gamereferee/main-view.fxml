@@ -67,6 +67,9 @@
                             <Button fx:id="new">
                                 <tooltip><Tooltip text="Neues Spiel"/> </tooltip>
                             </Button>
+                            <Button fx:id="print">
+                                <tooltip><Tooltip text="Spielfeld drucken"/> </tooltip>
+                            </Button>
                             <Separator/>
                             <Button fx:id="play">
                                 <tooltip><Tooltip text="Spiel starten"/> </tooltip>

@@ -10,6 +10,10 @@
     -fx-background-image: url(Icons/new.png);
 }
 
+#print {
+    -fx-background-image: url(Icons/new.png);
+}
+
 .button {
     -fx-min-width: 32.0;
     -fx-min-height: 32.0;
