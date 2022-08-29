@@ -78,7 +78,15 @@
                     </children>
                 </StackPane>
                 <AnchorPane VBox.vgrow="ALWAYS">
-                    <Label text="Placeholder"/>
+                    <children>
+                        <Label fx:id="sA" text="Spieler A"/>
+                        <StackPane>
+                            <children>
+                                <Label text="Placeholder"/>
+                            </children>
+                        </StackPane>
+                        <Label fx:id="sB" text="Spieler B"/>
+                    </children>
                 </AnchorPane>
                 <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="0.0">
                     <items>

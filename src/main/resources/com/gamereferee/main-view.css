@@ -10,6 +10,10 @@
     -fx-background-image: url(Icons/new.png);
 }
 
+#sa,sb {
+    -fx-alignment: center;
+}
+
 .button {
     -fx-min-width: 32.0;
     -fx-min-height: 32.0;
