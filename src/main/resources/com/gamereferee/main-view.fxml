@@ -29,16 +29,16 @@
                     <children>
                         <MenuBar>
                             <menus>
-                                <Menu text="Spiel" mnemonicParsing="false">
+                                <Menu text="_Spiel">
                                     <items>
-                                        <MenuItem text="Neues Spiel"/>
+                                        <MenuItem text="_Neues Spiel"/>
                                         <SeparatorMenuItem/>
-                                        <MenuItem text="Start"/>
-                                        <MenuItem text="Stop"/>
-                                        <MenuItem text="Beenden"/>
+                                        <MenuItem text="St_art"/>
+                                        <MenuItem text="St_op"/>
+                                        <MenuItem text="_Beenden"/>
                                     </items>
                                 </Menu>
-                                <Menu text="Spieler A" mnemonicParsing="false">
+                                <Menu text="Spieler _A">
                                     <fx:define>
                                         <ToggleGroup fx:id="playerA"/>
                                     </fx:define>
@@ -51,7 +51,7 @@
                                         <RadioMenuItem text="AI2" toggleGroup="$playerA"/>
                                     </items>
                                 </Menu>
-                                <Menu text="Spieler B" mnemonicParsing="false">
+                                <Menu text="Spieler _B">
                                     <items>
                                         <RadioMenuItem text="AI" toggleGroup="$playerB" selected="true"/>
                                         <RadioMenuItem text="AI2" toggleGroup="$playerB"/>
