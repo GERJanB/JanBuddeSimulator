@@ -5,7 +5,7 @@ public class Move {
     private int fromCol;
     private int toRow;
     private int toCol;
-    
+
     public int getFromRow() {
         return fromRow;
     }
