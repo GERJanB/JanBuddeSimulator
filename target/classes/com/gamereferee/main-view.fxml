@@ -33,7 +33,8 @@
                                         <RadioMenuItem selected="true" text="Mensch">
                                  <toggleGroup>
                                     <ToggleGroup fx:id="playerA" />
-                                 </toggleGroup></RadioMenuItem>
+                                 </toggleGroup>
+                                        </RadioMenuItem>
                                         <RadioMenuItem text="AI" toggleGroup="$playerA" />
                                         <RadioMenuItem text="AI2" toggleGroup="$playerA" />
                                     </items>

@@ -31,9 +31,7 @@
                                     </fx:define>
                                     <items>
                                         <RadioMenuItem selected="true" text="Mensch">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="playerA" />
-                                 </toggleGroup></RadioMenuItem>
+                                        </RadioMenuItem>
                                         <RadioMenuItem text="AI" toggleGroup="$playerA" />
                                         <RadioMenuItem text="AI2" toggleGroup="$playerA" />
                                     </items>
@@ -41,9 +39,7 @@
                                 <Menu text="Spieler _B">
                                     <items>
                                         <RadioMenuItem selected="true" text="AI">
-                                 <toggleGroup>
-                                    <ToggleGroup fx:id="playerB" />
-                                 </toggleGroup></RadioMenuItem>
+                                        </RadioMenuItem>
                                         <RadioMenuItem text="AI2" toggleGroup="$playerB" />
                                     </items>
                                 </Menu>
