@@ -1,12 +1,15 @@
 package Model;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class Board {
     private Field[][] fields;
 
-    public Board() {
+    private List<Piece> pieces;
 
+    public Board() {
+        CreateFields();
     }
 
     private void CreateFields() {
@@ -15,5 +18,11 @@ public class Board {
                 fields[row][col] = new Field(row,col,false);
             }
         }
+    }
+
+    public String PlacePiece(Piece piece) {
+        //TODO: Logik zum plazieren eines Spielsteins implementieren
+        pieces.add(piece);
+        return "";
     }
 }
