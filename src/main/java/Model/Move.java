@@ -3,25 +3,16 @@ package Model;
 import javafx.scene.layout.Region;
 
 public class Move {
-    private int fromRow;
-    private int fromCol;
-
+    private Piece piece;
     private int toRow;
     private int toCol;
 
-    public Move(int fromRow, int fromCol, int toRow, int toCol) {
-        this.fromRow = fromRow;
-        this.fromCol = fromCol;
-        this.toRow = toRow;
-        this.toCol = toCol;
+    public Move(Piece piece) {
+        this.piece = piece;
     }
 
-    public int getFromRow() {
-        return fromRow;
-    }
-
-    public int getFromCol() {
-        return fromCol;
+    public Piece getPiece() {
+        return piece;
     }
 
     public int getToRow() {
@@ -30,5 +21,10 @@ public class Move {
 
     public int getToCol() {
         return toCol;
+    }
+
+    public Boolean ValidateMove() {
+        //TODO: Validate Move
+        return true;
     }
 }
