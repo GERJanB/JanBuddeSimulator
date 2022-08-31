@@ -13,4 +13,20 @@ public class Game {
         playerA.setBoard(new Board());
         playerB.setBoard(new Board());
     }
+
+    public Player getPlayerA() {
+        return playerA;
+    }
+
+    public Player getPlayerB() {
+        return playerB;
+    }
+
+    public void setPlayerA(Player playerA) {
+        this.playerA = playerA;
+    }
+
+    public void setPlayerB(Player playerB) {
+        this.playerB = playerB;
+    }
 }

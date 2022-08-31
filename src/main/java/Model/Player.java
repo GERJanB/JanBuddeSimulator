@@ -14,6 +14,10 @@ public class Player {
         this.isPlayerA = isPlayerA;
     }
 
+    public Boolean isPlayerA() {
+        return isPlayerA;
+    }
+
     public Board getBoard() {
         return board;
     }
