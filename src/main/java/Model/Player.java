@@ -33,10 +33,8 @@ public class Player {
     }
 
     public void MovePiece(Piece piece) {
-        Move move = new Move(piece);
-        if (move.ValidateMove()) {
-
-        }
+        //Move move = new Move(piece);
+        //if (move.ValidateMove()) {  }
     }
 
     public void PlacePiece(int row, int col) {

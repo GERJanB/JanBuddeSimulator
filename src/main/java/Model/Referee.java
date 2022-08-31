@@ -10,6 +10,10 @@ public class Referee {
         game = new Game(playerA, playerB);
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
     public void SwitchPlayer() {
         this.board = currentPlayer.getBoard();
         if (currentPlayer.isPlayerA()) {

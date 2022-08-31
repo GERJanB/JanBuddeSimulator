@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Board {
-    private Field[][] fields;
+    private Field[][] fields = new Field[3][3];
 
     public Board() {
         CreateFields();

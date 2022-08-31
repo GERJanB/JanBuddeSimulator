@@ -1,7 +1,5 @@
 package Model;
 
-import Utilities.IO;
-
 public class Testprogramm {
     public static void main(String[] args) {
         Player playerA = new Player(true,true);
@@ -19,11 +17,12 @@ public class Testprogramm {
                 break;
             }
 
-
+            printBoard(referee.getBoard());
         }
     }
 
-    public void printBoard(Board board) {
-        
+    public static void printBoard(Board board) {
+        IO.println("Spieler A");
+        IO.println("1  2  3");
     }
 }
