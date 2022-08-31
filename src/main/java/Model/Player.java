@@ -12,10 +12,16 @@ public class Player {
     public Player(Boolean isHumanPlayer, Boolean isPlayerA) {
         this.isHumanPlayer = isHumanPlayer;
         this.isPlayerA = isPlayerA;
+
+        CreatePieces();
     }
 
     public Boolean isPlayerA() {
         return isPlayerA;
+    }
+
+    public int getPiecesCount() {
+        return pieces.size();
     }
 
     public Board getBoard() {
@@ -39,6 +45,14 @@ public class Player {
             piece.setRow(row);
             piece.setCol(col);
             board.AddPiece(piece);
+        }
+    }
+
+    private void CreatePieces() {
+        pieces = new Stack<>();
+        for (int i = 0; i < 9; i++) {
+            Piece piece = new Piece(isPlayerA);
+            pieces.push(piece);
         }
     }
 }
