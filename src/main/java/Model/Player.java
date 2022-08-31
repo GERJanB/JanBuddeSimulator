@@ -1,10 +1,13 @@
 package Model;
 
+import java.util.Stack;
+
 public class Player {
     private Boolean isHumanPlayer;
     private Boolean isPlayerA;
 
     private Board board;
+    private Stack<Piece> pieces;
 
     public Player(Boolean isHumanPlayer, Boolean isPlayerA) {
         this.isHumanPlayer = isHumanPlayer;
@@ -23,6 +26,15 @@ public class Player {
         Move move = new Move(piece);
         if (move.ValidateMove()) {
 
+        }
+    }
+
+    public void PlacePiece(int row, int col) {
+        if (!pieces.isEmpty()) {
+            Piece piece = pieces.pop();
+            piece.setRow(row);
+            piece.setCol(col);
+            board.AddPiece(piece);
         }
     }
 }

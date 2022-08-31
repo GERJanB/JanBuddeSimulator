@@ -6,8 +6,6 @@ import java.util.List;
 public class Board {
     private Field[][] fields;
 
-    private List<Piece> pieces;
-
     public Board() {
         CreateFields();
     }
@@ -20,9 +18,7 @@ public class Board {
         }
     }
 
-    public String PlacePiece(Piece piece) {
-        //TODO: Logik zum plazieren eines Spielsteins implementieren
-        pieces.add(piece);
-        return "";
+    public void AddPiece(Piece piece) {
+        fields[piece.getRow()][piece.getCol()].setPiece(piece);
     }
 }
