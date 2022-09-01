@@ -24,4 +24,8 @@ public class Piece {
     public void setCol(int col) {
         this.col = col;
     }
+
+    public Boolean getBelongsPlayerA() {
+        return belongsPlayerA;
+    }
 }

@@ -21,4 +21,8 @@ public class Board {
     public void AddPiece(Piece piece) {
         fields[piece.getRow()][piece.getCol()].setPiece(piece);
     }
+
+    public Field[][] getFields() {
+        return fields;
+    }
 }
