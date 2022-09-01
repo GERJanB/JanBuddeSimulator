@@ -37,12 +37,9 @@ public class Player {
         //if (move.ValidateMove()) {  }
     }
 
-    public void PlacePiece(int row, int col) {
+    public void PlacePiece(int ring, int position) {
         if (!pieces.isEmpty()) {
-            Piece piece = pieces.pop();
-            piece.setRow(row);
-            piece.setCol(col);
-            board.AddPiece(piece);
+            board.AddPiece(pieces.pop(), ring, position);
         }
     }
 

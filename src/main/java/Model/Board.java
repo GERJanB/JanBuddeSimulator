@@ -2,27 +2,22 @@ package Model;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Board {
-    private Field[][] fields = new Field[3][3];
+    Ring outerRing = new Ring(0);
+    Ring secondRing = new Ring(1);
+    Ring innerRing = new Ring(2);
 
     public Board() {
-        CreateFields();
+
     }
 
-    private void CreateFields() {
-        for (int row = 0; row < 3; row++) {
-            for (int col = 0; col< 3; col++) {
-                fields[row][col] = new Field(row,col,false);
-            }
+    public void AddPiece(Piece piece, int ring, int position) {
+        switch (ring) {
+            case 0 -> outerRing.AddPiece(piece, position);
+            case 1 -> secondRing.AddPiece(piece, position);
+            case 2 -> innerRing.AddPiece(piece, position);
         }
-    }
-
-    public void AddPiece(Piece piece) {
-        fields[piece.getRow()][piece.getCol()].setPiece(piece);
-    }
-
-    public Field[][] getFields() {
-        return fields;
     }
 }
