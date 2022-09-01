@@ -1,7 +1,7 @@
 package Model;
 
 public class Ring {
-    private Field[] fields = new Field[7];
+    private Field[] fields = new Field[8];
     private int ring;
 
     public Ring(int ring) {
@@ -10,7 +10,7 @@ public class Ring {
     }
 
     private void CreateFields() {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < fields.length; i++) {
             fields[i] = new Field(i, false);
         }
     }
