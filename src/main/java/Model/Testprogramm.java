@@ -6,6 +6,9 @@ public class Testprogramm {
         Player playerB = new Player(true, false);
 
         Referee referee = new Referee(playerA, playerB);
+        IO.println(playerA.PlacePiece(0, 1));
+        IO.println(playerB.PlacePiece(2, 2));
+        IO.println(playerA.PlacePiece(2,2));
 
         Board board = new Board();
         printBoard(referee.getBoard());
@@ -115,6 +118,10 @@ public class Testprogramm {
             }
         }
         IO.println();
+
+        IO.println();
+        IO.println("Spieler A = +");
+        IO.println("Spieler B = #");
     }
 
     private static String printIcon(Piece piece) {

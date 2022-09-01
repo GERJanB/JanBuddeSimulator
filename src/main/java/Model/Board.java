@@ -18,10 +18,13 @@ public class Board {
         switch (ring) {
             case 0:
                 success = outerRing.AddPiece(piece, position);
+                break;
             case 1:
                 success = secondRing.AddPiece(piece, position);
+                break;
             case 2:
                 success = innerRing.AddPiece(piece, position);
+                break;
         }
 
         return success;
