@@ -1,13 +1,13 @@
 package Model;
 
 public class Referee {
-    private Board board;
+    private Board board = new Board();
     private Player currentPlayer;
 
     private Game game;
 
     public Referee(Player playerA, Player playerB) {
-        game = new Game(playerA, playerB);
+        game = new Game(playerA, playerB, board);
     }
 
     public Board getBoard() {

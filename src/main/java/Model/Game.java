@@ -4,12 +4,12 @@ public class Game {
     private Player playerA;
     private Player playerB;
 
-    public Game(Player playerA, Player playerB) {
+    public Game(Player playerA, Player playerB, Board board) {
         this.playerA = playerA;
         this.playerB = playerB;
 
-        playerA.setBoard(new Board());
-        playerB.setBoard(new Board());
+        playerA.setBoard(board);
+        playerB.setBoard(board);
     }
 
     public Player getPlayerA() {
