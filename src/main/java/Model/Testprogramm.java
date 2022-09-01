@@ -7,14 +7,6 @@ public class Testprogramm {
 
         Referee referee = new Referee(playerA, playerB);
 
-        Board board = new Board();
-        Field[][] fields = new Field[3][3];
-        for (int x = 0; x < 3; x++) {
-            for (int y = 0; y < 3; y++) {
-                Field field = new Field();
-            }
-        }
-
         while (true) {
             if (playerA.getPiecesCount() < 3) {
                 IO.println("Spieler B hat gewonnen");
