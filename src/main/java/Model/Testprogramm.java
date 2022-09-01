@@ -22,6 +22,6 @@ public class Testprogramm {
     }
 
     public static void printBoard(Board board) {
-
+        
     }
 }

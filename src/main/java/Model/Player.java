@@ -33,8 +33,7 @@ public class Player {
     }
 
     public void MovePiece(Piece piece) {
-        //Move move = new Move(piece);
-        //if (move.ValidateMove()) {  }
+        //TODO: Move Pieces
     }
 
     public String PlacePiece(int ring, int position) {
