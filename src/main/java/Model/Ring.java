@@ -23,4 +23,8 @@ public class Ring {
         }
         return false;
     }
+
+    public Field[] getFields() {
+        return fields;
+    }
 }

@@ -22,6 +22,10 @@ public class Testprogramm {
     }
 
     public static void printBoard(Board board) {
+        Field[] outerFields = board.getOuterRing().getFields();
+        Field[] secondFields = board.getSecondRing().getFields();
+        Field[] innerFields = board.getInnerRing().getFields();
+
         
     }
 }

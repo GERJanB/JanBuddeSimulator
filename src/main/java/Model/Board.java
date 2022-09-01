@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class Board {
-    Ring outerRing = new Ring(0);
-    Ring secondRing = new Ring(1);
-    Ring innerRing = new Ring(2);
+    private Ring outerRing = new Ring(0);
+    private Ring secondRing = new Ring(1);
+    private Ring innerRing = new Ring(2);
 
     public Board() {
 
@@ -25,5 +25,17 @@ public class Board {
         }
 
         return success;
+    }
+
+    public Ring getOuterRing() {
+        return outerRing;
+    }
+
+    public Ring getSecondRing() {
+        return secondRing;
+    }
+
+    public Ring getInnerRing() {
+        return innerRing;
     }
 }
