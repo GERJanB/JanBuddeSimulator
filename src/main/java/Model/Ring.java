@@ -15,8 +15,12 @@ public class Ring {
         }
     }
 
-    public void AddPiece(Piece piece, int positon) {
-        fields[positon].setPiece(piece);
-        fields[positon].setOccupied(true);
+    public Boolean AddPiece(Piece piece, int position) {
+        if (!fields[position].isOccupied()) {
+            fields[position].setPiece(piece);
+            fields[position].setOccupied(true);
+            return true;
+        }
+        return false;
     }
 }

@@ -13,11 +13,17 @@ public class Board {
 
     }
 
-    public void AddPiece(Piece piece, int ring, int position) {
+    public Boolean AddPiece(Piece piece, int ring, int position) {
+        boolean success = false;
         switch (ring) {
-            case 0 -> outerRing.AddPiece(piece, position);
-            case 1 -> secondRing.AddPiece(piece, position);
-            case 2 -> innerRing.AddPiece(piece, position);
+            case 0:
+                success = outerRing.AddPiece(piece, position);
+            case 1:
+                success = secondRing.AddPiece(piece, position);
+            case 2:
+                success = innerRing.AddPiece(piece, position);
         }
+
+        return success;
     }
 }

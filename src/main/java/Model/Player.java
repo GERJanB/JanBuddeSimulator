@@ -37,10 +37,14 @@ public class Player {
         //if (move.ValidateMove()) {  }
     }
 
-    public void PlacePiece(int ring, int position) {
+    public String PlacePiece(int ring, int position) {
         if (!pieces.isEmpty()) {
-            board.AddPiece(pieces.pop(), ring, position);
+           if (board.AddPiece(pieces.pop(), ring, position)) {
+               return "Stein plaziert";
+           }
+           return "Das Feld ist belegt";
         }
+        return "Keine Steine mehr übrig";
     }
 
     private void CreatePieces() {
