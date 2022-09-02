@@ -36,7 +36,8 @@ public class Player {
         this.board = board;
     }
 
-    public void MovePiece(Piece piece) {
+    public void MovePiece(Move move) {
+        boolean valid = move.ValidateMove();
         //TODO: Move Pieces
     }
 

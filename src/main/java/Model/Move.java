@@ -3,10 +3,15 @@ package Model;
 import javafx.scene.layout.Region;
 
 public class Move {
+    private Board board;
     private int fromRing;
     private int toRing;
     private int fromPosition;
     private int toPosition;
+
+    public Move(Board board) {
+        this.board = board;
+    }
 
     public int getFromRing() {
         return fromRing;
@@ -41,7 +46,7 @@ public class Move {
     }
 
     public Boolean ValidateMove() {
-        //TODO: Validate Move
+        //TODO: Validate Move using Board
         return true;
     }
 }

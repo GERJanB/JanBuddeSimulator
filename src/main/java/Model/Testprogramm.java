@@ -37,7 +37,7 @@ public class Testprogramm {
             Player currentPlayer = referee.getCurrentPlayer();
 
             IO.println(currentPlayer + "ist am Zug");
-            Move move = new Move();
+            Move move = new Move(referee.getBoard());
             move.setFromRing(IO.readInt("Von Ring: "));
             move.setFromPosition(IO.readInt("Von Position"));
             if ((move.getFromPosition() - 1) % 2 == 1) {
