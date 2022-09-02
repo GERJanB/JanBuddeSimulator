@@ -41,4 +41,27 @@ public class Board {
     public Ring getInnerRing() {
         return innerRing;
     }
+
+    public int getPlayerPieces(Player player) {
+        var outer = outerRing.getFields();
+        var second = secondRing.getFields();
+        var inner = innerRing.getFields();
+
+        int counter = 0;
+
+        for (int i = 0; i < outer.length; i++) {
+            if (outer[i].getPiece().getBelongsPlayerA() == player.isPlayerA()) {
+                counter++;
+            }
+
+            if (second[i].getPiece().getBelongsPlayerA() == player.isPlayerA()) {
+                counter++;
+            }
+
+            if (inner[i].getPiece().getBelongsPlayerA() == player.isPlayerA()) {
+                counter++;
+            }
+        }
+        return counter;
+    }
 }

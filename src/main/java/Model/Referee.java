@@ -8,6 +8,7 @@ public class Referee {
 
     public Referee(Player playerA, Player playerB) {
         game = new Game(playerA, playerB, board);
+        currentPlayer = playerA;
     }
 
     public Board getBoard() {
@@ -25,5 +26,9 @@ public class Referee {
             currentPlayer.setBoard(board);
             game.setPlayerA(currentPlayer);
         }
+    }
+
+    public Player getCurrentPlayer() {
+        return currentPlayer;
     }
 }

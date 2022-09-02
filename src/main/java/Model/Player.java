@@ -20,8 +20,12 @@ public class Player {
         return isPlayerA;
     }
 
-    public int getPiecesCount() {
+    public int getPiecesCountStack() {
         return pieces.size();
+    }
+
+    public int getPiecesCountBoard() {
+        return board.getPlayerPieces(this);
     }
 
     public Board getBoard() {
@@ -36,14 +40,11 @@ public class Player {
         //TODO: Move Pieces
     }
 
-    public String PlacePiece(int ring, int position) {
-        if (!pieces.isEmpty()) {
-           if (board.AddPiece(pieces.pop(), ring, position)) {
-               return "Stein plaziert";
-           }
-           return "Das Feld ist belegt";
-        }
-        return "Keine Steine mehr übrig";
+    public Boolean PlacePiece(int ring, int position) {
+       if (board.AddPiece(pieces.pop(), ring - 1, position - 1)) {
+           return true;
+       }
+       return false;
     }
 
     private void CreatePieces() {
@@ -51,6 +52,15 @@ public class Player {
         for (int i = 0; i < 9; i++) {
             Piece piece = new Piece(isPlayerA);
             pieces.push(piece);
+        }
+    }
+
+    @Override
+    public String toString() {
+        if (isPlayerA) {
+            return "Spieler A";
+        } else {
+            return "Spieler B";
         }
     }
 }

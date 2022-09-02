@@ -1,17 +1,39 @@
 package Model;
 
+import java.lang.invoke.SwitchPoint;
+
 public class Testprogramm {
     public static void main(String[] args) {
         Player playerA = new Player(true,true);
         Player playerB = new Player(true, false);
-
         Referee referee = new Referee(playerA, playerB);
-        IO.println(playerA.PlacePiece(0, 1));
-        IO.println(playerB.PlacePiece(2, 2));
-        IO.println(playerA.PlacePiece(2,2));
 
-        Board board = new Board();
         printBoard(referee.getBoard());
+
+        //phase 1: Placing Pieces
+        while (playerA.getPiecesCountStack() != 0 && playerB.getPiecesCountStack() != 0) {
+            Player currentPlayer = referee.getCurrentPlayer();
+            IO.println(currentPlayer + " ist am Zug");
+            int ring = IO.readInt("Platziere auf Ring (1-3)");
+            int position = IO.readInt("Platziere auf Position (1-8)");
+
+            if (currentPlayer.PlacePiece(ring, position)) {
+                IO.println("Stein platziert");
+            } else {
+                IO.println("Das Feld ist belegt");
+                continue;
+            }
+
+            printBoard(referee.getBoard());
+
+            referee.SwitchPlayer();
+        }
+
+        if (playerA.getPiecesCountBoard() <= 3) {
+            IO.println(playerB + " hat gewonnen");
+        } else {
+            IO.println(playerA + " hat gewonnen");
+        }
     }
 
     public static void printBoard(Board board) {
@@ -118,10 +140,6 @@ public class Testprogramm {
             }
         }
         IO.println();
-
-        IO.println();
-        IO.println("Spieler A = +");
-        IO.println("Spieler B = #");
     }
 
     private static String printIcon(Piece piece) {
