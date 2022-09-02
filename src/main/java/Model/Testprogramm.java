@@ -31,6 +31,23 @@ public class Testprogramm {
 
             referee.SwitchPlayer();
         }
+
+        //phase 2: Moving Pieces
+        while (playerA.getPiecesCountBoard() > 2 || playerB.getPiecesCountBoard() > 2) {
+            Player currentPlayer = referee.getCurrentPlayer();
+
+            IO.println(currentPlayer + "ist am Zug");
+            Move move = new Move();
+            move.setFromRing(IO.readInt("Von Ring: "));
+            move.setFromPosition(IO.readInt("Von Position"));
+            if ((move.getFromPosition() - 1) % 2 == 1) {
+                move.setToRing(IO.readInt("Zu Ring"));
+            } else {
+                move.setToRing(move.getFromRing());
+            }
+            move.setToPosition(IO.readInt("Zu Position"));
+
+        }
         IO.println("Keine Steine übrig");
     }
 

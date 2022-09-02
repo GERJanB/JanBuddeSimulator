@@ -49,7 +49,8 @@ public class Player {
 
     private void CreatePieces() {
         pieces = new Stack<>();
-        for (int i = 0; i < 3; i++) {
+        //TODO: Anzahl Steine wieder auf 9 ändern
+        for (int i = 0; i < 1; i++) {
             Piece piece = new Piece(isPlayerA);
             pieces.push(piece);
         }

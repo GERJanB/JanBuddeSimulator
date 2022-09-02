@@ -3,24 +3,41 @@ package Model;
 import javafx.scene.layout.Region;
 
 public class Move {
-    private Piece piece;
-    private int toRow;
-    private int toCol;
+    private int fromRing;
+    private int toRing;
+    private int fromPosition;
+    private int toPosition;
 
-    public Move(Piece piece) {
-        this.piece = piece;
+    public int getFromRing() {
+        return fromRing;
     }
 
-    public Piece getPiece() {
-        return piece;
+    public void setFromRing(int fromRing) {
+        this.fromRing = fromRing;
     }
 
-    public int getToRow() {
-        return toRow;
+    public int getToRing() {
+        return toRing;
     }
 
-    public int getToCol() {
-        return toCol;
+    public void setToRing(int toRing) {
+        this.toRing = toRing;
+    }
+
+    public int getFromPosition() {
+        return fromPosition;
+    }
+
+    public void setFromPosition(int fromPosition) {
+        this.fromPosition = fromPosition;
+    }
+
+    public int getToPosition() {
+        return toPosition;
+    }
+
+    public void setToPosition(int toPosition) {
+        this.toPosition = toPosition;
     }
 
     public Boolean ValidateMove() {
