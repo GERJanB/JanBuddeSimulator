@@ -20,8 +20,8 @@ public class Player {
         return isPlayerA;
     }
 
-    public int getPiecesCountStack() {
-        return pieces.size();
+    public Boolean isPiecesEmpty() {
+        return pieces.isEmpty();
     }
 
     public int getPiecesCountBoard() {
@@ -49,7 +49,7 @@ public class Player {
 
     private void CreatePieces() {
         pieces = new Stack<>();
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 3; i++) {
             Piece piece = new Piece(isPlayerA);
             pieces.push(piece);
         }

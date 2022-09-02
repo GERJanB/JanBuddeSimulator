@@ -11,8 +11,11 @@ public class Testprogramm {
         printBoard(referee.getBoard());
 
         //phase 1: Placing Pieces
-        while (playerA.getPiecesCountStack() != 0 && playerB.getPiecesCountStack() != 0) {
+        while (!playerA.isPiecesEmpty() || !playerB.isPiecesEmpty()) {
             Player currentPlayer = referee.getCurrentPlayer();
+            if(currentPlayer.isPiecesEmpty()) {
+                continue;
+            }
             IO.println(currentPlayer + " ist am Zug");
             int ring = IO.readInt("Platziere auf Ring (1-3)");
             int position = IO.readInt("Platziere auf Position (1-8)");
@@ -28,12 +31,7 @@ public class Testprogramm {
 
             referee.SwitchPlayer();
         }
-
-        if (playerA.getPiecesCountBoard() <= 3) {
-            IO.println(playerB + " hat gewonnen");
-        } else {
-            IO.println(playerA + " hat gewonnen");
-        }
+        IO.println("Keine Steine übrig");
     }
 
     public static void printBoard(Board board) {
