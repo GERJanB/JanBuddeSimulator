@@ -3,14 +3,13 @@ package Model;
 import javafx.scene.layout.Region;
 
 public class Move {
-    private Board board;
     private int fromRing;
     private int toRing;
     private int fromPosition;
     private int toPosition;
 
-    public Move(Board board) {
-        this.board = board;
+    public Move() {
+
     }
 
     public int getFromRing() {
@@ -43,10 +42,5 @@ public class Move {
 
     public void setToPosition(int toPosition) {
         this.toPosition = toPosition;
-    }
-
-    public Boolean ValidateMove() {
-        //TODO: Validate Move using Board
-        return true;
     }
 }

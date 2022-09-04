@@ -1,7 +1,5 @@
 package Model;
 
-import java.lang.invoke.SwitchPoint;
-
 public class Testprogramm {
     public static void main(String[] args) {
         Player playerA = new Player(true,true);
@@ -27,6 +25,9 @@ public class Testprogramm {
                 continue;
             }
 
+            //check for Mill
+
+
             printBoard(referee.getBoard());
 
             referee.SwitchPlayer();
@@ -37,7 +38,7 @@ public class Testprogramm {
             Player currentPlayer = referee.getCurrentPlayer();
 
             IO.println(currentPlayer + "ist am Zug");
-            Move move = new Move(referee.getBoard());
+            Move move = new Move();
             move.setFromRing(IO.readInt("Von Ring: "));
             move.setFromPosition(IO.readInt("Von Position"));
             if ((move.getFromPosition() - 1) % 2 == 1) {

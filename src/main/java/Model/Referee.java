@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.HashMap;
+
 public class Referee {
     private Board board = new Board();
     private Player currentPlayer;
@@ -26,6 +28,20 @@ public class Referee {
             currentPlayer.setBoard(board);
             game.setPlayerA(currentPlayer);
         }
+    }
+
+    public Boolean MoveIsMill(Move move) {
+        int Counter = 0;
+        int ring = move.getToRing();
+        int position = move.getToPosition();
+
+        if (position % 2 == 0) {
+            
+        } else {
+
+        }
+
+        return true;
     }
 
     public Player getCurrentPlayer() {
