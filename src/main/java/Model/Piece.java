@@ -1,31 +1,13 @@
 package Model;
 
 public class Piece {
-    private int row;
-    private int col;
-    private boolean belongsPlayerA;
+    private Boolean belongsPlayerA;
 
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
-    }
-
-    public boolean isBelongsPlayerA() {
-        return belongsPlayerA;
-    }
-
-    public void setBelongsPlayerA(boolean belongsPlayerA) {
+    public Piece(Boolean belongsPlayerA) {
         this.belongsPlayerA = belongsPlayerA;
+    }
+
+    public Boolean getBelongsPlayerA() {
+        return belongsPlayerA;
     }
 }

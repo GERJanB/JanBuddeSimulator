@@ -1,24 +1,14 @@
 package Model;
 
 public class Field {
-    private int row;
-    private int col;
+    private int position;
+
+    private boolean isOccupied;
     private Piece piece;
 
-    public int getRow() {
-        return row;
-    }
-
-    public void setRow(int row) {
-        this.row = row;
-    }
-
-    public int getCol() {
-        return col;
-    }
-
-    public void setCol(int col) {
-        this.col = col;
+    public Field(int position, boolean isOccupied) {
+        this.position = position;
+        this.isOccupied = isOccupied;
     }
 
     public Piece getPiece() {
@@ -27,5 +17,13 @@ public class Field {
 
     public void setPiece(Piece piece) {
         this.piece = piece;
+    }
+
+    public void setOccupied(boolean occupied) {
+        isOccupied = occupied;
+    }
+
+    public boolean isOccupied() {
+        return isOccupied;
     }
 }

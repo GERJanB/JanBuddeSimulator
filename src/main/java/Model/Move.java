@@ -1,40 +1,46 @@
 package Model;
 
+import javafx.scene.layout.Region;
+
 public class Move {
-    private int fromRow;
-    private int fromCol;
-    private int toRow;
-    private int toCol;
+    private int fromRing;
+    private int toRing;
+    private int fromPosition;
+    private int toPosition;
 
-    public int getFromRow() {
-        return fromRow;
+    public Move() {
+
     }
 
-    public void setFromRow(int fromRow) {
-        this.fromRow = fromRow;
+    public int getFromRing() {
+        return fromRing;
     }
 
-    public int getFromCol() {
-        return fromCol;
+    public void setFromRing(int fromRing) {
+        this.fromRing = fromRing;
     }
 
-    public void setFromCol(int fromCol) {
-        this.fromCol = fromCol;
+    public int getToRing() {
+        return toRing;
     }
 
-    public int getToRow() {
-        return toRow;
+    public void setToRing(int toRing) {
+        this.toRing = toRing;
     }
 
-    public void setToRow(int toRow) {
-        this.toRow = toRow;
+    public int getFromPosition() {
+        return fromPosition;
     }
 
-    public int getToCol() {
-        return toCol;
+    public void setFromPosition(int fromPosition) {
+        this.fromPosition = fromPosition;
     }
 
-    public void setToCol(int toCol) {
-        this.toCol = toCol;
+    public int getToPosition() {
+        return toPosition;
+    }
+
+    public void setToPosition(int toPosition) {
+        this.toPosition = toPosition;
     }
 }
