@@ -37,12 +37,11 @@ public class Player {
     }
 
     public void MovePiece(Move move) {
-        boolean valid = move.ValidateMove();
         //TODO: Move Pieces
     }
 
-    public Boolean PlacePiece(int ring, int position) {
-       if (board.AddPiece(pieces.pop(), ring - 1, position - 1)) {
+    public Boolean PlacePiece(Move move) {
+       if (board.AddPiece(pieces.pop(), move.getToRing(), move.getToPosition())) {
            return true;
        }
        return false;

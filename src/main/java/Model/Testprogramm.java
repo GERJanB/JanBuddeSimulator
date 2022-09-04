@@ -15,20 +15,24 @@ public class Testprogramm {
                 continue;
             }
             IO.println(currentPlayer + " ist am Zug");
-            int ring = IO.readInt("Platziere auf Ring (1-3)");
-            int position = IO.readInt("Platziere auf Position (1-8)");
 
-            if (currentPlayer.PlacePiece(ring, position)) {
+            Move move = new Move();
+            move.setToRing(IO.readInt("Platziere auf Ring (1-3)") - 1);
+            move.setToPosition(IO.readInt("Platziere auf Position (1-8)") - 1);
+
+            if (currentPlayer.PlacePiece(move)) {
                 IO.println("Stein platziert");
             } else {
                 IO.println("Das Feld ist belegt");
                 continue;
             }
 
-            //check for Mill
-
-
             printBoard(referee.getBoard());
+
+            //check for Mill
+            if (referee.MoveIsMill(move)) {
+                
+            }
 
             referee.SwitchPlayer();
         }
