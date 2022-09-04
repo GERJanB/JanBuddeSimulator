@@ -5,6 +5,8 @@ public class Piece {
 
     private boolean isInMill = false;
 
+    private
+
     public Piece(Boolean belongsPlayerA) {
         this.belongsPlayerA = belongsPlayerA;
     }

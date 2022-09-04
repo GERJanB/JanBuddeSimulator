@@ -35,6 +35,13 @@ public class Referee {
             return false;
         }
 
+        if (currentPlayer.isPiecesEmpty()) {
+            //check if Piece was in Mill
+            if (currentPlayer.getBoard().getRing(move.getToRing()).getFields()[move.getToPosition()].getPiece().isInMill()) {
+
+            }
+        }
+
         int position = move.getToPosition();
 
         if (position % 2 == 0) {

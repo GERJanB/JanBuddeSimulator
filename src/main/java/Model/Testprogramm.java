@@ -31,7 +31,15 @@ public class Testprogramm {
 
             //check for Mill
             if (referee.MoveIsMill(move)) {
-                
+                IO.println("Du kannst einen Stein vom Gegner nehmen");
+                boolean canTake = false;
+                while (!canTake) {
+                    canTake = currentPlayer
+                        .TakePiece(
+                            IO.readInt("Ring (1-3)"),
+                            IO.readInt("Position (1-8)")
+                        );
+                }
             }
 
             referee.SwitchPlayer();
