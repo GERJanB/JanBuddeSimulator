@@ -30,16 +30,13 @@ public class Board {
         return success;
     }
 
-    public Ring getOuterRing() {
-        return outerRing;
-    }
-
-    public Ring getSecondRing() {
-        return secondRing;
-    }
-
-    public Ring getInnerRing() {
-        return innerRing;
+    public Ring getRing(int ring) {
+        switch (ring) {
+            case 1: return outerRing;
+            case 2: return secondRing;
+            case 3: return innerRing;
+            default: throw new IllegalArgumentException();
+        }
     }
 
     public int getPlayerPieces(Player player) {

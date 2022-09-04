@@ -62,9 +62,9 @@ public class Testprogramm {
         String startSpace = "|    ";
         String endSpace = "    |";
 
-        Field[] outerFields = board.getOuterRing().getFields();
-        Field[] secondFields = board.getSecondRing().getFields();
-        Field[] innerFields = board.getInnerRing().getFields();
+        Field[] outerFields = board.getRing(1).getFields();
+        Field[] secondFields = board.getRing(2).getFields();
+        Field[] innerFields = board.getRing(3).getFields();
 
         //print outer top
         for (int i = 0; i < 3; i++) {

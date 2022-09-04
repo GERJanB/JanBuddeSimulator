@@ -36,7 +36,7 @@ public class Referee {
         int position = move.getToPosition();
 
         if (position % 2 == 0) {
-            
+
         } else {
 
         }
