@@ -48,12 +48,22 @@ public class Referee {
             }
 
             Field[] fields = currentPlayer.getBoard().getRing(move.getToRing()).getFields();
-            if ((fields[pos1].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                && fields[pos2].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())
-                || (fields[pos3].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+            if ((fields[pos3].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
                 &&  fields[pos4].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
+                fields[pos3].getPiece().setInMill(true);
+                fields[pos4].getPiece().setInMill(true);
+                fields[position].getPiece().setInMill(true);
                 return true;
             }
+
+            if ((fields[pos1].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+                    && fields[pos2].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())){
+                fields[pos1].getPiece().setInMill(true);
+                fields[pos2].getPiece().setInMill(true);
+                fields[position].getPiece().setInMill(true);
+                return true;
+            }
+
         } else {
             //check on same Ring
             int pos1 = position -1;
@@ -62,6 +72,9 @@ public class Referee {
             Field[] fields = currentPlayer.getBoard().getRing(move.getToRing()).getFields();
             if (fields[pos1].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
                 && fields[pos2].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()) {
+                fields[pos1].getPiece().setInMill(true);
+                fields[pos2].getPiece().setInMill(true);
+                fields[position].getPiece().setInMill(true);
                 return true;
             }
 
@@ -77,6 +90,9 @@ public class Referee {
                 if (outerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
                     && secondFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
                     && innerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()) {
+                    outerFields[i].getPiece().setInMill(true);
+                    secondFields[i].getPiece().setInMill(true);
+                    innerFields[i].getPiece().setInMill(true);
                     return true;
                 }
             }

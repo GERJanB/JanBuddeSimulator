@@ -64,4 +64,8 @@ public class Player {
             return "Spieler B";
         }
     }
+
+    public void TakePiece(int ring, int position) {
+
+    }
 }
