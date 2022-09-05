@@ -30,7 +30,7 @@ public class Testprogramm {
             printBoard(referee.getBoard());
 
             //check for Mill
-            if (referee.MoveIsMill(move)) {
+/*            if (referee.MoveIsMill(move)) {
                 IO.println("Du kannst einen Stein vom Gegner nehmen");
                 boolean canTake = false;
                 while (!canTake) {
@@ -41,7 +41,7 @@ public class Testprogramm {
                         );
                 }
                 printBoard(referee.getBoard());
-            }
+            }*/
 
             referee.SwitchPlayer();
         }

@@ -36,6 +36,9 @@ public class Referee {
         }
         Mill mill = GetMill(move);
 
+        if (mill == null) {
+            return false;
+        }
 
         if (!mill.isMultiRing()) {
             for (int i = 0; i < 3; i++) {
@@ -124,7 +127,7 @@ public class Referee {
             }
         }
 
-        return new Mill(rings,positions, false, false);
+        return null;
     }
 
     public Player getCurrentPlayer() {
