@@ -66,8 +66,9 @@ public class Referee {
             }
 
             Field[] fields = currentPlayer.getBoard().getRing(move.getToRing()).getFields();
-            if ((fields[pos3].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                    &&  fields[pos4].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
+            if ((fields[pos3].getPiece() != null && fields[pos4].getPiece() != null)
+                    &&(fields[pos3].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+                    && fields[pos4].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
                 rings[0] = move.getToRing();
                 positions[0] = pos3;
                 positions[1] = pos4;
@@ -75,7 +76,8 @@ public class Referee {
                 return new Mill(rings, positions, true, false);
             }
 
-            if ((fields[pos1].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+            if ((fields[pos1].getPiece() != null && fields[pos2].getPiece() != null)
+                    && (fields[pos1].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
                     && fields[pos2].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())){
                 rings[0] = move.getToRing();
                 positions[0] = pos1;
@@ -90,8 +92,9 @@ public class Referee {
             int pos2 = position == 7 ? 0 : position + 1;
 
             Field[] fields = currentPlayer.getBoard().getRing(move.getToRing()).getFields();
-            if (fields[pos1].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                    && fields[pos2].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()) {
+            if ((fields[pos1].getPiece() != null && fields[pos2].getPiece() != null)
+                    && (fields[pos1].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+                    && fields[pos2].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
                 rings[0] = move.getToRing();
                 positions[0] = pos1;
                 positions[1] = pos2;
@@ -108,9 +111,10 @@ public class Referee {
                 if (i % 2 == 0) {
                     continue;
                 }
-                if (outerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+                if ((outerFields[i].getPiece() != null && secondFields[i].getPiece() != null && innerFields[i].getPiece() != null)
+                        && (outerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
                         && secondFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                        && innerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()) {
+                        && innerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
                     rings[0] = 1;
                     rings[1] = 2;
                     rings[2] = 3;
