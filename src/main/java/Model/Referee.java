@@ -30,6 +30,20 @@ public class Referee {
         }
     }
 
+    public Boolean AllPiecesInMill() {
+        var outerFields = board.getRing(1).getFields();
+        var secondFields = board.getRing(2).getFields();
+        var innerFields = board.getRing(3).getFields();
+
+        for (int i = 0; i < outerFields.length; i++) {
+            if (!outerFields[i].getPiece().isInMill()) return false;
+            if (!secondFields[i].getPiece().isInMill()) return false;
+            if (!innerFields[i].getPiece().isInMill()) return false;
+        }
+
+        return true;
+    }
+
     public Boolean MoveIsMill(Move move) {
         if (currentPlayer.getPiecesCountBoard() < 3) {
             return false;

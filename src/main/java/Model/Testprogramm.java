@@ -30,7 +30,7 @@ public class Testprogramm {
             printBoard(referee.getBoard());
 
             //check for Mill
-/*            if (referee.MoveIsMill(move)) {
+            if (referee.MoveIsMill(move) && !referee.AllPiecesInMill()) {
                 IO.println("Du kannst einen Stein vom Gegner nehmen");
                 boolean canTake = false;
                 while (!canTake) {
@@ -41,7 +41,7 @@ public class Testprogramm {
                         );
                 }
                 printBoard(referee.getBoard());
-            }*/
+            }
 
             referee.SwitchPlayer();
         }
@@ -65,7 +65,11 @@ public class Testprogramm {
                     move.setFromPosition(IO.readInt("Von Position: ") - 1);
                     if ((move.getFromPosition()) % 2 == 1) {
                         move.setToRing(IO.readInt("Zu Ring: "));
-                        move.setToPosition(move.getFromPosition());
+                        if (move.getToRing() != move.getFromRing()) {
+                            move.setToPosition(move.getFromPosition());
+                        } else {
+                            move.setFromPosition(IO.readInt("Zu Position: ") - 1);
+                        }
                     } else {
                         move.setToRing(move.getFromRing());
                         move.setToPosition(IO.readInt("Zu Position: ") - 1);
@@ -76,7 +80,7 @@ public class Testprogramm {
             printBoard(referee.getBoard());
 
             //check for Mill
-            if (referee.MoveIsMill(move)) {
+            if (referee.MoveIsMill(move) && !referee.AllPiecesInMill()) {
                 IO.println("Du kannst einen Stein vom Gegner nehmen");
                 boolean canTake = false;
                 while (!canTake) {
