@@ -34,15 +34,26 @@ public class Referee {
         if (currentPlayer.getPiecesCountBoard() < 3) {
             return false;
         }
+        Mill mill = GetMill(move);
 
-        if (currentPlayer.isPiecesEmpty()) {
-            //check if Piece was in Mill
-            if (currentPlayer.getBoard().getRing(move.getToRing()).getFields()[move.getToPosition()].getPiece().isInMill()) {
 
+        if (!mill.isMultiRing()) {
+            for (int i = 0; i < 3; i++) {
+                currentPlayer.getBoard().getRing(mill.getRings()[0]).getFields()[mill.getPositions()[i]].getPiece().setInMill(mill.isMill());
+            }
+        } else {
+            for (int i = 0; i < 3; i++) {
+                currentPlayer.getBoard().getRing(mill.getRings()[i]).getFields()[mill.getPositions()[0]].getPiece().setInMill(mill.isMill());
             }
         }
+        return false;
+    }
 
+    private Mill GetMill(Move move) {
         int position = move.getToPosition();
+
+        int[] rings = {-1,-1,-1};
+        int[] positions = {-1,-1,-1};
 
         if (position % 2 == 0) {
             int pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
@@ -56,19 +67,21 @@ public class Referee {
 
             Field[] fields = currentPlayer.getBoard().getRing(move.getToRing()).getFields();
             if ((fields[pos3].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                &&  fields[pos4].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
-                fields[pos3].getPiece().setInMill(true);
-                fields[pos4].getPiece().setInMill(true);
-                fields[position].getPiece().setInMill(true);
-                return true;
+                    &&  fields[pos4].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
+                rings[0] = move.getToRing();
+                positions[0] = pos3;
+                positions[1] = pos4;
+                positions[2] = position;
+                return new Mill(rings, positions, true, false);
             }
 
             if ((fields[pos1].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
                     && fields[pos2].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())){
-                fields[pos1].getPiece().setInMill(true);
-                fields[pos2].getPiece().setInMill(true);
-                fields[position].getPiece().setInMill(true);
-                return true;
+                rings[0] = move.getToRing();
+                positions[0] = pos1;
+                positions[1] = pos2;
+                positions[2] = position;
+                return new Mill(rings, positions, true, false);
             }
 
         } else {
@@ -78,11 +91,12 @@ public class Referee {
 
             Field[] fields = currentPlayer.getBoard().getRing(move.getToRing()).getFields();
             if (fields[pos1].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                && fields[pos2].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()) {
-                fields[pos1].getPiece().setInMill(true);
-                fields[pos2].getPiece().setInMill(true);
-                fields[position].getPiece().setInMill(true);
-                return true;
+                    && fields[pos2].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()) {
+                rings[0] = move.getToRing();
+                positions[0] = pos1;
+                positions[1] = pos2;
+                positions[2] = position;
+                return new Mill(rings, positions, true, false);
             }
 
             //Check for Mills overlapping Rings
@@ -95,16 +109,18 @@ public class Referee {
                     continue;
                 }
                 if (outerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                    && secondFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                    && innerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()) {
-                    outerFields[i].getPiece().setInMill(true);
-                    secondFields[i].getPiece().setInMill(true);
-                    innerFields[i].getPiece().setInMill(true);
-                    return true;
+                        && secondFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+                        && innerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()) {
+                    rings[0] = 1;
+                    rings[1] = 2;
+                    rings[2] = 3;
+                    positions[0] = i;
+                    return new Mill(rings,positions, true, true);
                 }
             }
         }
-        return false;
+
+        return new Mill(rings,positions, false, false);
     }
 
     public Player getCurrentPlayer() {
