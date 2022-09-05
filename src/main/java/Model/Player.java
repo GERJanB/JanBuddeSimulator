@@ -113,10 +113,12 @@ public class Player {
     }
 
     public Boolean TakePiece(int ring, int position) {
-        if (board.getRing(ring + 1).getFields()[position].getPiece().isInMill()) {
+        if (board.getRing(ring).getFields()[position].getPiece().isInMill()
+            || board.getRing(ring).getFields()[position].getPiece().getBelongsPlayerA() == isPlayerA) {
             return false;
         } else {
             board.getRing(ring).getFields()[position].setPiece(null);
+            board.getRing(ring).getFields()[position].setOccupied(false);
             return true;
         }
     }

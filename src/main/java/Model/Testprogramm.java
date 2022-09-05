@@ -36,7 +36,7 @@ public class Testprogramm {
                 while (!canTake) {
                     canTake = currentPlayer
                         .TakePiece(
-                            IO.readInt("Ring (1-3)") - 1,
+                            IO.readInt("Ring (1-3)"),
                             IO.readInt("Position (1-8)") - 1
                         );
                 }
