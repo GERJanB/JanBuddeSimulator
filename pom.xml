@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>GameReferee</artifactId>
+    <artifactId>JanBuddeSimulator</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>GameReferee</name>
+    <name>JanBuddeSimulator</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
