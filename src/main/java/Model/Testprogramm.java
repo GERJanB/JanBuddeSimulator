@@ -49,10 +49,10 @@ public class Testprogramm {
         while (playerA.getPiecesCountBoard() > 2 || playerB.getPiecesCountBoard() > 2) {
             Player currentPlayer = referee.getCurrentPlayer();
             boolean validMove = false;
+            Move move = new Move();
 
             while (!validMove) {
                 IO.println(currentPlayer + "ist am Zug");
-                Move move = new Move();
                 move.setFromRing(IO.readInt("Von Ring: "));
                 move.setFromPosition(IO.readInt("Von Position"));
                 if ((move.getFromPosition() - 1) % 2 == 1) {
@@ -64,9 +64,26 @@ public class Testprogramm {
                 validMove = currentPlayer.MovePiece(move);
             }
 
-
+            //check for Mill
+            if (referee.MoveIsMill(move)) {
+                IO.println("Du kannst einen Stein vom Gegner nehmen");
+                boolean canTake = false;
+                while (!canTake) {
+                    canTake = currentPlayer
+                        .TakePiece(
+                                IO.readInt("Ring (1-3)"),
+                                IO.readInt("Position (1-8)")
+                        );
+                }
+            }
+            referee.SwitchPlayer();
         }
-        IO.println("Keine Steine übrig");
+
+        if (playerA.getPiecesCountBoard() < 3) {
+            IO.println(playerB + " hat gewonnen");
+        } else {
+            IO.println(playerA + " hat gewonnen");
+        }
     }
 
     public static void printBoard(Board board) {

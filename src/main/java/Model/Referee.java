@@ -46,7 +46,7 @@ public class Referee {
                 currentPlayer.getBoard().getRing(mill.getRings()[i]).getFields()[mill.getPositions()[0]].getPiece().setInMill(mill.isMill());
             }
         }
-        return false;
+        return mill.isMill();
     }
 
     private Mill GetMill(Move move) {

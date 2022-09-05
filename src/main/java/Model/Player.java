@@ -96,7 +96,7 @@ public class Player {
     private void CreatePieces() {
         pieces = new Stack<>();
         //TODO: Anzahl Steine wieder auf 9 ändern
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 9; i++) {
             Piece piece = new Piece(isPlayerA);
             pieces.push(piece);
         }
