@@ -102,12 +102,15 @@ public class Player {
     }
 
     public Boolean PlacePiece(Move move) {
-        return board.AddPiece(pieces.pop(), move.getToRing(), move.getToPosition());
+        Piece piece = pieces.pop();
+        boolean pieceAdded = board.AddPiece(piece, move.getToRing(), move.getToPosition());
+        if (!pieceAdded) pieces.push(piece);
+        return pieceAdded;
     }
 
     private void CreatePieces() {
         pieces = new Stack<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 3; i++) {
             Piece piece = new Piece(isPlayerA);
             pieces.push(piece);
         }

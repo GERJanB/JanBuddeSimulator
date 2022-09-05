@@ -36,11 +36,10 @@ public class Referee {
         var innerFields = board.getRing(3).getFields();
 
         for (int i = 0; i < outerFields.length; i++) {
-            if (!outerFields[i].getPiece().isInMill()) return false;
-            if (!secondFields[i].getPiece().isInMill()) return false;
-            if (!innerFields[i].getPiece().isInMill()) return false;
+            if (outerFields[i].getPiece() != null && !outerFields[i].getPiece().isInMill()) return false;
+            if (secondFields[i].getPiece() != null && !secondFields[i].getPiece().isInMill()) return false;
+            if (innerFields[i].getPiece() != null && !innerFields[i].getPiece().isInMill()) return false;
         }
-
         return true;
     }
 

@@ -47,7 +47,7 @@ public class Testprogramm {
         }
 
         //phase 2: Moving Pieces
-        while (playerA.getPiecesCountBoard() > 2 || playerB.getPiecesCountBoard() > 2) {
+        while (playerA.getPiecesCountBoard() > 2 && playerB.getPiecesCountBoard() > 2) {
             Player currentPlayer = referee.getCurrentPlayer();
             boolean validMove = false;
             Move move = new Move();
@@ -68,7 +68,7 @@ public class Testprogramm {
                         if (move.getToRing() != move.getFromRing()) {
                             move.setToPosition(move.getFromPosition());
                         } else {
-                            move.setFromPosition(IO.readInt("Zu Position: ") - 1);
+                            move.setToPosition(IO.readInt("Zu Position: ") - 1);
                         }
                     } else {
                         move.setToRing(move.getFromRing());
