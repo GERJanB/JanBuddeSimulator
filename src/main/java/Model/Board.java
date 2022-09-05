@@ -16,13 +16,13 @@ public class Board {
     public Boolean AddPiece(Piece piece, int ring, int position) {
         boolean success = false;
         switch (ring) {
-            case 0:
+            case 1:
                 success = outerRing.AddPiece(piece, position);
                 break;
-            case 1:
+            case 2:
                 success = secondRing.AddPiece(piece, position);
                 break;
-            case 2:
+            case 3:
                 success = innerRing.AddPiece(piece, position);
                 break;
         }

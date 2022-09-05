@@ -17,7 +17,7 @@ public class Testprogramm {
             IO.println(currentPlayer + " ist am Zug");
 
             Move move = new Move();
-            move.setToRing(IO.readInt("Platziere auf Ring (1-3)") - 1);
+            move.setToRing(IO.readInt("Platziere auf Ring (1-3)"));
             move.setToPosition(IO.readInt("Platziere auf Position (1-8)") - 1);
 
             if (currentPlayer.PlacePiece(move)) {
@@ -36,10 +36,11 @@ public class Testprogramm {
                 while (!canTake) {
                     canTake = currentPlayer
                         .TakePiece(
-                            IO.readInt("Ring (1-3)"),
-                            IO.readInt("Position (1-8)")
+                            IO.readInt("Ring (1-3)") - 1,
+                            IO.readInt("Position (1-8)") - 1
                         );
                 }
+                printBoard(referee.getBoard());
             }
 
             referee.SwitchPlayer();

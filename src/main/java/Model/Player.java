@@ -113,7 +113,7 @@ public class Player {
     }
 
     public Boolean TakePiece(int ring, int position) {
-        if (board.getRing(ring).getFields()[position].getPiece().isInMill()) {
+        if (board.getRing(ring + 1).getFields()[position].getPiece().isInMill()) {
             return false;
         } else {
             board.getRing(ring).getFields()[position].setPiece(null);
