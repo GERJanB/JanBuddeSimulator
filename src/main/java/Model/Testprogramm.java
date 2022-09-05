@@ -53,17 +53,27 @@ public class Testprogramm {
             Move move = new Move();
 
             while (!validMove) {
-                IO.println(currentPlayer + "ist am Zug");
-                move.setFromRing(IO.readInt("Von Ring: "));
-                move.setFromPosition(IO.readInt("Von Position"));
-                if ((move.getFromPosition() - 1) % 2 == 1) {
-                    move.setToRing(IO.readInt("Zu Ring"));
+                IO.println(currentPlayer + " ist am Zug");
+                if (currentPlayer.getPiecesCountBoard() == 3) {
+                    IO.println("Du kannst zu jedem freien Feld springen");
+                    move.setFromRing(IO.readInt("Von Ring: "));
+                    move.setFromPosition(IO.readInt("Von Position: ") - 1);
+                    move.setToRing(IO.readInt("Zu Ring: "));
+                    move.setToPosition(IO.readInt("Zu Position: ") - 1);
                 } else {
-                    move.setToRing(move.getFromRing());
+                    move.setFromRing(IO.readInt("Von Ring: "));
+                    move.setFromPosition(IO.readInt("Von Position: ") - 1);
+                    if ((move.getFromPosition()) % 2 == 1) {
+                        move.setToRing(IO.readInt("Zu Ring: "));
+                        move.setToPosition(move.getFromPosition());
+                    } else {
+                        move.setToRing(move.getFromRing());
+                        move.setToPosition(IO.readInt("Zu Position: ") - 1);
+                    }
                 }
-                move.setToPosition(IO.readInt("Zu Position"));
                 validMove = currentPlayer.MovePiece(move);
             }
+            printBoard(referee.getBoard());
 
             //check for Mill
             if (referee.MoveIsMill(move)) {
@@ -73,9 +83,10 @@ public class Testprogramm {
                     canTake = currentPlayer
                         .TakePiece(
                                 IO.readInt("Ring (1-3)"),
-                                IO.readInt("Position (1-8)")
+                                IO.readInt("Position (1-8)") - 1
                         );
                 }
+                printBoard(referee.getBoard());
             }
             referee.SwitchPlayer();
         }
