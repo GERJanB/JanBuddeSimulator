@@ -37,36 +37,38 @@ public class Player {
     }
 
     public Boolean MovePiece(Move move) {
-        switch (move.getFromRing()) {
-            case 1:
-                if (move.getToRing() != 2 || move.getToRing() != 1) {
-                    return false;
-                }
-            case 3:
-                if (move.getToRing() != 2 || move.getToRing() != 3) {
-                    return false;
-                }
+        if (getPiecesCountBoard() != 3) {
+            switch (move.getFromRing()) {
+                case 1:
+                    if (move.getToRing() != 2 || move.getToRing() != 1) {
+                        return false;
+                    }
+                case 3:
+                    if (move.getToRing() != 2 || move.getToRing() != 3) {
+                        return false;
+                    }
+            }
+
+            switch (move.getFromPosition()) {
+                case 7:
+                    if (move.getToPosition() != 0 || move.getToPosition() != 6) return false;
+                    break;
+                case 0:
+                    if (move.getToPosition() != 7 || move.getToPosition() != 1) return false;
+                    break;
+                case 1:
+                    if (move.getToPosition() != 2 || move.getToPosition() != 0) return false;
+                    break;
+                default:
+                    if (move.getToPosition() - move.getFromPosition() != 1
+                            || move.getFromPosition() - move.getToPosition() != 1) {
+                        return false;
+                    }
+                    break;
+            }
         }
 
-        switch (move.getFromPosition()) {
-            case 7:
-                if (move.getToPosition() != 0 || move.getToPosition() != 6) return false;
-                break;
-            case 0:
-                if (move.getToPosition() != 7 || move.getToPosition() != 1) return false;
-                break;
-            case 1:
-                if (move.getToPosition() != 2 || move.getToPosition() != 0) return false;
-                break;
-            default:
-                if (move.getToPosition() - move.getFromPosition() != 1
-                    || move.getFromPosition() - move.getToPosition() != 1){
-                    return false;
-                }
-                break;
-        }
-
-        if (move.getFromRing() != move.getToRing() && move.getFromPosition() % 2 == 1) {
+        if ((move.getFromRing() != move.getToRing() && move.getFromPosition() % 2 == 1) || getPiecesCountBoard() == 3) {
             var fieldsFrom = board.getRing(move.getFromRing()).getFields();
             var fieldsTo = board.getRing(move.getToRing()).getFields();
             if (!fieldsTo[move.getToPosition()].isOccupied()) {
