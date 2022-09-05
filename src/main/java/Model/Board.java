@@ -47,15 +47,15 @@ public class Board {
         int counter = 0;
 
         for (int i = 0; i < outer.length; i++) {
-            if (outer[i].getPiece().getBelongsPlayerA() == player.isPlayerA()) {
+            if (outer[i].getPiece() != null && outer[i].getPiece().getBelongsPlayerA() == player.isPlayerA()) {
                 counter++;
             }
 
-            if (second[i].getPiece().getBelongsPlayerA() == player.isPlayerA()) {
+            if (second[i].getPiece() != null && second[i].getPiece().getBelongsPlayerA() == player.isPlayerA()) {
                 counter++;
             }
 
-            if (inner[i].getPiece().getBelongsPlayerA() == player.isPlayerA()) {
+            if (inner[i].getPiece() != null && inner[i].getPiece().getBelongsPlayerA() == player.isPlayerA()) {
                 counter++;
             }
         }
