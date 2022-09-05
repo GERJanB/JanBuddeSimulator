@@ -3,8 +3,8 @@ package Model;
 import java.util.Stack;
 
 public class Player {
-    private Boolean isHumanPlayer;
-    private Boolean isPlayerA;
+    private final Boolean isHumanPlayer;
+    private final Boolean isPlayerA;
 
     private Board board;
     private Stack<Piece> pieces;
@@ -36,15 +36,61 @@ public class Player {
         this.board = board;
     }
 
-    public void MovePiece(Move move) {
-        //TODO: Move Pieces
+    public Boolean MovePiece(Move move) {
+        switch (move.getFromRing()) {
+            case 1:
+                if (move.getToRing() != 2 || move.getToRing() != 1) {
+                    return false;
+                }
+            case 3:
+                if (move.getToRing() != 2 || move.getToRing() != 3) {
+                    return false;
+                }
+        }
+
+        switch (move.getFromPosition()) {
+            case 7:
+                if (move.getToPosition() != 0 || move.getToPosition() != 6) return false;
+                break;
+            case 0:
+                if (move.getToPosition() != 7 || move.getToPosition() != 1) return false;
+                break;
+            case 1:
+                if (move.getToPosition() != 2 || move.getToPosition() != 0) return false;
+                break;
+            default:
+                if (move.getToPosition() - move.getFromPosition() != 1
+                    || move.getFromPosition() - move.getToPosition() != 1){
+                    return false;
+                }
+                break;
+        }
+
+        if (move.getFromRing() != move.getToRing() && move.getFromPosition() % 2 == 1) {
+            var fieldsFrom = board.getRing(move.getFromRing()).getFields();
+            var fieldsTo = board.getRing(move.getToRing()).getFields();
+            if (!fieldsTo[move.getToPosition()].isOccupied()) {
+                fieldsTo[move.getToPosition()].setPiece(fieldsFrom[move.getFromPosition()].getPiece());
+                fieldsTo[move.getToPosition()].setOccupied(true);
+                fieldsFrom[move.getFromPosition()].setPiece(null);
+                fieldsFrom[move.getFromPosition()].setOccupied(false);
+                return true;
+            }
+        } else if (move.getToRing() == move.getFromRing()) {
+            var fields = board.getRing(move.getToRing()).getFields();
+            if (!fields[move.getToPosition()].isOccupied()) {
+                fields[move.getToPosition()].setPiece(fields[move.getFromPosition()].getPiece());
+                fields[move.getToPosition()].setOccupied(true);
+                fields[move.getFromPosition()].setOccupied(false);
+                fields[move.getFromPosition()].setPiece(null);
+                return true;
+            }
+        }
+        return false;
     }
 
     public Boolean PlacePiece(Move move) {
-       if (board.AddPiece(pieces.pop(), move.getToRing(), move.getToPosition())) {
-           return true;
-       }
-       return false;
+        return board.AddPiece(pieces.pop(), move.getToRing(), move.getToPosition());
     }
 
     private void CreatePieces() {
