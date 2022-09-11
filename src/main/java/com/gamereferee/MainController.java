@@ -1,50 +1,60 @@
 package com.gamereferee;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuBar;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
-
-import java.util.Stack;
 
 public class MainController {
     @FXML
     private BorderPane field;
+    @FXML
+    private StackPane pane = new StackPane();
+    Region mainField = new Region();
+    Region rect1 = new Region();
+    Region rect2 = new Region();
+    Region rect3 = new Region();
+    Line line1 = new Line();
+    Line line = new Line();
 
     @FXML
     private void DrawField() {
-        StackPane pane = new StackPane();
-        Region rect1 = new Region();
+        mainField.setId("main");
         rect1.setId("rect1");
-
-        Region rect2 = new Region();
         rect2.setId("rect2");
-
-        Region rect3 = new Region();
         rect3.setId("rect3");
 
-        Line line = new Line();
-        line.setStartY(rect1.getHeight() / 2);
-        line.setStrokeWidth(5);
-        line.setId("connect");
+        line1.setStartY(745);
+        line1.setStrokeWidth(5);
 
+        line.setStartX(745);
+        line.setStrokeWidth(5);
+
+        pane.getChildren().add(mainField);
         pane.getChildren().add(rect1);
         pane.getChildren().add(rect2);
-        pane.getChildren().add(rect3);
+        pane.getChildren().add(line1);
         pane.getChildren().add(line);
+        pane.getChildren().add(rect3);
 
         field.setCenter(pane);
     }
     @FXML
     public void initialize() {
         DrawField();
+        DrawPiece();
+    }
+
+    @FXML
+    private void DrawPiece() {
+
+
+        Circle c = new Circle();
+        c.setRadius(20);
+        c.setStrokeWidth(2);
+        c.setStroke(Color.BLACK);
+        c.fillProperty().set(Color.WHITE);
+        pane.getChildren().add(c);
     }
 }

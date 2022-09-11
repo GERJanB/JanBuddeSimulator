@@ -14,11 +14,19 @@
     -fx-background-image: url(Icons/print.png);
 }
 
-#rect1, #rect2, #rect3 {
-    -fx-background-color: white;
+#rect1, #rect2, #rect3, #main {
+    -fx-background-color: #ffffcc;
     -fx-border-style: solid;
     -fx-border-color: black;
     -fx-border-width: 5;
+}
+
+#main {
+    -fx-min-height: 850;
+    -fx-min-width: 850;
+    -fx-max-height: 850;
+    -fx-max-width: 850;
+    -fx-border-width: 7;
 }
 
 #rect1 {
