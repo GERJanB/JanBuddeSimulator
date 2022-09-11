@@ -1,16 +1,28 @@
 package com.gamereferee;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
+import java.util.Comparator;
+
 public class MainController {
+    @FXML
+    private Button place;
+    @FXML
+    private Label Test;
     @FXML
     private BorderPane field;
     @FXML
-    private StackPane pane = new StackPane();
+    private StackPane boardPane = new StackPane();
+    @FXML
+    private Pane piecePane = new Pane();
     Region mainField = new Region();
     Region rect1 = new Region();
     Region rect2 = new Region();
@@ -24,6 +36,7 @@ public class MainController {
         rect1.setId("rect1");
         rect2.setId("rect2");
         rect3.setId("rect3");
+        piecePane.setMaxSize(750, 750);
 
         line1.setStartY(745);
         line1.setStrokeWidth(5);
@@ -31,30 +44,32 @@ public class MainController {
         line.setStartX(745);
         line.setStrokeWidth(5);
 
-        pane.getChildren().add(mainField);
-        pane.getChildren().add(rect1);
-        pane.getChildren().add(rect2);
-        pane.getChildren().add(line1);
-        pane.getChildren().add(line);
-        pane.getChildren().add(rect3);
+        boardPane.getChildren().add(mainField);
+        boardPane.getChildren().add(rect1);
+        boardPane.getChildren().add(rect2);
+        boardPane.getChildren().add(line1);
+        boardPane.getChildren().add(line);
+        boardPane.getChildren().add(rect3);
+        boardPane.getChildren().add(piecePane);
 
-        field.setCenter(pane);
+        boardPane.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
+
+        field.setCenter(boardPane);
     }
     @FXML
     public void initialize() {
         DrawField();
-        DrawPiece();
     }
 
     @FXML
-    private void DrawPiece() {
-
-
-        Circle c = new Circle();
-        c.setRadius(20);
+    public void DrawPiece(ActionEvent event) {
+        Circle c = new Circle(30);
         c.setStrokeWidth(2);
         c.setStroke(Color.BLACK);
-        c.fillProperty().set(Color.WHITE);
-        pane.getChildren().add(c);
+        c.setFill(Color.rgb(50,50,50));
+
+        piecePane.getChildren().add(c);
+        c.setCenterX(rect1.getWidth() / 2);
+        c.setCenterY(rect1.getHeight());
     }
 }
