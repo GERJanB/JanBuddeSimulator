@@ -14,9 +14,42 @@
     -fx-background-image: url(Icons/print.png);
 }
 
+#rect1, #rect2, #rect3 {
+    -fx-background-color: white;
+    -fx-border-style: solid;
+    -fx-border-color: black;
+    -fx-border-width: 5;
+}
+
+#rect1 {
+    -fx-min-height: 750;
+    -fx-min-width: 750;
+    -fx-max-height: 750;
+    -fx-max-width: 750;
+}
+
+#rect2 {
+    -fx-min-height: 500;
+    -fx-min-width: 500;
+    -fx-max-height: 500;
+    -fx-max-width: 500;
+}
+
+#rect3 {
+    -fx-min-height: 250;
+    -fx-min-width: 250;
+    -fx-max-height: 250;
+    -fx-max-width: 250;
+}
+
 .button {
     -fx-min-width: 32.0;
     -fx-min-height: 32.0;
     -fx-max-width: 32.0;
     -fx-max-height: 32.0;
+}
+
+#root {
+    -fx-min-width: 750;
+    -fx-min-height: 750;
 }
