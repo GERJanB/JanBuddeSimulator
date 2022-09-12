@@ -103,16 +103,36 @@ public class MainController {
 
         Referee referee = new Referee(a,b);
 
-        Move move = new Move();
-        move.setToPosition(0);
-        move.setToRing(1);
+        Move m1 = new Move();
+        m1.setToRing(1);
+        m1.setToPosition(0);
 
-        Move secondMove = new Move();
-        secondMove.setToPosition(0);
-        secondMove.setToRing(3);
+        Move m2 = new Move();
+        m2.setToRing(2);
+        m2.setToPosition(4);
 
-        a.PlacePiece(move);
-        //b.PlacePiece(secondMove);
+        Move m3 = new Move();
+        m3.setToRing(3);
+        m3.setToPosition(7);
+
+        Move m4 = new Move();
+        m4.setToRing(1);
+        m4.setToPosition(7);
+
+        Move m5 = new Move();
+        m5.setToRing(2);
+        m5.setToPosition(3);
+
+        Move m6 = new Move();
+        m6.setToRing(3);
+        m6.setToPosition(0);
+
+        a.PlacePiece(m1);
+        a.PlacePiece(m2);
+        a.PlacePiece(m3);
+        b.PlacePiece(m4);
+        b.PlacePiece(m5);
+        b.PlacePiece(m6);
 
         board = referee.getBoard();
     }
@@ -136,62 +156,66 @@ public class MainController {
     private double[] getCoordinates(int position, int ring) {
         //TODO: Bessere Lösung dafür finden
 
+        int outerOffset = 0;
+        int secondOffset = 125;
+        int innerOffset = 250;
+
         var val = rect1.getParent();
         switch (position){
             case 1:
                 switch (ring) {
-                    case 1: return new double[] {0, 0};
-                    case 2: return new double[] {rect2.getLayoutX(), rect2.getParent().getLayoutY()};
-                    case 3: return new double[] {rect3.getParent().getLayoutX(), rect3.getParent().getLayoutY()};
+                    case 1: return new double[] {outerOffset, outerOffset};
+                    case 2: return new double[] {secondOffset, secondOffset};
+                    case 3: return new double[] {innerOffset, innerOffset};
                 }
                 break;
             case 2:
                 switch (ring) {
-                    case 1: return new double[] {rect1.getWidth() / 2, rect1.getLayoutY()};
-                    case 2: return new double[] {rect1.getWidth() / 2, rect2.getLayoutY()};
-                    case 3: return new double[] {rect1.getWidth() / 2, rect3.getLayoutY()};
+                    case 1: return new double[] {rect1.getWidth() / 2, outerOffset};
+                    case 2: return new double[] {rect1.getWidth() / 2, secondOffset};
+                    case 3: return new double[] {rect1.getWidth() / 2, innerOffset};
                 }
                 break;
             case 3:
                 switch (ring) {
-                    case 1: return new double[] {rect1.getWidth(), rect1.getLayoutY()};
-                    case 2: return new double[] {rect2.getLayoutX() + rect2.getWidth(), rect2.getLayoutY()};
-                    case 3: return new double[] {rect3.getLayoutX() + rect3.getWidth(), rect3.getLayoutY()};
+                    case 1: return new double[] {rect1.getWidth(), outerOffset};
+                    case 2: return new double[] {rect2.getWidth() + secondOffset, secondOffset};
+                    case 3: return new double[] {rect3.getWidth() + innerOffset, innerOffset};
                 }
                 break;
             case 4:
                 switch (ring) {
                     case 1: return new double[] {rect1.getWidth(), rect1.getHeight() / 2};
-                    case 2: return new double[] {rect2.getLayoutX() + rect2.getWidth(), rect1.getHeight() / 2};
-                    case 3: return new double[] {rect3.getLayoutX() + rect3.getWidth(), rect1.getHeight() / 2};
+                    case 2: return new double[] {rect2.getWidth() + secondOffset, rect1.getHeight() / 2};
+                    case 3: return new double[] {rect3.getWidth() + innerOffset, rect1.getHeight() / 2};
                 }
                 break;
             case 5:
                 switch (ring) {
                     case 1: return new double[] {rect1.getWidth(), rect1.getHeight()};
-                    case 2: return new double[] {rect2.getLayoutX() + rect2.getWidth(), rect2.getLayoutY() + rect2.getHeight()};
-                    case 3: return new double[] {rect3.getLayoutX() + rect3.getWidth(), rect3.getLayoutY() + rect2.getHeight()};
+                    case 2: return new double[] {rect2.getWidth() + secondOffset, rect2.getHeight() + secondOffset};
+                    case 3: return new double[] {rect3.getWidth() + innerOffset, rect3.getHeight() + innerOffset};
                 }
                 break;
             case 6:
                 switch (ring) {
                     case 1: return new double[] {rect1.getWidth() / 2, rect1.getHeight()};
-                    case 2: return new double[] {rect2.getLayoutX() + rect2.getWidth() / 2, rect2.getLayoutY() + rect2.getHeight()};
-                    case 3: return new double[] {rect3.getLayoutX() + rect3.getWidth() / 2, rect3.getLayoutY() + rect2.getHeight()};
+                    case 2: return new double[] {rect1.getWidth() / 2, rect2.getHeight() + secondOffset};
+                    case 3: return new double[] {rect1.getWidth() / 2, rect3.getHeight() + innerOffset};
                 }
                 break;
             case 7:
                 switch (ring) {
-                    case 1: return new double[] {rect1.getLayoutX(), rect1.getHeight()};
-                    case 2: return new double[] {rect2.getLayoutX(), rect2.getLayoutY() + rect2.getHeight()};
-                    case 3: return new double[] {rect3.getLayoutX(), rect3.getLayoutY() + rect2.getHeight()};
+                    case 1: return new double[] {outerOffset, rect1.getHeight()};
+                    case 2: return new double[] {secondOffset, rect2.getHeight() + secondOffset};
+                    case 3: return new double[] {innerOffset, rect3.getHeight() + innerOffset};
                 }
                 break;
             case 8:
                 switch (ring) {
-                    case 1: return new double[] {rect1.getLayoutX(), rect1.getHeight() / 2};
-                    case 2: return new double[] {rect2.getLayoutX(), rect2.getLayoutY() + rect2.getHeight() / 2};
-                    case 3: return new double[] {rect3.getLayoutX(), rect3.getLayoutY() + rect2.getHeight() / 2};
+                    case 1: return new double[] {0, rect1.getHeight() / 2};
+                    case 2: return new double[] {secondOffset, rect2.getHeight() / 2 + secondOffset};
+                    case 3: return new double[] {innerOffset, rect3.getHeight() / 2 + innerOffset};
                 }
                 break;
         }
