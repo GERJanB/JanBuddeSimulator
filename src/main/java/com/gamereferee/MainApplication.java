@@ -21,10 +21,6 @@ public class MainApplication extends Application {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
-
-        GraphicsContext gc = new Canvas().getGraphicsContext2D();
-        gc.setLineWidth(2.0);
-
     }
 
     public static void main(String[] args) {
