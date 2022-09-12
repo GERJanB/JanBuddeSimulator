@@ -61,3 +61,8 @@
     -fx-min-width: 750;
     -fx-min-height: 750;
 }
+
+#scroll {
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+}

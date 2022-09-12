@@ -72,11 +72,13 @@
                         </ToolBar>
                     </children>
                 </StackPane>
-                <BorderPane VBox.vgrow="ALWAYS" fx:id="field">
-                   <cursor>
-                      <Cursor fx:constant="DEFAULT" />
-                   </cursor>
-                </BorderPane>
+                <ScrollPane fx:id="scroll">
+                    <BorderPane VBox.vgrow="ALWAYS" fx:id="field">
+                       <cursor>
+                          <Cursor fx:constant="DEFAULT" />
+                       </cursor>
+                    </BorderPane>
+                </ScrollPane>
                 <ToolBar prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="20.0" AnchorPane.topAnchor="0.0">
                     <items>
                         <Label fx:id="statusUpdates" text="Herzlich Willkommen beim Spiel Mühle" />
