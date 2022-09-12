@@ -65,7 +65,8 @@ public class MainController {
         createBoard();
     }
 
-    public void PlacePieces() {
+    @FXML
+    protected void PlacePieces() {
         Ring outer = board.getRing(1);
         Ring second = board.getRing(2);
         Ring inner = board.getRing(3);
@@ -137,7 +138,6 @@ public class MainController {
         board = referee.getBoard();
     }
 
-    @FXML
     public void DrawPiece(boolean isPlayerA, double x, double y) {
         Circle c = new Circle(30);
         c.setStrokeWidth(2);
