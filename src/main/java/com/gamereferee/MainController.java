@@ -1,6 +1,8 @@
 package com.gamereferee;
 
 import Model.*;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,8 +19,6 @@ public class MainController {
     @FXML
     private Button place;
     @FXML
-    private Label Test;
-    @FXML
     private BorderPane field;
     @FXML
     private StackPane boardPane = new StackPane();
@@ -32,6 +32,19 @@ public class MainController {
     Line line = new Line();
 
     private Board board;
+
+    @FXML
+    protected void startGame() {
+        Player playerA = new Player(true,true);
+        Player playerB = new Player(true,false);
+
+        Referee referee = new Referee(playerA, playerB);
+    }
+
+    @FXML
+    protected void quitGame() {
+
+    }
 
     @FXML
     private void DrawField() {

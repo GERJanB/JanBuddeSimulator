@@ -60,10 +60,10 @@
                                 <tooltip><Tooltip text="Spielfeld drucken" /> </tooltip>
                             </Button>
                             <Separator />
-                            <Button fx:id="play">
+                            <Button fx:id="play" onAction="#startGame">
                                 <tooltip><Tooltip text="Spiel starten" /> </tooltip>
                             </Button>
-                            <Button fx:id="stop">
+                            <Button fx:id="stop" onAction="#quitGame">
                                 <tooltip><Tooltip text="Spiel beenden" /> </tooltip>
                             </Button>
                             <Button fx:id="place" onAction="#PlacePieces">
