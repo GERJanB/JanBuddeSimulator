@@ -1,23 +1,24 @@
 package com.gamereferee;
 
 import Model.*;
-import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseDragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-import java.util.Comparator;
-
 public class MainController {
     @FXML
-    private Button place;
+    private Label statusUpdates;
     @FXML
     private BorderPane field;
     @FXML
@@ -31,6 +32,10 @@ public class MainController {
     Line line1 = new Line();
     Line line = new Line();
 
+    UIPiece[] outerUIFields = new UIPiece[8];
+    UIPiece[] secondUIFields = new UIPiece[8];
+    UIPiece[] innerUIFields = new UIPiece[8];
+
     private Board board;
 
     Referee referee;
@@ -38,6 +43,8 @@ public class MainController {
 
     @FXML
     protected void startGame() {
+        setFields();
+
         Player playerA = new Player(true,true);
         Player playerB = new Player(true,false);
 
@@ -50,8 +57,8 @@ public class MainController {
         Platform.exit();
     }
 
-    @FXML
     private void DrawField() {
+        boardPane.getChildren().removeAll();
         mainField.setId("main");
         rect1.setId("rect1");
         rect2.setId("rect2");
@@ -90,29 +97,37 @@ public class MainController {
 
         for (int i = 0; i < 8; i++) {
             if (outer.getFields()[i].getPiece() != null && outer.getFields()[i].getPiece().getBelongsPlayerA()) {
-                var s = getCoordinates(i + 1, 1);
-                DrawPiece(true, s[0], s[1]);
+                var coords = getCoordinates(i + 1, 1);
+                DrawPiece(true, coords, 1, i);
             } else if(outer.getFields()[i].getPiece() != null) {
-                var s = getCoordinates(i + 1, 1);
-                DrawPiece(false, s[0], s[1]);
+                var coords = getCoordinates(i + 1, 1);
+                DrawPiece(false, coords, 1, i);
             }
 
             if (second.getFields()[i].getPiece() != null && second.getFields()[i].getPiece().getBelongsPlayerA()) {
-                var s = getCoordinates(i + 1, 2);
-                DrawPiece(true, s[0], s[1]);
+                var coords = getCoordinates(i + 1, 2);
+                DrawPiece(true, coords,2, i);
             } else if(second.getFields()[i].getPiece() != null) {
-                var s = getCoordinates(i + 1, 2);
-                DrawPiece(false, s[0], s[1]);
+                var coords = getCoordinates(i + 1, 2);
+                DrawPiece(false, coords, 2, i);
             }
 
             if (inner.getFields()[i].getPiece() != null && inner.getFields()[i].getPiece().getBelongsPlayerA()) {
-                var s = getCoordinates(i + 1, 3);
-                DrawPiece(true, s[0], s[1]);
+                var coords = getCoordinates(i + 1, 3);
+                DrawPiece(true, coords, 3, i);
             } else if(inner.getFields()[i].getPiece() != null) {
-                var s = getCoordinates(i + 1, 3);
-                DrawPiece(false, s[0], s[1]);
+                var coords = getCoordinates(i + 1, 3);
+                DrawPiece(false, coords, 3, i);
             }
         }
+    }
+
+    @FXML
+    protected void pieceDragged(DragEvent event) {
+        double x = event.getX();
+        double y = event.getY();
+        IO.println(x);
+        IO.println(y);
     }
 
     private void createBoard() {
@@ -155,24 +170,44 @@ public class MainController {
         board = referee.getBoard();
     }
 
-    public void DrawPiece(boolean isPlayerA, double x, double y) {
-        Circle c = new Circle(30);
-        c.setStrokeWidth(2);
-        c.setStroke(Color.BLACK);
+    public void DrawPiece(boolean isPlayerA, double[] coords, int ring, int position) {
+        UIPiece uiPiece = new UIPiece(30);
+        uiPiece.setStrokeWidth(2);
+        uiPiece.setStroke(Color.BLACK);
         if (isPlayerA) {
-            c.setFill(Color.rgb(50,50,50));
+            uiPiece.setFill(Color.rgb(50,50,50));
         } else {
-            c.setFill(Color.BEIGE);
+            uiPiece.setFill(Color.BEIGE);
         }
 
-        piecePane.getChildren().add(c);
-        c.setCenterX(x);
-        c.setCenterY(y);
+        piecePane.getChildren().add(uiPiece);
+        uiPiece.setCenterX(coords[0]);
+        uiPiece.setCenterY(coords[1]);
+        uiPiece.setPosition(position);
+        uiPiece.setRing(ring);
+
+        EventHandler<MouseEvent> dragPiece = e -> {
+            UIPiece piece = (UIPiece) e.getSource();
+            piece.setCenterX(e.getX());
+            piece.setCenterY(e.getY());
+        };
+
+        EventHandler<MouseEvent> dropPiece = e -> {
+            UIPiece piece = (UIPiece) e.getSource();
+
+            outerUIFields[1].setStroke(Color.TRANSPARENT);
+        };
+
+        EventHandler<MouseEvent> enterDrag = e -> {
+            outerUIFields[1].setStroke(Color.GREEN);
+        };
+
+        uiPiece.setOnMousePressed(enterDrag);
+        uiPiece.setOnMouseReleased(dropPiece);
+        uiPiece.setOnMouseDragged(dragPiece);
     }
 
     private double[] getCoordinates(int position, int ring) {
-        //TODO: Bessere Lösung dafür finden
-
         int outerOffset = 0;
         int secondOffset = 125;
         int innerOffset = 250;
@@ -238,5 +273,46 @@ public class MainController {
         }
 
         return null;
+    }
+
+    private void setFields() {
+        for (int i = 0; i < 8; i++) {
+            UIPiece piece1 = new UIPiece(30);
+            piece1.setStroke(Color.TRANSPARENT);
+            piece1.setStrokeWidth(2);
+            piece1.setFill(Color.TRANSPARENT);
+
+            UIPiece piece2 = new UIPiece(30);
+            piece2.setStroke(Color.TRANSPARENT);
+            piece2.setStrokeWidth(2);
+            piece2.setFill(Color.TRANSPARENT);
+
+            UIPiece piece3 = new UIPiece(30);
+            piece3.setStroke(Color.TRANSPARENT);
+            piece3.setStrokeWidth(2);
+            piece3.setFill(Color.TRANSPARENT);
+
+
+            outerUIFields[i] = piece1;
+            secondUIFields[i] = piece2;
+            innerUIFields[i] = piece3;
+
+            var outerCoords = getCoordinates(i + 1, 1);
+            var secondCoords = getCoordinates(i + 1, 2);
+            var innerCoords = getCoordinates(i + 1, 3);
+
+            outerUIFields[i].setCenterX(outerCoords[0]);
+            outerUIFields[i].setCenterY(outerCoords[1]);
+
+            secondUIFields[i].setCenterX(secondCoords[0]);
+            secondUIFields[i].setCenterY(secondCoords[1]);
+
+            innerUIFields[i].setCenterX(innerCoords[0]);
+            innerUIFields[i].setCenterY(innerCoords[1]);
+
+            piecePane.getChildren().add(outerUIFields[i]);
+            piecePane.getChildren().add(secondUIFields[i]);
+            piecePane.getChildren().add(innerUIFields[i]);
+        }
     }
 }
