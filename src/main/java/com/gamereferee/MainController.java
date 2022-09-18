@@ -33,17 +33,21 @@ public class MainController {
 
     private Board board;
 
+    Referee referee;
+    Player currentPlayer;
+
     @FXML
     protected void startGame() {
         Player playerA = new Player(true,true);
         Player playerB = new Player(true,false);
 
-        Referee referee = new Referee(playerA, playerB);
+        referee = new Referee(playerA, playerB);
+        currentPlayer = referee.getCurrentPlayer();
     }
 
     @FXML
     protected void quitGame() {
-
+        Platform.exit();
     }
 
     @FXML
