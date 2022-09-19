@@ -52,6 +52,8 @@ public class MainController {
 
         referee = new Referee(playerA, playerB);
         currentPlayer = referee.getCurrentPlayer();
+        playerA.setBoard(board);
+        playerB.setBoard(board);
     }
 
     @FXML
@@ -196,6 +198,9 @@ public class MainController {
 
         EventHandler<MouseEvent> dropPiece = e -> {
             for (int i = 0; i < currentMoves.length; i++) {
+                if (currentMoves[i] == null)
+                    continue;
+
                 switch (currentMoves[i].getToRing()) {
                     case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
                     case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
@@ -210,6 +215,9 @@ public class MainController {
             currentMoves = currentPlayer.getPossibleMoves(piece.getRing(), piece.getPosition());
 
             for (int i = 0; i < currentMoves.length; i++) {
+                if (currentMoves[i] == null)
+                    continue;
+
                 switch (currentMoves[i].getToRing()) {
                     case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
                     case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
