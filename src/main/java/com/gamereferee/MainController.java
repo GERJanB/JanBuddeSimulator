@@ -126,14 +126,6 @@ public class MainController {
         }
     }
 
-    @FXML
-    protected void pieceDragged(DragEvent event) {
-        double x = event.getX();
-        double y = event.getY();
-        IO.println(x);
-        IO.println(y);
-    }
-
     private void createBoard() {
         Player a = new Player(true,true);
         Player b = new Player(true,false);

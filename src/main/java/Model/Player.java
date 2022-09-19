@@ -36,6 +36,8 @@ public class Player {
         this.board = board;
     }
 
+    //Nur noch da damit das Testprogramm funktioniert.
+    //Für die GUI wird ab jetzt die Methode getPossibleMoves verwendet
     public Boolean MovePiece(Move move) {
         if (getPiecesCountBoard() != 3) {
             switch (move.getFromRing()) {
