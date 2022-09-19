@@ -101,6 +101,68 @@ public class Player {
         return false;
     }
 
+    public Move[] getPossibleMoves(int ring, int position) {
+        Move[] moves;
+
+        if (position % 2 == 1) {
+            if (ring != 2) {
+                moves = new Move[3];
+            } else {
+                moves = new Move[4];
+            }
+
+            if (position == 7) {
+                if (!board.getRing(ring).getFields()[0].isOccupied())
+                    moves[0] = new Move(ring, ring, position, 0);
+                if (!board.getRing(ring).getFields()[6].isOccupied())
+                    moves[1] = new Move(ring, ring, position, position - 1);
+
+                switch (ring) {
+                    case 1:
+                    case 3:
+                        if (!board.getRing(2).getFields()[position].isOccupied())
+                            moves[2] = new Move(ring, 2, position, position);
+                        break;
+                    default:
+                        if (!board.getRing(1).getFields()[position].isOccupied())
+                            moves[2] = new Move(ring, 1, position, position);
+                        if (!board.getRing(3).getFields()[position].isOccupied())
+                            moves[3] = new Move(ring, 3, position, position);
+                }
+            } else {
+                if (!board.getRing(ring).getFields()[position + 1].isOccupied())
+                    moves[0] = new Move(ring, ring, position, position + 1);
+                if (!board.getRing(ring).getFields()[position - 1].isOccupied())
+                    moves[1] = new Move(ring, ring, position, position - 1);
+
+                if (ring != 2) {
+                    if (!board.getRing(2).getFields()[position].isOccupied())
+                        moves[2] = new Move(ring, 2, position, position);
+                } else {
+                    if (!board.getRing(1).getFields()[position].isOccupied())
+                        moves[2] = new Move(ring, 1, position, position);
+                    if (!board.getRing(3).getFields()[position].isOccupied())
+                        moves[3] = new Move(ring, 3, position, position);
+                }
+            }
+        } else {
+            moves = new Move[2];
+            if (position == 0) {
+                if (!board.getRing(ring).getFields()[7].isOccupied())
+                    moves[0] = new Move(ring, ring, position, 7);
+                if (!board.getRing(ring).getFields()[1].isOccupied())
+                    moves[1] = new Move(ring, ring, position, 1);
+            } else {
+                if (!board.getRing(ring).getFields()[position - 1].isOccupied())
+                    moves[0] = new Move(ring, ring, position, position - 1);
+                if (!board.getRing(ring).getFields()[position + 1].isOccupied())
+                    moves[1] = new Move(ring, ring, position, position + 1);
+            }
+        }
+
+        return moves;
+    }
+
     public Boolean PlacePiece(Move move) {
         Piece piece = pieces.pop();
         boolean pieceAdded = board.AddPiece(piece, move.getToRing(), move.getToPosition());

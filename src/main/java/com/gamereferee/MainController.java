@@ -41,6 +41,8 @@ public class MainController {
     Referee referee;
     Player currentPlayer;
 
+    Move[] currentMoves;
+
     @FXML
     protected void startGame() {
         setFields();
@@ -193,13 +195,27 @@ public class MainController {
         };
 
         EventHandler<MouseEvent> dropPiece = e -> {
-            UIPiece piece = (UIPiece) e.getSource();
-
-            outerUIFields[1].setStroke(Color.TRANSPARENT);
+            for (int i = 0; i < currentMoves.length; i++) {
+                switch (currentMoves[i].getToRing()) {
+                    case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                    case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                    case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                }
+            }
+            currentMoves = null;
         };
 
         EventHandler<MouseEvent> enterDrag = e -> {
-            outerUIFields[1].setStroke(Color.GREEN);
+            var piece = (UIPiece) e.getSource();
+            currentMoves = currentPlayer.getPossibleMoves(piece.getRing(), piece.getPosition());
+
+            for (int i = 0; i < currentMoves.length; i++) {
+                switch (currentMoves[i].getToRing()) {
+                    case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                    case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                    case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                }
+            }
         };
 
         uiPiece.setOnMousePressed(enterDrag);

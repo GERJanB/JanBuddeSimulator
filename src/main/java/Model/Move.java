@@ -12,6 +12,13 @@ public class Move {
 
     }
 
+    public Move(int fromRing, int toRing, int fromPosition, int toPosition) {
+        this.fromRing = fromRing;
+        this.toRing = toRing;
+        this.fromPosition = fromPosition;
+        this.toPosition = toPosition;
+    }
+
     public int getFromRing() {
         return fromRing;
     }
