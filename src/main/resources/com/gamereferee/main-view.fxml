@@ -66,9 +66,6 @@
                             <Button fx:id="stop" onAction="#quitGame">
                                 <tooltip><Tooltip text="Spiel beenden" /> </tooltip>
                             </Button>
-                            <Button fx:id="place" onAction="#PlacePieces">
-                                <tooltip><Tooltip text="Plaziere Stein" /> </tooltip>
-                            </Button>
                         </ToolBar>
                     </children>
                 </StackPane>
