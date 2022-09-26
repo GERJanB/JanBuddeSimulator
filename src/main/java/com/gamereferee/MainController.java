@@ -199,6 +199,28 @@ public class MainController {
                     case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
                 }
             }
+
+            for (int i = 0; i < currentMoves.length; i++) {
+                if (currentMoves[i] == null)
+                    continue;
+                UIPiece piece = (UIPiece) e.getSource();
+                UIPiece field = null;
+                switch (currentMoves[i].getToRing()) {
+                    case 1 -> field = outerUIFields[currentMoves[i].getToPosition()];
+                    case 2 -> field = secondUIFields[currentMoves[i].getToPosition()];
+                    case 3 -> field = innerUIFields[currentMoves[i].getToPosition()];
+                }
+
+                if (field != null && piece.getBoundsInParent().intersects(field.getBoundsInParent())) {
+                    piece.setCenterY(field.getCenterY());
+                    piece.setCenterX(field.getCenterX());
+                } else {
+                    var xy = getCoordinates(piece.getPosition(), piece.getRing());
+                    piece.setCenterY(xy[1]);
+                    piece.setCenterX(xy[0]);
+                }
+            }
+
             currentMoves = null;
         };
 
