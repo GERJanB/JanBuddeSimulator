@@ -60,35 +60,8 @@ public class MainController {
         Platform.exit();
     }
 
-    private void DrawField() {
-        boardPane.getChildren().removeAll();
-        mainField.setId("main");
-        rect1.setId("rect1");
-        rect2.setId("rect2");
-        rect3.setId("rect3");
-        piecePane.setMaxSize(750, 750);
-
-        line1.setStartY(745);
-        line1.setStrokeWidth(5);
-
-        line.setStartX(745);
-        line.setStrokeWidth(5);
-
-        boardPane.getChildren().add(mainField);
-        boardPane.getChildren().add(rect1);
-        boardPane.getChildren().add(rect2);
-        boardPane.getChildren().add(line1);
-        boardPane.getChildren().add(line);
-        boardPane.getChildren().add(rect3);
-        boardPane.getChildren().add(piecePane);
-
-        boardPane.setBackground(new Background(new BackgroundFill(Color.GRAY,null,null)));
-
-        field.setCenter(boardPane);
-    }
     @FXML
     public void initialize() {
-        DrawField();
         createBoard();
     }
 
