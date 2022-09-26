@@ -39,8 +39,6 @@ public class MainController {
     private Board board;
 
     Referee referee;
-    Player currentPlayer;
-
     Move[] currentMoves;
 
     @FXML
@@ -51,9 +49,10 @@ public class MainController {
         Player playerB = new Player(true,false);
 
         referee = new Referee(playerA, playerB);
-        currentPlayer = referee.getCurrentPlayer();
         playerA.setBoard(board);
         playerB.setBoard(board);
+
+        PlacePieces();
     }
 
     @FXML
@@ -167,7 +166,7 @@ public class MainController {
     }
 
     public void DrawPiece(boolean isPlayerA, double[] coords, int ring, int position) {
-        UIPiece uiPiece = new UIPiece(30);
+        UIPiece uiPiece = new UIPiece(30, isPlayerA);
         uiPiece.setStrokeWidth(2);
         uiPiece.setStroke(Color.BLACK);
         if (isPlayerA) {
@@ -184,63 +183,72 @@ public class MainController {
 
         EventHandler<MouseEvent> dragPiece = e -> {
             UIPiece piece = (UIPiece) e.getSource();
-            piece.setCenterX(e.getX());
-            piece.setCenterY(e.getY());
+            if (piece.getBelongsPlayerA() != referee.getCurrentPlayer().isPlayerA()) {
+                piece.setCenterX(e.getX());
+                piece.setCenterY(e.getY());
+            }
         };
 
         EventHandler<MouseEvent> dropPiece = e -> {
-            for (int i = 0; i < currentMoves.length; i++) {
-                if (currentMoves[i] == null)
-                    continue;
-
-                switch (currentMoves[i].getToRing()) {
-                    case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
-                    case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
-                    case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
-                }
-            }
-
-            boolean moved = false;
             UIPiece piece = (UIPiece) e.getSource();
-            for (int i = 0; i < currentMoves.length; i++) {
-                if (currentMoves[i] == null)
-                    continue;
+            if (piece.getBelongsPlayerA() != referee.getCurrentPlayer().isPlayerA()) {
+                for (int i = 0; i < currentMoves.length; i++) {
+                    if (currentMoves[i] == null)
+                        continue;
 
-                UIPiece field = null;
-                switch (currentMoves[i].getToRing()) {
-                    case 1 -> field = outerUIFields[currentMoves[i].getToPosition()];
-                    case 2 -> field = secondUIFields[currentMoves[i].getToPosition()];
-                    case 3 -> field = innerUIFields[currentMoves[i].getToPosition()];
+                    switch (currentMoves[i].getToRing()) {
+                        case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                        case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                        case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                    }
                 }
 
-                if (field != null && piece.getBoundsInParent().intersects(field.getBoundsInParent())) {
-                    piece.setCenterY(field.getCenterY());
-                    piece.setCenterX(field.getCenterX());
-                    moved = true;
-                    break;
-                }
-            }
-            if (!moved) {
-                var xy = getCoordinates(piece.getPosition() + 1, piece.getRing());
-                piece.setCenterY(xy[1]);
-                piece.setCenterX(xy[0]);
-            }
+                boolean moved = false;
+                for (int i = 0; i < currentMoves.length; i++) {
+                    if (currentMoves[i] == null)
+                        continue;
 
-            currentMoves = null;
+                    UIPiece field = null;
+                    switch (currentMoves[i].getToRing()) {
+                        case 1 -> field = outerUIFields[currentMoves[i].getToPosition()];
+                        case 2 -> field = secondUIFields[currentMoves[i].getToPosition()];
+                        case 3 -> field = innerUIFields[currentMoves[i].getToPosition()];
+                    }
+
+                    if (field != null && piece.getBoundsInParent().intersects(field.getBoundsInParent())) {
+                        piece.setCenterY(field.getCenterY());
+                        piece.setCenterX(field.getCenterX());
+                        referee.getCurrentPlayer().movePiece(currentMoves[i]);
+                        piece.setRing(currentMoves[i].getToRing());
+                        piece.setPosition(currentMoves[i].getToPosition());
+                        moved = true;
+                        referee.SwitchPlayer();
+                        break;
+                    }
+                }
+                if (!moved) {
+                    var xy = getCoordinates(piece.getPosition() + 1, piece.getRing());
+                    piece.setCenterY(xy[1]);
+                    piece.setCenterX(xy[0]);
+                }
+                currentMoves = null;
+            }
         };
 
         EventHandler<MouseEvent> enterDrag = e -> {
             var piece = (UIPiece) e.getSource();
-            currentMoves = currentPlayer.getPossibleMoves(piece.getRing(), piece.getPosition());
+            if (piece.getBelongsPlayerA() != referee.getCurrentPlayer().isPlayerA()) {
+                currentMoves = referee.getCurrentPlayer().getPossibleMoves(piece.getRing(), piece.getPosition());
 
-            for (int i = 0; i < currentMoves.length; i++) {
-                if (currentMoves[i] == null)
-                    continue;
+                for (int i = 0; i < currentMoves.length; i++) {
+                    if (currentMoves[i] == null)
+                        continue;
 
-                switch (currentMoves[i].getToRing()) {
-                    case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
-                    case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
-                    case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                    switch (currentMoves[i].getToRing()) {
+                        case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                        case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                        case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                    }
                 }
             }
         };

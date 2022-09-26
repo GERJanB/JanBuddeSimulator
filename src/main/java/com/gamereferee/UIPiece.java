@@ -8,9 +8,16 @@ import javafx.scene.shape.Circle;
 public class UIPiece extends Circle {
     private int position;
     private int ring;
+
+    private boolean belongsPlayerA;
+
     public UIPiece(double v) {
         super(v);
+    }
 
+    public UIPiece(double v, boolean belongsPlayerA) {
+        super(v);
+        this.belongsPlayerA = belongsPlayerA;
     }
 
     public int getPosition() {
@@ -27,5 +34,9 @@ public class UIPiece extends Circle {
 
     public void setRing(int ring) {
         this.ring = ring;
+    }
+
+    public boolean getBelongsPlayerA() {
+        return belongsPlayerA;
     }
 }

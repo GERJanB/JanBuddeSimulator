@@ -103,6 +103,25 @@ public class Player {
         return false;
     }
 
+    public void movePiece(Move move) {
+        if ((move.getFromRing() != move.getToRing() && move.getFromPosition() % 2 == 1) || getPiecesCountBoard() == 3) {
+            var fields = board.getRing(move.getToRing()).getFields();
+            var fieldsFrom = board.getRing(move.getFromRing()).getFields();
+
+            fieldsFrom[move.getFromPosition()].setOccupied(false);
+            fields[move.getToPosition()].setOccupied(true);
+            fields[move.getToPosition()].setPiece(fields[move.getFromPosition()].getPiece());
+            fieldsFrom[move.getFromPosition()].setPiece(null);
+        } else {
+            var fields = board.getRing(move.getToRing()).getFields();
+
+            fields[move.getFromPosition()].setOccupied(false);
+            fields[move.getToPosition()].setOccupied(true);
+            fields[move.getToPosition()].setPiece(fields[move.getFromPosition()].getPiece());
+            fields[move.getFromPosition()].setPiece(null);
+        }
+    }
+
     public Move[] getPossibleMoves(int ring, int position) {
         Move[] moves;
 
