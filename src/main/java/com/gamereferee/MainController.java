@@ -134,7 +134,7 @@ public class MainController {
 
         Move m1 = new Move();
         m1.setToRing(1);
-        m1.setToPosition(0);
+        m1.setToPosition(2);
 
         Move m2 = new Move();
         m2.setToRing(2);
@@ -200,10 +200,12 @@ public class MainController {
                 }
             }
 
+            boolean moved = false;
+            UIPiece piece = (UIPiece) e.getSource();
             for (int i = 0; i < currentMoves.length; i++) {
                 if (currentMoves[i] == null)
                     continue;
-                UIPiece piece = (UIPiece) e.getSource();
+
                 UIPiece field = null;
                 switch (currentMoves[i].getToRing()) {
                     case 1 -> field = outerUIFields[currentMoves[i].getToPosition()];
@@ -214,11 +216,14 @@ public class MainController {
                 if (field != null && piece.getBoundsInParent().intersects(field.getBoundsInParent())) {
                     piece.setCenterY(field.getCenterY());
                     piece.setCenterX(field.getCenterX());
-                } else {
-                    var xy = getCoordinates(piece.getPosition(), piece.getRing());
-                    piece.setCenterY(xy[1]);
-                    piece.setCenterX(xy[0]);
+                    moved = true;
+                    break;
                 }
+            }
+            if (!moved) {
+                var xy = getCoordinates(piece.getPosition() + 1, piece.getRing());
+                piece.setCenterY(xy[1]);
+                piece.setCenterX(xy[0]);
             }
 
             currentMoves = null;
