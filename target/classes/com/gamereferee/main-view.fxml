@@ -7,7 +7,7 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.skin.ColorPalette.ColorSquare?>
 <?import javafx.scene.chart.BubbleChart?>
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@main-view.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.gamereferee.MainController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@main-view.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="View.DrawView">
 
     <children>
         <VBox prefHeight="400" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -65,9 +65,6 @@
                             </Button>
                             <Button fx:id="stop" onAction="#quitGame">
                                 <tooltip><Tooltip text="Spiel beenden" /> </tooltip>
-                            </Button>
-                            <Button fx:id="place" onAction="#PlacePieces">
-                                <tooltip><Tooltip text="Plaziere Stein" /> </tooltip>
                             </Button>
                         </ToolBar>
                     </children>
