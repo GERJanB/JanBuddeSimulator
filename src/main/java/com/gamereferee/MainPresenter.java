@@ -3,6 +3,8 @@ package com.gamereferee;
 import Model.Move;
 import Model.Player;
 import Model.Referee;
+import View.DrawView;
+import View.IDrawView;
 import javafx.application.Platform;
 
 public class MainPresenter implements IPresenter {
@@ -31,13 +33,19 @@ public class MainPresenter implements IPresenter {
         return referee.getCurrentPlayer().getPossibleMoves(ring, position);
     }
 
-    public void movePiece(Move move) {
+    public boolean movePieceAndIsMill(Move move) {
         if (move.getFromPosition() == -1 && move.getFromRing() == -1) {
             referee.getCurrentPlayer().PlacePiece(move);
         } else {
             referee.getCurrentPlayer().movePiece(move);
         }
+
+        if (referee.MoveIsMill(move) && !referee.AllPiecesInMill()) {
+            return true;
+        }
+
         referee.SwitchPlayer();
+        return false;
     }
 
     public boolean piecesLeft() {

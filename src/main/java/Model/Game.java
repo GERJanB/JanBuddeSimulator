@@ -4,9 +4,12 @@ public class Game {
     private Player playerA;
     private Player playerB;
 
-    public Game(Player playerA, Player playerB, Board board) {
+    private enumPhase gamePhase;
+
+    public Game(Player playerA, Player playerB, Board board, enumPhase phase) {
         this.playerA = playerA;
         this.playerB = playerB;
+        this.gamePhase = phase;
 
         playerA.setBoard(board);
         playerB.setBoard(board);

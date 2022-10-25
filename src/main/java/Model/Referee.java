@@ -9,7 +9,7 @@ public class Referee {
     private Game game;
 
     public Referee(Player playerA, Player playerB) {
-        game = new Game(playerA, playerB, board);
+        game = new Game(playerA, playerB, board, enumPhase.placing);
         playerA.setBoard(board);
         playerB.setBoard(board);
         currentPlayer = playerA;
@@ -80,7 +80,7 @@ public class Referee {
                 case 0: pos1 = 1; pos2 = 2; pos3 = 7; pos4 = 6; break;
                 case 2: pos1 = 3; pos2 = 4; pos3 = 1; pos4 = 0; break;
                 case 4: pos1 = 5; pos2 = 6; pos3 = 3; pos4 = 2; break;
-                case 6: pos1 = 7; pos2 = 8; pos3 = 5; pos4 = 4; break;
+                case 6: pos1 = 7; pos2 = 0; pos3 = 5; pos4 = 4; break;
             }
 
             Field[] fields = currentPlayer.getBoard().getRing(move.getToRing()).getFields();

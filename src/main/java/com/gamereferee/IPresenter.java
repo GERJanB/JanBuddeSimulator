@@ -7,6 +7,6 @@ public interface IPresenter {
     boolean getCurrentPlayer();
 
     Move[] getMoves(int ring, int position);
-    void movePiece(Move move);
+    boolean movePieceAndIsMill(Move move);
     boolean piecesLeft();
 }
