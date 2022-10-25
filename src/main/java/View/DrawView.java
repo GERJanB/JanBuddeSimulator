@@ -6,6 +6,7 @@ import com.gamereferee.UIPiece;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -189,19 +190,77 @@ public class DrawView implements IDrawView {
         presenter.quitGame();
     }
     private void spawnPieces() {
-        EventHandler enterDrag = e -> {
+        EventHandler<MouseEvent> enterDrag = e -> {
             var uip = (UIPiece) e.getSource();
-            var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
+            if (uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) {
+                var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
-            for (int i = 0; i < currentMoves.length; i++) {
-                if (currentMoves[i] == null) {
-                    continue;
+                for (int i = 0; i < currentMoves.length; i++) {
+                    if (currentMoves[i] == null) {
+                        continue;
+                    }
+
+                    switch (currentMoves[i].getToRing()) {
+                        case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                        case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                        case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                    }
+                }
+            }
+        };
+
+        EventHandler<MouseEvent> dragPiece = e -> {
+            UIPiece uip = (UIPiece) e.getSource();
+            if (uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) {
+                uip.setCenterX(e.getX());
+                uip.setCenterY(e.getY());
+            }
+        };
+
+        EventHandler<MouseEvent> dropPiece = e -> {
+            UIPiece uip = (UIPiece) e.getSource();
+            if (uip.getBelongsPlayerA() == presenter.getCurrentPlayer()){
+                var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
+
+                for (int i = 0; i < currentMoves.length; i++) {
+                    if (currentMoves[i] == null)
+                        continue;
+
+                    switch (currentMoves[i].getToRing()) {
+                        case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                        case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                        case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                    }
                 }
 
-                switch (currentMoves[i].getToRing()) {
-                    case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
-                    case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
-                    case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                boolean moved = false;
+                for (int i = 0; i < currentMoves.length; i++) {
+                    if (currentMoves[i] == null) {
+                        continue;
+                    }
+
+                    UIPiece field = null;
+                    switch (currentMoves[i].getToRing()) {
+                        case 1 -> field = outerUIFields[currentMoves[i].getToPosition()];
+                        case 2 -> field = secondUIFields[currentMoves[i].getToPosition()];
+                        case 3 -> field = innerUIFields[currentMoves[i].getToPosition()];
+                    }
+
+                    if (field != null && uip.getBoundsInParent().intersects(field.getBoundsInParent())) {
+                        uip.setCenterX(field.getCenterX());
+                        uip.setCenterY(field.getCenterY());
+                        presenter.movePiece(currentMoves[i]);
+                        uip.setRing(currentMoves[i].getToRing());
+                        uip.setPosition(currentMoves[i].getToPosition());
+                        moved = true;
+                        break;
+                    }
+                }
+
+                if (!moved) {
+                    var xy = getCoordinates(uip.getPosition() + 1, uip.getRing());
+                    uip.setCenterY(xy[1]);
+                    uip.setCenterX(xy[0]);
                 }
             }
         };
@@ -220,6 +279,8 @@ public class DrawView implements IDrawView {
             piece.setPosition(-1);
 
             piece.setOnMousePressed(enterDrag);
+            piece.setOnMouseDragged(dragPiece);
+            piece.setOnMouseReleased(dropPiece);
         }
 
         for (int i = 0; i < 9; i++) {
@@ -231,6 +292,13 @@ public class DrawView implements IDrawView {
             piecePane.getChildren().add(piece);
             piece.setCenterX(rect1.getWidth() + 200);
             piece.setCenterY(rect1.getHeight() / 2);
+
+            piece.setRing(-1);
+            piece.setPosition(-1);
+
+            piece.setOnMousePressed(enterDrag);
+            piece.setOnMouseDragged(dragPiece);
+            piece.setOnMouseReleased(dropPiece);
         }
     }
 }

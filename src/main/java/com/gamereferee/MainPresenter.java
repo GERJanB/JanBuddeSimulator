@@ -30,4 +30,9 @@ public class MainPresenter implements IPresenter {
     public Move[] getMoves(int ring, int position) {
         return referee.getCurrentPlayer().getPossibleMoves(ring, position);
     }
+
+    public void movePiece(Move move) {
+        referee.getCurrentPlayer().movePiece(move);
+        referee.SwitchPlayer();
+    }
 }
