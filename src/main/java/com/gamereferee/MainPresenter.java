@@ -32,7 +32,15 @@ public class MainPresenter implements IPresenter {
     }
 
     public void movePiece(Move move) {
-        referee.getCurrentPlayer().movePiece(move);
+        if (move.getFromPosition() == -1 && move.getFromRing() == -1) {
+            referee.getCurrentPlayer().PlacePiece(move);
+        } else {
+            referee.getCurrentPlayer().movePiece(move);
+        }
         referee.SwitchPlayer();
+    }
+
+    public boolean piecesLeft() {
+        return referee.getCurrentPlayer().isPiecesEmpty();
     }
 }

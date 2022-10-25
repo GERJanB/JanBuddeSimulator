@@ -1,5 +1,6 @@
 package View;
 
+import Model.Move;
 import com.gamereferee.IPresenter;
 import com.gamereferee.MainPresenter;
 import com.gamereferee.UIPiece;
@@ -192,7 +193,7 @@ public class DrawView implements IDrawView {
     private void spawnPieces() {
         EventHandler<MouseEvent> enterDrag = e -> {
             var uip = (UIPiece) e.getSource();
-            if (uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) {
+            if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
                 var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
                 for (int i = 0; i < currentMoves.length; i++) {
@@ -211,7 +212,7 @@ public class DrawView implements IDrawView {
 
         EventHandler<MouseEvent> dragPiece = e -> {
             UIPiece uip = (UIPiece) e.getSource();
-            if (uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) {
+            if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
                 uip.setCenterX(e.getX());
                 uip.setCenterY(e.getY());
             }
@@ -219,7 +220,7 @@ public class DrawView implements IDrawView {
 
         EventHandler<MouseEvent> dropPiece = e -> {
             UIPiece uip = (UIPiece) e.getSource();
-            if (uip.getBelongsPlayerA() == presenter.getCurrentPlayer()){
+            if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))){
                 var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
                 for (int i = 0; i < currentMoves.length; i++) {
@@ -249,7 +250,7 @@ public class DrawView implements IDrawView {
                     if (field != null && uip.getBoundsInParent().intersects(field.getBoundsInParent())) {
                         uip.setCenterX(field.getCenterX());
                         uip.setCenterY(field.getCenterY());
-                        presenter.movePiece(currentMoves[i]);
+                        presenter.movePiece(new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition()));
                         uip.setRing(currentMoves[i].getToRing());
                         uip.setPosition(currentMoves[i].getToPosition());
                         moved = true;
