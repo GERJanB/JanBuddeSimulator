@@ -289,7 +289,7 @@ public class DrawView implements IDrawView {
                                 uip.setCenterY(field.getCenterY());
                                 presenter.movePiece(new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition()));
                                 if (presenter.getGamePhase() == enumPhase.removing) {
-                                    statusUpdates.setText(presenter.playerName() + ", nimm einen generischen Stein vom Feld");
+                                    statusUpdates.setText(presenter.playerName() + ", nimm einen gegnerischen Stein vom Feld");
                                 }
                                 uip.setRing(currentMoves[i].getToRing());
                                 uip.setPosition(currentMoves[i].getToPosition());
