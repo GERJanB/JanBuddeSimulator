@@ -22,7 +22,7 @@
                                         <SeparatorMenuItem />
                                         <MenuItem accelerator="Shortcut+R" text="St_art" />
                                         <MenuItem accelerator="Shortcut+S" text="St_op" />
-                                        <MenuItem accelerator="Shortcut+Q" text="_Beenden" onAction="#startGame"/>
+                                        <MenuItem accelerator="Shortcut+Q" text="_Beenden" onAction="#quitGameClick"/>
                                     </items>
                                 </Menu>
                                 <Menu text="Spieler _A">
@@ -63,7 +63,7 @@
                             <Button fx:id="play" onAction="#startGame">
                                 <tooltip><Tooltip text="Spiel starten" /> </tooltip>
                             </Button>
-                            <Button fx:id="stop" onAction="#startGame">
+                            <Button fx:id="stop" onAction="#quitGameClick">
                                 <tooltip><Tooltip text="Spiel beenden" /> </tooltip>
                             </Button>
                         </ToolBar>

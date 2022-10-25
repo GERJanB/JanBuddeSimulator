@@ -1,8 +1,11 @@
 package View;
 
+import com.gamereferee.MainPresenter;
 import com.gamereferee.UIPiece;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
@@ -171,5 +174,10 @@ public class DrawView implements IDrawView {
             piecePane.getChildren().add(secondUIFields[i]);
             piecePane.getChildren().add(innerUIFields[i]);
         }
+    }
+
+    @FXML
+    public void quitGameClick() {
+        
     }
 }
