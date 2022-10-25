@@ -212,8 +212,12 @@ public class DrawView implements IDrawView {
                     }
                     break;
                 case removing:
-                    if ((uip.getBelongsPlayerA() != presenter.getCurrentPlayer()) && presenter.pieceInMill(uip.getRing(), uip.getPosition())) {
+                    statusUpdates.setText(presenter.playerName() + ", nimm einen generischen Stein vom Feld");
+                    if ((uip.getBelongsPlayerA() != presenter.getCurrentPlayer())
+                            && (uip.getPosition() != -1 && uip.getRing() != -1)
+                            && !presenter.pieceInMill(uip.getRing(), uip.getPosition())) {
                         presenter.removePiece(uip.getRing(), uip.getPosition());
+                        piecePane.getChildren().remove(uip);
                         uip = null;
                     }
                     break;

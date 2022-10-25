@@ -14,4 +14,5 @@ public interface IPresenter {
     enumPhase getGamePhase();
     boolean pieceInMill(int ring, int position);
     void removePiece(int ring, int position);
+    String playerName();
 }

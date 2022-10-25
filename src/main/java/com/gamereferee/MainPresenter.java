@@ -76,4 +76,8 @@ public class MainPresenter implements IPresenter {
     public void removePiece(int ring, int position) {
         referee.getCurrentPlayer().TakePiece(ring, position);
     }
+
+    public String playerName() {
+        return referee.getCurrentPlayer().toString();
+    }
 }
