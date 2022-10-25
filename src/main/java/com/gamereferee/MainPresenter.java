@@ -40,6 +40,15 @@ public class MainPresenter implements IPresenter {
         } else {
             referee.getCurrentPlayer().movePiece(move);
         }
+        if (pieceInMill(move.getToRing(), move.getToPosition()) && !referee.AllPiecesInMill()) {
+            referee.getCurrentPlayer().setGamePhase(enumPhase.removing);
+            return;
+        }
+
+        switchPlayer();
+    }
+
+    public void switchPlayer() {
         referee.SwitchPlayer();
     }
 

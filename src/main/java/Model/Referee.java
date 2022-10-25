@@ -38,9 +38,29 @@ public class Referee {
         var innerFields = board.getRing(3).getFields();
 
         for (int i = 0; i < outerFields.length; i++) {
-            if (outerFields[i].getPiece() != null && !outerFields[i].getPiece().isInMill()) return false;
-            if (secondFields[i].getPiece() != null && !secondFields[i].getPiece().isInMill()) return false;
-            if (innerFields[i].getPiece() != null && !innerFields[i].getPiece().isInMill()) return false;
+            if (outerFields[i].getPiece() != null) {
+                Move moveOuter = new Move();
+                moveOuter.setToRing(1);
+                moveOuter.setToPosition(i);
+
+                if (GetMill(moveOuter) == null) return false;
+            }
+
+            if (secondFields[i].getPiece() != null) {
+                Move moveSecond = new Move();
+                moveSecond.setToRing(2);
+                moveSecond.setToPosition(i);
+
+                if (GetMill(moveSecond) == null) return false;
+            }
+
+            if (innerFields[i].getPiece() != null) {
+                Move moveInner = new Move();
+                moveInner.setToRing(3);
+                moveInner.setToPosition(i);
+
+                if (GetMill(moveInner) == null) return false;
+            }
         }
         return true;
     }
