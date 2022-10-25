@@ -8,12 +8,12 @@ import javafx.event.ActionEvent;
 
 import java.util.concurrent.Callable;
 
-public class MainPresenter {
+public class MainPresenter implements IPresenter {
     public MainPresenter() {
 
     }
 
-    private void quitGame() {
+    public void quitGame() {
         Platform.exit();
     }
 }

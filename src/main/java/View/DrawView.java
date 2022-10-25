@@ -1,5 +1,6 @@
 package View;
 
+import com.gamereferee.IPresenter;
 import com.gamereferee.MainPresenter;
 import com.gamereferee.UIPiece;
 import javafx.event.EventHandler;
@@ -29,6 +30,9 @@ public class DrawView implements IDrawView {
     UIPiece[] outerUIFields = new UIPiece[8];
     UIPiece[] secondUIFields = new UIPiece[8];
     UIPiece[] innerUIFields = new UIPiece[8];
+
+
+    IPresenter presenter = new MainPresenter();
 
     @FXML
     protected void startGame() {
@@ -178,6 +182,6 @@ public class DrawView implements IDrawView {
 
     @FXML
     public void quitGameClick() {
-        
+        presenter.quitGame();
     }
 }
