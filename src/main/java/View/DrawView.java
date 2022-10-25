@@ -37,6 +37,7 @@ public class DrawView implements IDrawView {
     @FXML
     protected void startGame() {
         setFields();
+        spawnPieces();
     }
 
     @FXML
@@ -183,5 +184,28 @@ public class DrawView implements IDrawView {
     @FXML
     public void quitGameClick() {
         presenter.quitGame();
+    }
+    private void spawnPieces() {
+        for (int i = 0; i < 9; i++) {
+            UIPiece piece = new UIPiece(30, true);
+            piece.setStrokeWidth(2);
+            piece.setStroke(Color.BLACK);
+            piece.setFill(Color.rgb(50,50,50));
+
+            piecePane.getChildren().add(piece);
+            piece.setCenterX(-200);
+            piece.setCenterY(rect1.getHeight() / 2);
+        }
+
+        for (int i = 0; i < 9; i++) {
+            UIPiece piece = new UIPiece(30, false);
+            piece.setStrokeWidth(2);
+            piece.setStroke(Color.BLACK);
+            piece.setFill(Color.BEIGE);
+
+            piecePane.getChildren().add(piece);
+            piece.setCenterX(rect1.getWidth() + 200);
+            piece.setCenterY(rect1.getHeight() / 2);
+        }
     }
 }

@@ -10,6 +10,8 @@ public class Referee {
 
     public Referee(Player playerA, Player playerB) {
         game = new Game(playerA, playerB, board);
+        playerA.setBoard(board);
+        playerB.setBoard(board);
         currentPlayer = playerA;
     }
 
