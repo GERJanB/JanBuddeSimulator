@@ -1,6 +1,7 @@
 package View;
 
 import Model.Move;
+import Model.enumPhase;
 import com.gamereferee.IPresenter;
 import com.gamereferee.MainPresenter;
 import com.gamereferee.UIPiece;
@@ -35,8 +36,6 @@ public class DrawView implements IDrawView {
 
 
     IPresenter presenter = new MainPresenter();
-
-    boolean isMill = false;
 
     @FXML
     protected void startGame() {
@@ -193,81 +192,110 @@ public class DrawView implements IDrawView {
     private void spawnPieces() {
         EventHandler<MouseEvent> enterDrag = e -> {
             var uip = (UIPiece) e.getSource();
-            if (isMill && uip.getBelongsPlayerA() != presenter.getCurrentPlayer()) {
-                uip = null;
-                e.consume();
-            } else {
-                if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
-                    var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
+            switch (presenter.getGamePhase()) {
+                case placing:
+                case moving:
+                    if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
+                        var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
-                    for (int i = 0; i < currentMoves.length; i++) {
-                        if (currentMoves[i] == null) {
-                            continue;
-                        }
+                        for (int i = 0; i < currentMoves.length; i++) {
+                            if (currentMoves[i] == null) {
+                                continue;
+                            }
 
-                        switch (currentMoves[i].getToRing()) {
-                            case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
-                            case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
-                            case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                            switch (currentMoves[i].getToRing()) {
+                                case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                                case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                                case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                            }
                         }
                     }
-                }
+                    break;
+                case removing:
+                    if ((uip.getBelongsPlayerA() != presenter.getCurrentPlayer()) && presenter.pieceInMill(uip.getRing(), uip.getPosition())) {
+                        presenter.removePiece(uip.getRing(), uip.getPosition());
+                        uip = null;
+                    }
+                    break;
+                case threePieces:
+                    break;
             }
         };
 
         EventHandler<MouseEvent> dragPiece = e -> {
             UIPiece uip = (UIPiece) e.getSource();
-            if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
-                uip.setCenterX(e.getX());
-                uip.setCenterY(e.getY());
+            switch (presenter.getGamePhase()) {
+                case placing:
+                case moving:
+                case threePieces:
+                    if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
+                        uip.setCenterX(e.getX());
+                        uip.setCenterY(e.getY());
+                    }
+                    break;
+                case removing:
+                    break;
             }
         };
 
         EventHandler<MouseEvent> dropPiece = e -> {
             UIPiece uip = (UIPiece) e.getSource();
-            if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))){
-                var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
-                for (int i = 0; i < currentMoves.length; i++) {
-                    if (currentMoves[i] == null)
-                        continue;
+            switch (presenter.getGamePhase()) {
+                case placing:
+                case moving:
+                    if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))){
+                        var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
-                    switch (currentMoves[i].getToRing()) {
-                        case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
-                        case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
-                        case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                        for (int i = 0; i < currentMoves.length; i++) {
+                            if (currentMoves[i] == null)
+                                continue;
+
+                            switch (currentMoves[i].getToRing()) {
+                                case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                                case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                                case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                            }
+                        }
+
+                        boolean moved = false;
+                        for (int i = 0; i < currentMoves.length; i++) {
+                            if (currentMoves[i] == null) {
+                                continue;
+                            }
+
+                            UIPiece field = null;
+                            switch (currentMoves[i].getToRing()) {
+                                case 1 -> field = outerUIFields[currentMoves[i].getToPosition()];
+                                case 2 -> field = secondUIFields[currentMoves[i].getToPosition()];
+                                case 3 -> field = innerUIFields[currentMoves[i].getToPosition()];
+                            }
+
+                            if (field != null && uip.getBoundsInParent().intersects(field.getBoundsInParent())) {
+                                uip.setCenterX(field.getCenterX());
+                                uip.setCenterY(field.getCenterY());
+                                presenter.movePiece(new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition()));
+                                uip.setRing(currentMoves[i].getToRing());
+                                uip.setPosition(currentMoves[i].getToPosition());
+                                moved = true;
+                                break;
+                            }
+                        }
+                        if (!moved) {
+                            var xy = getCoordinates(uip.getPosition() + 1, uip.getRing());
+                            uip.setCenterY(xy[1]);
+                            uip.setCenterX(xy[0]);
+                        }
                     }
-                }
-
-                boolean moved = false;
-                for (int i = 0; i < currentMoves.length; i++) {
-                    if (currentMoves[i] == null) {
-                        continue;
-                    }
-
-                    UIPiece field = null;
-                    switch (currentMoves[i].getToRing()) {
-                        case 1 -> field = outerUIFields[currentMoves[i].getToPosition()];
-                        case 2 -> field = secondUIFields[currentMoves[i].getToPosition()];
-                        case 3 -> field = innerUIFields[currentMoves[i].getToPosition()];
-                    }
-
-                    if (field != null && uip.getBoundsInParent().intersects(field.getBoundsInParent())) {
-                        uip.setCenterX(field.getCenterX());
-                        uip.setCenterY(field.getCenterY());
-                        isMill = presenter.movePieceAndIsMill(new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition()));
-                        uip.setRing(currentMoves[i].getToRing());
-                        uip.setPosition(currentMoves[i].getToPosition());
-                        moved = true;
-                        break;
-                    }
-                }
-                if (!moved) {
-                    var xy = getCoordinates(uip.getPosition() + 1, uip.getRing());
-                    uip.setCenterY(xy[1]);
-                    uip.setCenterX(xy[0]);
-                }
+                    break;
+                case threePieces:
+                    //TODO: Implement
+                    break;
+                case removing:
+                    break;
             }
+
+
         };
 
         for (int i = 0; i < 9; i++) {

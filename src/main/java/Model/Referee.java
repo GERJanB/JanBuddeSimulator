@@ -67,7 +67,7 @@ public class Referee {
         return mill.isMill();
     }
 
-    private Mill GetMill(Move move) {
+    public Mill GetMill(Move move) {
         int position = move.getToPosition();
 
         int[] rings = {-1,-1,-1};

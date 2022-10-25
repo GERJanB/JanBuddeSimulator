@@ -3,6 +3,7 @@ package com.gamereferee;
 import Model.Move;
 import Model.Player;
 import Model.Referee;
+import Model.enumPhase;
 import View.DrawView;
 import View.IDrawView;
 import javafx.application.Platform;
@@ -19,8 +20,8 @@ public class MainPresenter implements IPresenter {
     }
 
     public void startGame() {
-        Player playerA = new Player(true, true);
-        Player playerB = new Player(true, false);
+        Player playerA = new Player(true, true, enumPhase.placing);
+        Player playerB = new Player(true, false, enumPhase.placing);
 
         referee = new Referee(playerA, playerB);
     }
@@ -33,22 +34,37 @@ public class MainPresenter implements IPresenter {
         return referee.getCurrentPlayer().getPossibleMoves(ring, position);
     }
 
-    public boolean movePieceAndIsMill(Move move) {
+    public void movePiece(Move move) {
         if (move.getFromPosition() == -1 && move.getFromRing() == -1) {
             referee.getCurrentPlayer().PlacePiece(move);
         } else {
             referee.getCurrentPlayer().movePiece(move);
         }
-
-        if (referee.MoveIsMill(move) && !referee.AllPiecesInMill()) {
-            return true;
-        }
-
         referee.SwitchPlayer();
-        return false;
     }
 
     public boolean piecesLeft() {
         return referee.getCurrentPlayer().isPiecesEmpty();
+    }
+
+    public enumPhase getGamePhase() {
+        return referee.getCurrentPlayer().getGamePhase();
+    }
+
+    public boolean pieceInMill(int ring, int position) {
+        Move move = new Move();
+        move.setToPosition(position);
+        move.setToRing(ring);
+
+        var mill = referee.GetMill(move);
+
+        if (mill != null) {
+            return true;
+        }
+        return false;
+    }
+
+    public void removePiece(int ring, int position) {
+        referee.getCurrentPlayer().TakePiece(ring, position);
     }
 }

@@ -6,14 +6,25 @@ public class Player {
     private final Boolean isHumanPlayer;
     private final Boolean isPlayerA;
 
+    private enumPhase gamePhase;
+
     private Board board;
     private Stack<Piece> pieces;
 
-    public Player(Boolean isHumanPlayer, Boolean isPlayerA) {
+    public Player(Boolean isHumanPlayer, Boolean isPlayerA, enumPhase phase) {
         this.isHumanPlayer = isHumanPlayer;
         this.isPlayerA = isPlayerA;
+        this.gamePhase = phase;
 
         CreatePieces();
+    }
+
+    public enumPhase getGamePhase() {
+        return gamePhase;
+    }
+
+    public void setGamePhase(enumPhase gamePhase) {
+        this.gamePhase = gamePhase;
     }
 
     public Boolean isPlayerA() {

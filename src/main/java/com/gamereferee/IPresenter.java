@@ -1,5 +1,6 @@
 package com.gamereferee;
 import Model.Move;
+import Model.enumPhase;
 
 public interface IPresenter {
     void quitGame();
@@ -7,6 +8,10 @@ public interface IPresenter {
     boolean getCurrentPlayer();
 
     Move[] getMoves(int ring, int position);
-    boolean movePieceAndIsMill(Move move);
+    void movePiece(Move move);
     boolean piecesLeft();
+
+    enumPhase getGamePhase();
+    boolean pieceInMill(int ring, int position);
+    void removePiece(int ring, int position);
 }
