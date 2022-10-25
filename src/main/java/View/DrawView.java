@@ -42,6 +42,7 @@ public class DrawView implements IDrawView {
         setFields();
         presenter.startGame();
         spawnPieces();
+        statusUpdates.setText(presenter.playerName() + ", du bist am Zug");
     }
 
     @FXML
@@ -212,13 +213,21 @@ public class DrawView implements IDrawView {
                     }
                     break;
                 case removing:
-                    statusUpdates.setText(presenter.playerName() + ", nimm einen generischen Stein vom Feld");
                     if ((uip.getBelongsPlayerA() != presenter.getCurrentPlayer())
                             && (uip.getPosition() != -1 && uip.getRing() != -1)
                             && !presenter.pieceInMill(uip.getRing(), uip.getPosition())) {
                         presenter.removePiece(uip.getRing(), uip.getPosition());
                         piecePane.getChildren().remove(uip);
                         uip = null;
+
+                        if (presenter.piecesLeft()) {
+                            presenter.setGamePhase(enumPhase.placing);
+                        } else {
+                            presenter.setGamePhase(enumPhase.moving);
+                        }
+                        presenter.switchPlayer();
+
+                        statusUpdates.setText(presenter.playerName() + ", du bist am Zug");
                     }
                     break;
                 case threePieces:
@@ -279,6 +288,9 @@ public class DrawView implements IDrawView {
                                 uip.setCenterX(field.getCenterX());
                                 uip.setCenterY(field.getCenterY());
                                 presenter.movePiece(new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition()));
+                                if (presenter.getGamePhase() == enumPhase.removing) {
+                                    statusUpdates.setText(presenter.playerName() + ", nimm einen generischen Stein vom Feld");
+                                }
                                 uip.setRing(currentMoves[i].getToRing());
                                 uip.setPosition(currentMoves[i].getToPosition());
                                 moved = true;

@@ -60,6 +60,10 @@ public class MainPresenter implements IPresenter {
         return referee.getCurrentPlayer().getGamePhase();
     }
 
+    public void setGamePhase(enumPhase phase) {
+        referee.getCurrentPlayer().setGamePhase(phase);
+    }
+
     public boolean pieceInMill(int ring, int position) {
         Move move = new Move();
         move.setToPosition(position);
