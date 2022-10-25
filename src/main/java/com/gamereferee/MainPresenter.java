@@ -1,13 +1,9 @@
 package com.gamereferee;
 
+import Model.Move;
 import Model.Player;
 import Model.Referee;
-import View.DrawView;
-import View.IDrawView;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-
-import java.util.concurrent.Callable;
 
 public class MainPresenter implements IPresenter {
     Referee referee;
@@ -31,5 +27,7 @@ public class MainPresenter implements IPresenter {
         return referee.getCurrentPlayer().isPlayerA();
     }
 
-
+    public Move[] getMoves(int ring, int position) {
+        return referee.getCurrentPlayer().getPossibleMoves(ring, position);
+    }
 }

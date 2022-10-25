@@ -9,7 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;
+import javafx.scene.shape.Line;;
+
+import javax.security.auth.login.CredentialNotFoundException;
 
 public class DrawView implements IDrawView {
     @FXML
@@ -37,6 +39,7 @@ public class DrawView implements IDrawView {
     @FXML
     protected void startGame() {
         setFields();
+        presenter.startGame();
         spawnPieces();
     }
 
@@ -186,6 +189,23 @@ public class DrawView implements IDrawView {
         presenter.quitGame();
     }
     private void spawnPieces() {
+        EventHandler enterDrag = e -> {
+            var uip = (UIPiece) e.getSource();
+            var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
+
+            for (int i = 0; i < currentMoves.length; i++) {
+                if (currentMoves[i] == null) {
+                    continue;
+                }
+
+                switch (currentMoves[i].getToRing()) {
+                    case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                    case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                    case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.GREEN);
+                }
+            }
+        };
+
         for (int i = 0; i < 9; i++) {
             UIPiece piece = new UIPiece(30, true);
             piece.setStrokeWidth(2);
@@ -195,6 +215,11 @@ public class DrawView implements IDrawView {
             piecePane.getChildren().add(piece);
             piece.setCenterX(-200);
             piece.setCenterY(rect1.getHeight() / 2);
+
+            piece.setRing(-1);
+            piece.setPosition(-1);
+
+            piece.setOnMousePressed(enterDrag);
         }
 
         for (int i = 0; i < 9; i++) {

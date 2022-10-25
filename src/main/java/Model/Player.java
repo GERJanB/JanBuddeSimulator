@@ -125,6 +125,21 @@ public class Player {
     public Move[] getPossibleMoves(int ring, int position) {
         Move[] moves;
 
+        if (ring == -1 && position == -1) {
+            moves = new Move[24] ;
+            int counter = 0;
+            for (int r = 1; r < 4; r++) {
+                for (int p = 0; p < 8; p++) {
+                    if (!board.getRing(r).getFields()[p].isOccupied()) {
+                        moves[counter] = new Move(r,r,p,p);
+                        counter++;
+                    }
+                }
+            }
+
+            return moves;
+        }
+
         if (position % 2 == 1) {
             if (ring != 2) {
                 moves = new Move[3];
