@@ -67,6 +67,12 @@ public class Referee {
 
     public boolean GetMill(Move move) {
         int position = move.getToPosition();
+        boolean switched = false;
+
+        if (currentPlayer.getGamePhase() == enumPhase.removing) {
+            SwitchPlayer();
+            switched = true;
+        }
 
         //check on same Ring
         Field[] fields = currentPlayer.getBoard().getRing(move.getToRing()).getFields();
@@ -103,6 +109,10 @@ public class Referee {
                     return true;
                 }
             }
+        }
+
+        if (switched) {
+            SwitchPlayer();
         }
         return false;
     }
