@@ -53,7 +53,7 @@
                 <StackPane>
                     <children>
                         <ToolBar prefHeight="40.0">
-                            <Button fx:id="new">
+                            <Button fx:id="new" onAction="#newWindow">
                                 <tooltip><Tooltip text="Neues Spiel" /> </tooltip>
                             </Button>
                             <Button fx:id="print">

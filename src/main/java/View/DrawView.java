@@ -5,15 +5,17 @@ import Model.Piece;
 import Model.enumPhase;
 import com.gamereferee.IPresenter;
 import com.gamereferee.MainPresenter;
+import com.gamereferee.SceneManager;
 import com.gamereferee.UIPiece;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;;
+import javafx.scene.shape.Line;;import java.io.IOException;
 
 public class DrawView implements IDrawView {
     @FXML
@@ -380,5 +382,10 @@ public class DrawView implements IDrawView {
         boardPane.getChildren().add(piecePane);
 
         startGame();
+    }
+
+    @FXML
+    private void newWindow() throws IOException {
+        SceneManager.createNewStage();
     }
 }
