@@ -1,7 +1,5 @@
 package Model;
 
-import java.util.HashMap;
-
 public class Referee {
     private Board board = new Board();
     private Player currentPlayer;

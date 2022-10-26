@@ -2,11 +2,9 @@ package Model;
 
 public class Ring {
     private Field[] fields = new Field[8];
-    private int ring;
 
-    public Ring(int ring) {
+    public Ring() {
         CreateFields();
-        this.ring = ring;
     }
 
     private void CreateFields() {
