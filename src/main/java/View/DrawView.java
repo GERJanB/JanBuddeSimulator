@@ -196,7 +196,7 @@ public class DrawView implements IDrawView {
             switch (presenter.getGamePhase()) {
                 case placing:
                 case moving:
-                    if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
+                    if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesEmpty() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
                         var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
                         for (int i = 0; i < currentMoves.length; i++) {
@@ -220,7 +220,7 @@ public class DrawView implements IDrawView {
                         piecePane.getChildren().remove(uip);
                         uip = null;
 
-                        if (presenter.piecesLeft()) {
+                        if (!presenter.piecesEmpty()) {
                             presenter.setGamePhase(enumPhase.placing);
                         } else {
                             presenter.setGamePhase(enumPhase.moving);
@@ -241,7 +241,7 @@ public class DrawView implements IDrawView {
                 case placing:
                 case moving:
                 case threePieces:
-                    if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
+                    if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesEmpty() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
                         uip.setCenterX(e.getX());
                         uip.setCenterY(e.getY());
                     }
@@ -257,7 +257,7 @@ public class DrawView implements IDrawView {
             switch (presenter.getGamePhase()) {
                 case placing:
                 case moving:
-                    if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesLeft() || (uip.getRing() == -1 && uip.getPosition() == -1))){
+                    if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesEmpty() || (uip.getRing() == -1 && uip.getPosition() == -1))){
                         var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
                         for (int i = 0; i < currentMoves.length; i++) {
@@ -290,6 +290,8 @@ public class DrawView implements IDrawView {
                                 presenter.movePiece(new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition()));
                                 if (presenter.getGamePhase() == enumPhase.removing) {
                                     statusUpdates.setText(presenter.playerName() + ", nimm einen gegnerischen Stein vom Feld");
+                                } else {
+                                    statusUpdates.setText(presenter.playerName() + ", du bist am Zug");
                                 }
                                 uip.setRing(currentMoves[i].getToRing());
                                 uip.setPosition(currentMoves[i].getToPosition());

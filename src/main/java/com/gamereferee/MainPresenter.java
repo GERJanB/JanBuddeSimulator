@@ -52,7 +52,7 @@ public class MainPresenter implements IPresenter {
         referee.SwitchPlayer();
     }
 
-    public boolean piecesLeft() {
+    public boolean piecesEmpty() {
         return referee.getCurrentPlayer().isPiecesEmpty();
     }
 

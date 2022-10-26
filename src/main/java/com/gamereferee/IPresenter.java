@@ -9,7 +9,7 @@ public interface IPresenter {
 
     Move[] getMoves(int ring, int position);
     void movePiece(Move move);
-    boolean piecesLeft();
+    boolean piecesEmpty();
 
     enumPhase getGamePhase();
     boolean pieceInMill(int ring, int position);
