@@ -81,20 +81,25 @@ public class Referee {
 
         //check on same Ring
         Field[] fields = player.getBoard().getRing(move.getToRing()).getFields();
+
+        int pOne = Math.floorMod(position + 1, 8);
+        int pTwo = Math.floorMod(position + 2, 8);
+        int mOne = Math.floorMod(position - 1, 8);
+        int mTwo = Math.floorMod(position - 2, 8);
+
         if (position % 2 == 0) {
-            int val = Math.floorMod(position + 1,8);
-            if (((fields[Math.floorMod(position + 1, 8)].getPiece() != null && fields[Math.floorMod(position + 2, 8)].getPiece() != null)
-                    && (fields[Math.floorMod(position + 1, 8)].getPiece().getBelongsPlayerA() == player.isPlayerA()
-                    && fields[Math.floorMod(position + 2, 8)].getPiece().getBelongsPlayerA() == player.isPlayerA()))
-                    || ((fields[Math.floorMod(position - 1, 8)].getPiece() != null && fields[Math.floorMod(position -2, 8)].getPiece() != null)
-                    && (fields[Math.floorMod(position - 1, 8)].getPiece().getBelongsPlayerA() == player.isPlayerA()
-                    && fields[Math.floorMod(position - 2,8)].getPiece().getBelongsPlayerA() == player.isPlayerA()))) {
+            if (((fields[pOne].getPiece() != null && fields[pTwo].getPiece() != null)
+                    && (fields[pOne].getPiece().getBelongsPlayerA() == player.isPlayerA()
+                    && fields[pTwo].getPiece().getBelongsPlayerA() == player.isPlayerA()))
+                    || ((fields[mOne].getPiece() != null && fields[mTwo].getPiece() != null)
+                    && (fields[mOne].getPiece().getBelongsPlayerA() == player.isPlayerA()
+                    && fields[mTwo].getPiece().getBelongsPlayerA() == player.isPlayerA()))) {
                 return true;
             }
         } else {
-            if ((fields[Math.floorMod(position + 1, 8)].getPiece() != null && fields[Math.floorMod(position - 1, 8)].getPiece() != null)
-                    && (fields[Math.floorMod(position + 1, 8)].getPiece().getBelongsPlayerA() == player.isPlayerA()
-                    && fields[Math.floorMod(position - 1, 8)].getPiece().getBelongsPlayerA() == player.isPlayerA())) {
+            if ((fields[pOne].getPiece() != null && fields[mOne].getPiece() != null)
+                    && (fields[pOne].getPiece().getBelongsPlayerA() == player.isPlayerA()
+                    && fields[mOne].getPiece().getBelongsPlayerA() == player.isPlayerA())) {
                 return true;
             }
 

@@ -54,7 +54,7 @@ public class Player {
 
             fieldsFrom[move.getFromPosition()].setOccupied(false);
             fields[move.getToPosition()].setOccupied(true);
-            fields[move.getToPosition()].setPiece(fields[move.getFromPosition()].getPiece());
+            fields[move.getToPosition()].setPiece(fieldsFrom[move.getFromPosition()].getPiece());
             fieldsFrom[move.getFromPosition()].setPiece(null);
         } else {
             var fields = board.getRing(move.getToRing()).getFields();
