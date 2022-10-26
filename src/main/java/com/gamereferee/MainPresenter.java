@@ -69,12 +69,7 @@ public class MainPresenter implements IPresenter {
         move.setToPosition(position);
         move.setToRing(ring);
 
-        var mill = referee.GetMill(move);
-
-        if (mill != null) {
-            return true;
-        }
-        return false;
+        return referee.GetMill(move);
     }
 
     public void removePiece(int ring, int position) {
