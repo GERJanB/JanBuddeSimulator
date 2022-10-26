@@ -319,9 +319,19 @@ public class DrawView implements IDrawView {
                             }
                         }
                         if (!moved) {
-                            var xy = getCoordinates(uip.getPosition() + 1, uip.getRing());
-                            uip.setCenterY(xy[1]);
-                            uip.setCenterX(xy[0]);
+                            if (uip.getBelongsPlayerA()) {
+                                uip.setCenterX(-200);
+                                uip.setCenterY(rect1.getHeight() / 2);
+                            } else {
+                                uip.setCenterX(rect1.getWidth() + 200);
+                                uip.setCenterY(rect1.getHeight() / 2);
+                            }
+
+                            if (uip.getRing() != -1 && uip.getPosition() != -1) {
+                                var xy = getCoordinates(uip.getPosition() + 1, uip.getRing());
+                                uip.setCenterY(xy[1]);
+                                uip.setCenterX(xy[0]);
+                            }
                         }
                     }
                     break;
@@ -380,8 +390,6 @@ public class DrawView implements IDrawView {
         piecePane = new Pane();
         piecePane.setMaxSize(750, 750);
         boardPane.getChildren().add(piecePane);
-
-        startGame();
     }
 
     @FXML
