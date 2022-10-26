@@ -37,29 +37,29 @@ public class Referee {
         var secondFields = board.getRing(2).getFields();
         var innerFields = board.getRing(3).getFields();
 
-        for (int i = 0; i < outerFields.length; i++) {
-            if (outerFields[i].getPiece() != null) {
+        for (int i = 0; i < 3; i++) {
+            if (outerFields[i].getPiece() != null && outerFields[i].getPiece().getBelongsPlayerA() != currentPlayer.isPlayerA()) {
                 Move moveOuter = new Move();
                 moveOuter.setToRing(1);
                 moveOuter.setToPosition(i);
 
-                return GetMill(moveOuter);
+                if (!GetMill(moveOuter)) return false;
             }
 
-            if (secondFields[i].getPiece() != null) {
+            if (secondFields[i].getPiece() != null && secondFields[i].getPiece().getBelongsPlayerA() != currentPlayer.isPlayerA()) {
                 Move moveSecond = new Move();
                 moveSecond.setToRing(2);
                 moveSecond.setToPosition(i);
 
-                return GetMill(moveSecond);
+                if (!GetMill(moveSecond)) return false;
             }
 
-            if (innerFields[i].getPiece() != null) {
+            if (innerFields[i].getPiece() != null && innerFields[i].getPiece().getBelongsPlayerA() != currentPlayer.isPlayerA()) {
                 Move moveInner = new Move();
                 moveInner.setToRing(3);
                 moveInner.setToPosition(i);
 
-                return GetMill(moveInner);
+                if (!GetMill(moveInner)) return false;
             }
         }
         return true;
@@ -71,39 +71,39 @@ public class Referee {
         //check on same Ring
         Field[] fields = currentPlayer.getBoard().getRing(move.getToRing()).getFields();
         if (position % 2 == 0) {
-            if (((fields[((position + 1) % 8)] != null && fields[((position + 2) % 8)] != null)
-                    && (fields[((position + 1) % 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                    && fields[((position + 2) % 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()))
-                || ((fields[((position - 1) % 8)] != null && fields[((position - 2) % 8)] != null)
-                    && (fields[((position - 1) % 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                    && fields[((position - 2) % 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()))) {
+            int val = Math.floorMod(position + 1,8);
+            if (((fields[Math.floorMod(position + 1, 8)].getPiece() != null && fields[Math.floorMod(position + 2, 8)].getPiece() != null)
+                    && (fields[Math.floorMod(position + 1, 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+                    && fields[Math.floorMod(position + 2, 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()))
+                || ((fields[Math.floorMod(position - 1, 8)].getPiece() != null && fields[Math.floorMod(position -2, 8)].getPiece() != null)
+                    && (fields[Math.floorMod(position - 1, 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+                    && fields[Math.floorMod(position - 2,8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()))) {
                 return true;
             }
         } else {
-            if ((fields[((position + 1) % 8)] != null && fields[((position - 1) % 8)] != null)
-                    && (fields[((position + 1) % 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                    && fields[((position - 1) % 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
+            if ((fields[Math.floorMod(position + 1, 8)].getPiece() != null && fields[Math.floorMod(position - 1, 8)].getPiece() != null)
+                    && (fields[Math.floorMod(position + 1, 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+                    && fields[Math.floorMod(position - 1, 8)].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
                 return true;
             }
-        }
 
-        //Check for Mills overlapping Rings
-        Field[] outerFields = currentPlayer.getBoard().getRing(1).getFields();
-        Field[] secondFields = currentPlayer.getBoard().getRing(2).getFields();
-        Field[] innerFields = currentPlayer.getBoard().getRing(3).getFields();
+            //Check for Mills overlapping Rings
+            Field[] outerFields = currentPlayer.getBoard().getRing(1).getFields();
+            Field[] secondFields = currentPlayer.getBoard().getRing(2).getFields();
+            Field[] innerFields = currentPlayer.getBoard().getRing(3).getFields();
 
-        for (int i = 0; i < 8; i++) {
-            if (i % 2 == 0) {
-                continue;
+            for (int i = 0; i < 8; i++) {
+                if (i % 2 == 0) {
+                    continue;
+                }
+                if ((outerFields[i].getPiece() != null && secondFields[i].getPiece() != null && innerFields[i].getPiece() != null)
+                        && (outerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+                        && secondFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
+                        && innerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
+                    return true;
+                }
             }
-            if ((outerFields[i].getPiece() != null && secondFields[i].getPiece() != null && innerFields[i].getPiece() != null)
-                    && (outerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                    && secondFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA()
-                    && innerFields[i].getPiece().getBelongsPlayerA() == currentPlayer.isPlayerA())) {
-                return true;
-            }
         }
-
         return false;
     }
 
