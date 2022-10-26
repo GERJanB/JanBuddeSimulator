@@ -105,16 +105,12 @@ public class Referee {
             Field[] secondFields = player.getBoard().getRing(2).getFields();
             Field[] innerFields = player.getBoard().getRing(3).getFields();
 
-            for (int i = 0; i < 8; i++) {
-                if (i % 2 == 0) {
-                    continue;
-                }
-                if ((outerFields[i].getPiece() != null && secondFields[i].getPiece() != null && innerFields[i].getPiece() != null)
-                        && (outerFields[i].getPiece().getBelongsPlayerA() == player.isPlayerA()
-                        && secondFields[i].getPiece().getBelongsPlayerA() == player.isPlayerA()
-                        && innerFields[i].getPiece().getBelongsPlayerA() == player.isPlayerA())) {
-                    return true;
-                }
+
+            if ((outerFields[position].getPiece() != null && secondFields[position].getPiece() != null && innerFields[position].getPiece() != null)
+                    && (outerFields[position].getPiece().getBelongsPlayerA() == player.isPlayerA()
+                    && secondFields[position].getPiece().getBelongsPlayerA() == player.isPlayerA()
+                    && innerFields[position].getPiece().getBelongsPlayerA() == player.isPlayerA())) {
+                return true;
             }
         }
         return false;
