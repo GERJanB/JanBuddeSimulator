@@ -122,4 +122,11 @@ public class Referee {
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
+
+    public Player getOtherPlayer() {
+        if (currentPlayer.isPlayerA()) {
+            return game.getPlayerB();
+        }
+        return game.getPlayerA();
+    }
 }

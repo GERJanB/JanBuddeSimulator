@@ -17,4 +17,7 @@ public interface IPresenter {
     String playerName();
     void setGamePhase(enumPhase phase);
     void switchPlayer();
+    boolean hasPlayerWon();
+
+    void resetValues();
 }

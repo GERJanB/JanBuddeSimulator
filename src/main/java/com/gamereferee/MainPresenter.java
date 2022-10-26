@@ -4,8 +4,6 @@ import Model.Move;
 import Model.Player;
 import Model.Referee;
 import Model.enumPhase;
-import View.DrawView;
-import View.IDrawView;
 import javafx.application.Platform;
 
 public class MainPresenter implements IPresenter {
@@ -20,6 +18,8 @@ public class MainPresenter implements IPresenter {
     }
 
     public void startGame() {
+        referee = null;
+
         Player playerA = new Player(true, true, enumPhase.placing);
         Player playerB = new Player(true, false, enumPhase.placing);
 
@@ -82,10 +82,26 @@ public class MainPresenter implements IPresenter {
     }
 
     public void removePiece(int ring, int position) {
-        referee.getCurrentPlayer().TakePiece(ring, position);
+        if (referee.getCurrentPlayer().TakePiece(ring, position)) {
+            var otherPlayer = referee.getOtherPlayer();
+            if (otherPlayer.isPiecesEmpty() && otherPlayer.getPiecesCountBoard() == 3)
+                otherPlayer.setGamePhase(enumPhase.threePieces);
+        }
     }
 
     public String playerName() {
         return referee.getCurrentPlayer().toString();
+    }
+
+    public boolean hasPlayerWon() {
+        if (referee.getOtherPlayer().getPiecesCountBoard() == 2 && referee.getOtherPlayer().isPiecesEmpty()) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void resetValues() {
+        startGame();
     }
 }

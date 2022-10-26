@@ -69,7 +69,7 @@ public class Player {
     public Move[] getPossibleMoves(int ring, int position) {
         Move[] moves;
 
-        if (ring == -1 && position == -1) {
+        if ((ring == -1 && position == -1) || (this.getPiecesCountBoard() == 3 && this.isPiecesEmpty())) {
             moves = new Move[24] ;
             int counter = 0;
             for (int r = 1; r < 4; r++) {
@@ -152,7 +152,6 @@ public class Player {
 
     private void CreatePieces() {
         pieces = new Stack<>();
-        //TODO: Anzahl auf 9 ändern
         for (int i = 0; i < 9; i++) {
             Piece piece = new Piece(isPlayerA);
             pieces.push(piece);
@@ -162,9 +161,9 @@ public class Player {
     @Override
     public String toString() {
         if (isPlayerA) {
-            return "Spieler A";
+            return "Schwarz";
         } else {
-            return "Spieler B";
+            return "Weiß";
         }
     }
 
@@ -174,6 +173,7 @@ public class Player {
         } else {
             board.getRing(ring).getFields()[position].setPiece(null);
             board.getRing(ring).getFields()[position].setOccupied(false);
+
             return true;
         }
     }

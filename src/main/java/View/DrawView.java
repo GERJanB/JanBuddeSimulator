@@ -1,6 +1,7 @@
 package View;
 
 import Model.Move;
+import Model.Piece;
 import Model.enumPhase;
 import com.gamereferee.IPresenter;
 import com.gamereferee.MainPresenter;
@@ -196,6 +197,7 @@ public class DrawView implements IDrawView {
             switch (presenter.getGamePhase()) {
                 case placing:
                 case moving:
+                case threePieces:
                     if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesEmpty() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
                         var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
@@ -220,17 +222,28 @@ public class DrawView implements IDrawView {
                         piecePane.getChildren().remove(uip);
                         uip = null;
 
+                        if (presenter.hasPlayerWon() || true) {
+                            statusUpdates.setText(presenter.playerName() + ", du hast gewonnen!");
+                            finish();
+                            break;
+                        }
+
                         if (!presenter.piecesEmpty()) {
                             presenter.setGamePhase(enumPhase.placing);
                         } else {
                             presenter.setGamePhase(enumPhase.moving);
                         }
+
                         presenter.switchPlayer();
 
-                        statusUpdates.setText(presenter.playerName() + ", du bist am Zug");
+                        if (presenter.getGamePhase() == enumPhase.threePieces) {
+                            statusUpdates.setText(presenter.playerName() + ", du hast nur noch 3 Steine. Du kannst zu jedem freien Feld springen");
+                        } else if (presenter.getGamePhase() == enumPhase.removing) {
+                            statusUpdates.setText(presenter.playerName() + ", nimm einen gegnerischen Stein vom Feld");
+                        } else {
+                            statusUpdates.setText(presenter.playerName() + ", du bist am Zug");
+                        }
                     }
-                    break;
-                case threePieces:
                     break;
             }
         };
@@ -257,6 +270,7 @@ public class DrawView implements IDrawView {
             switch (presenter.getGamePhase()) {
                 case placing:
                 case moving:
+                case threePieces:
                     if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesEmpty() || (uip.getRing() == -1 && uip.getPosition() == -1))){
                         var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
@@ -288,14 +302,17 @@ public class DrawView implements IDrawView {
                                 uip.setCenterX(field.getCenterX());
                                 uip.setCenterY(field.getCenterY());
                                 presenter.movePiece(new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition()));
-                                if (presenter.getGamePhase() == enumPhase.removing) {
+                                uip.setRing(currentMoves[i].getToRing());
+                                uip.setPosition(currentMoves[i].getToPosition());
+                                moved = true;
+
+                                if (presenter.getGamePhase() == enumPhase.threePieces) {
+                                    statusUpdates.setText(presenter.playerName() + ", du hast nur noch 3 Steine. Du kannst zu jedem freien Feld springen");
+                                } else if (presenter.getGamePhase() == enumPhase.removing) {
                                     statusUpdates.setText(presenter.playerName() + ", nimm einen gegnerischen Stein vom Feld");
                                 } else {
                                     statusUpdates.setText(presenter.playerName() + ", du bist am Zug");
                                 }
-                                uip.setRing(currentMoves[i].getToRing());
-                                uip.setPosition(currentMoves[i].getToPosition());
-                                moved = true;
                                 break;
                             }
                         }
@@ -305,9 +322,6 @@ public class DrawView implements IDrawView {
                             uip.setCenterX(xy[0]);
                         }
                     }
-                    break;
-                case threePieces:
-                    //TODO: Implement
                     break;
                 case removing:
                     break;
@@ -356,5 +370,15 @@ public class DrawView implements IDrawView {
     @Override
     public void setStatusUpdate(String status) {
         statusUpdates.setText(status);
+    }
+
+    private void finish() {
+        presenter.resetValues();
+        boardPane.getChildren().remove(piecePane);
+        piecePane = new Pane();
+        piecePane.setMaxSize(750, 750);
+        boardPane.getChildren().add(piecePane);
+
+        startGame();
     }
 }
