@@ -4,7 +4,7 @@ import Model.enumPhase;
 
 public interface IPresenter {
     void quitGame();
-    void startGame();
+    void startGame(boolean playerAisHuman, boolean playerBisHuman);
     boolean getCurrentPlayer();
 
     Move[] getMoves(int ring, int position);

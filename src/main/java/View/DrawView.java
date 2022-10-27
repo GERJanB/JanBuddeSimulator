@@ -1,21 +1,23 @@
 package View;
 
 import Model.Move;
-import Model.Piece;
 import Model.enumPhase;
 import com.gamereferee.IPresenter;
 import com.gamereferee.MainPresenter;
 import com.gamereferee.SceneManager;
 import com.gamereferee.UIPiece;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioMenuItem;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Line;;import java.io.IOException;
+import javafx.scene.shape.Line;
+
+import java.io.Console;
+import java.io.IOException;
 
 public class DrawView implements IDrawView {
     @FXML
@@ -26,6 +28,11 @@ public class DrawView implements IDrawView {
     private StackPane boardPane = new StackPane();
     @FXML
     private Pane piecePane = new Pane();
+    @FXML
+    private ToggleGroup playerA;
+    @FXML
+    private ToggleGroup playerB;
+
     Region mainField = new Region();
     Region rect1 = new Region();
     Region rect2 = new Region();
@@ -43,7 +50,11 @@ public class DrawView implements IDrawView {
     @FXML
     protected void startGame() {
         setFields();
-        presenter.startGame();
+
+        var pA = (RadioMenuItem) playerA.getSelectedToggle();
+        var pB = (RadioMenuItem) playerB.getSelectedToggle();
+
+        presenter.startGame(pA,pB);
         spawnPieces();
         statusUpdates.setText(presenter.playerName() + ", du bist am Zug");
     }

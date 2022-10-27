@@ -25,7 +25,7 @@
                                         <MenuItem accelerator="Shortcut+Q" text="_Beenden" onAction="#quitGameClick"/>
                                     </items>
                                 </Menu>
-                                <Menu text="Spieler _A">
+                                <Menu text="Spieler _A" fx:id="pA">
                                     <fx:define>
                                         <ToggleGroup fx:id="playerA" />
                                     </fx:define>
@@ -33,16 +33,15 @@
                                         <ToggleGroup fx:id="playerB" />
                                     </fx:define>
                                     <items>
-                                        <RadioMenuItem selected="true" text="Mensch">
-                                        </RadioMenuItem>
+                                        <RadioMenuItem selected="true" text="Mensch" toggleGroup="$playerA" />
                                         <RadioMenuItem text="AI" toggleGroup="$playerA" />
                                         <RadioMenuItem text="AI2" toggleGroup="$playerA" />
                                     </items>
                                 </Menu>
-                                <Menu text="Spieler _B">
+                                <Menu text="Spieler _B" fx:id="pB">
                                     <items>
-                                        <RadioMenuItem selected="true" text="AI">
-                                        </RadioMenuItem>
+                                        <RadioMenuItem selected="true" text="Mensch" toggleGroup="$playerB"/>
+                                        <RadioMenuItem text="AI" toggleGroup="$playerB" />
                                         <RadioMenuItem text="AI2" toggleGroup="$playerB" />
                                     </items>
                                 </Menu>

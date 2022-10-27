@@ -1,9 +1,6 @@
 package com.gamereferee;
 
-import Model.Move;
-import Model.Player;
-import Model.Referee;
-import Model.enumPhase;
+import Model.*;
 import javafx.application.Platform;
 
 public class MainPresenter implements IPresenter {
@@ -17,12 +14,24 @@ public class MainPresenter implements IPresenter {
         Platform.exit();
     }
 
-    public void startGame() {
+    public void startGame(String pA, String pB) {
         referee = null;
 
-        Player playerA = new Player(true, true, enumPhase.placing);
-        Player playerB = new Player(true, false, enumPhase.placing);
+        Player playerA;
+        Player playerB;
 
+
+        if (pA.equals("Mensch")) {
+            playerA = new Player(true, true, enumPhase.placing);
+        } else {
+            playerA = new AIPlayer(false, true, enumPhase.placing);
+        }
+
+        if (pB.equals("Mensch")) {
+            playerB = new Player(true, false, enumPhase.placing);
+        } else {
+            playerB = new AIPlayer(false, false, enumPhase.placing);
+        }
         referee = new Referee(playerA, playerB);
     }
 
@@ -108,7 +117,7 @@ public class MainPresenter implements IPresenter {
 
     @Override
     public void resetValues() {
-        startGame();
+        startGame(true, true);
     }
 
     public boolean hasMovesLeft() {
