@@ -19,7 +19,7 @@ import javafx.scene.shape.Line;
 import java.io.Console;
 import java.io.IOException;
 
-public class DrawView implements IDrawView {
+public class DrawView {
     @FXML
     private Label statusUpdates;
     @FXML
@@ -246,12 +246,6 @@ public class DrawView implements IDrawView {
                             break;
                         }
 
-                        if (!presenter.hasMovesLeft()) {
-                            statusUpdates.setText(presenter.playerName() + " hat gewonnen, da " + presenter.otherPlayerName() + " keine Spielzüge mehr übrig hat");
-                            finish();
-                            break;
-                        }
-
                         if (!presenter.piecesEmpty()) {
                             presenter.setGamePhase(enumPhase.placing);
                         } else {
@@ -335,12 +329,6 @@ public class DrawView implements IDrawView {
                                 uip.setPosition(currentMoves[i].getToPosition());
                                 moved = true;
 
-                                if (!presenter.hasMovesLeft()) {
-                                    statusUpdates.setText(presenter.playerName() + " hat gewonnen, da " + presenter.otherPlayerName() + " keine Spielzüge mehr übrig hat");
-                                    finish();
-                                    break;
-                                }
-
                                 if (presenter.getGamePhase() == enumPhase.threePieces) {
                                     statusUpdates.setText(presenter.playerName() + ", du hast nur noch 3 Steine. Du kannst zu jedem freien Feld springen");
                                 } else if (presenter.getGamePhase() == enumPhase.removing) {
@@ -410,11 +398,6 @@ public class DrawView implements IDrawView {
             piece.setOnMouseDragged(dragPiece);
             piece.setOnMouseReleased(dropPiece);
         }
-    }
-
-    @Override
-    public void setStatusUpdate(String status) {
-        statusUpdates.setText(status);
     }
 
     private void finish() {
