@@ -1,5 +1,7 @@
 package View;
 
+import Model.DummyPlayer;
+import Model.Field;
 import Model.Move;
 import Model.enumPhase;
 import com.gamereferee.IPresenter;
@@ -16,8 +18,12 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
-import java.io.Console;
-import java.io.IOException;
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.jar.JarInputStream;
+import java.util.jar.Manifest;
 
 public class DrawView {
     @FXML
@@ -61,6 +67,8 @@ public class DrawView {
 
     @FXML
     public void initialize() {
+        LoadAi();
+
         DrawField();
     }
 
@@ -411,5 +419,24 @@ public class DrawView {
     @FXML
     private void newWindow() throws IOException {
         SceneManager.createNewStage();
+    }
+
+    private void LoadAi() {
+        try {
+            File path = new File("Programms");
+            for (var item : path.listFiles()) {
+                URLClassLoader child = new URLClassLoader(
+                        new URL[] {item.toURI().toURL()},
+                        this.getClass().getClassLoader()
+                );
+
+                Class classToLoad = Class.forName("Model.DummyPlayer", true, child);
+                Object dummy = classToLoad.newInstance();
+                var ss = 0;
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getCause());
+        }
     }
 }

@@ -153,7 +153,6 @@ public abstract class Player {
     }
 
     private void CreatePieces() {
-        
         pieces = new Stack<>();
         for (int i = 0; i < 9; i++) {
             Piece piece = new Piece(isPlayerA);
