@@ -81,7 +81,7 @@ public class Player {
                 }
             }
 
-            return moves;
+            return counter == 0 ? null : moves;
         }
 
         if (position % 2 == 1) {

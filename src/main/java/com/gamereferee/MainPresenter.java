@@ -31,7 +31,9 @@ public class MainPresenter implements IPresenter {
     }
 
     public Move[] getMoves(int ring, int position) {
-        return referee.getCurrentPlayer().getPossibleMoves(ring, position);
+        var moves =  referee.getCurrentPlayer().getPossibleMoves(ring, position);
+
+        return moves == null ? new Move[1] : moves;
     }
 
     public void movePiece(Move move) {
@@ -93,6 +95,10 @@ public class MainPresenter implements IPresenter {
         return referee.getCurrentPlayer().toString();
     }
 
+    public String otherPlayerName() {
+        return referee.getOtherPlayer().toString();
+    }
+
     public boolean hasPlayerWon() {
         if (referee.getOtherPlayer().getPiecesCountBoard() == 2 && referee.getOtherPlayer().isPiecesEmpty()) {
             return true;
@@ -103,5 +109,20 @@ public class MainPresenter implements IPresenter {
     @Override
     public void resetValues() {
         startGame();
+    }
+
+    public boolean hasMovesLeft() {
+        for (int ring = 0; ring < 3; ring++) {
+            var rng = referee.getOtherPlayer().getBoard().getRing(ring).getFields();
+
+            for (int pos = 0; pos < rng.length; pos++) {
+                if (rng[pos].getPiece() != null && rng[pos].getPiece().getBelongsPlayerA() == referee.getOtherPlayer().isPlayerA()) {
+                    if (referee.getOtherPlayer().getPossibleMoves(ring + 1, pos) != null) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 }

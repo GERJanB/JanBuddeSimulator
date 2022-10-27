@@ -20,4 +20,7 @@ public interface IPresenter {
     boolean hasPlayerWon();
 
     void resetValues();
+    boolean hasMovesLeft();
+
+    String otherPlayerName();
 }

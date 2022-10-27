@@ -201,6 +201,11 @@ public class DrawView implements IDrawView {
                 case moving:
                 case threePieces:
                     if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesEmpty() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
+                        switch (uip.getRing()) {
+                            case 1 -> outerUIFields[uip.getPosition()].setStroke(Color.BLUE);
+                            case 2 -> secondUIFields[uip.getPosition()].setStroke(Color.BLUE);
+                            case 3 -> innerUIFields[uip.getPosition()].setStroke(Color.BLUE);
+                        }
                         var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
                         for (int i = 0; i < currentMoves.length; i++) {
@@ -224,8 +229,14 @@ public class DrawView implements IDrawView {
                         piecePane.getChildren().remove(uip);
                         uip = null;
 
-                        if (presenter.hasPlayerWon() || true) {
+                        if (presenter.hasPlayerWon()) {
                             statusUpdates.setText(presenter.playerName() + ", du hast gewonnen!");
+                            finish();
+                            break;
+                        }
+
+                        if (!presenter.hasMovesLeft()) {
+                            statusUpdates.setText(presenter.playerName() + " hat gewonnen, da " + presenter.otherPlayerName() + " keine Spielzüge mehr übrig hat");
                             finish();
                             break;
                         }
@@ -274,6 +285,11 @@ public class DrawView implements IDrawView {
                 case moving:
                 case threePieces:
                     if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesEmpty() || (uip.getRing() == -1 && uip.getPosition() == -1))){
+                        switch (uip.getRing()) {
+                            case 1 -> outerUIFields[uip.getPosition()].setStroke(Color.TRANSPARENT);
+                            case 2 -> secondUIFields[uip.getPosition()].setStroke(Color.TRANSPARENT);
+                            case 3 -> innerUIFields[uip.getPosition()].setStroke(Color.TRANSPARENT);
+                        }
                         var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
                         for (int i = 0; i < currentMoves.length; i++) {
@@ -307,6 +323,12 @@ public class DrawView implements IDrawView {
                                 uip.setRing(currentMoves[i].getToRing());
                                 uip.setPosition(currentMoves[i].getToPosition());
                                 moved = true;
+
+                                if (!presenter.hasMovesLeft()) {
+                                    statusUpdates.setText(presenter.playerName() + " hat gewonnen, da " + presenter.otherPlayerName() + " keine Spielzüge mehr übrig hat");
+                                    finish();
+                                    break;
+                                }
 
                                 if (presenter.getGamePhase() == enumPhase.threePieces) {
                                     statusUpdates.setText(presenter.playerName() + ", du hast nur noch 3 Steine. Du kannst zu jedem freien Feld springen");
