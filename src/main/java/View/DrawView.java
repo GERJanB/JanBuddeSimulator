@@ -54,7 +54,7 @@ public class DrawView implements IDrawView {
         var pA = (RadioMenuItem) playerA.getSelectedToggle();
         var pB = (RadioMenuItem) playerB.getSelectedToggle();
 
-        presenter.startGame(pA,pB);
+        presenter.startGame(pA.getText(),pB.getText());
         spawnPieces();
         statusUpdates.setText(presenter.playerName() + ", du bist am Zug");
     }
@@ -418,11 +418,11 @@ public class DrawView implements IDrawView {
     }
 
     private void finish() {
-        presenter.resetValues();
         boardPane.getChildren().remove(piecePane);
         piecePane = new Pane();
         piecePane.setMaxSize(750, 750);
         boardPane.getChildren().add(piecePane);
+        presenter.resetValues();
     }
 
     @FXML

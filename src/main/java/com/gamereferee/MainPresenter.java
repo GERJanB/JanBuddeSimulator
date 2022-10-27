@@ -117,7 +117,7 @@ public class MainPresenter implements IPresenter {
 
     @Override
     public void resetValues() {
-        startGame(true, true);
+        startGame("Mensch", "Mensch");
     }
 
     public boolean hasMovesLeft() {
