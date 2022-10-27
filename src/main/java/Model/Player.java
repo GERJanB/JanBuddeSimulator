@@ -2,7 +2,7 @@ package Model;
 
 import java.util.Stack;
 
-public class Player {
+public abstract class Player {
     private final Boolean isHumanPlayer;
     private final Boolean isPlayerA;
 
@@ -22,6 +22,8 @@ public class Player {
     public enumPhase getGamePhase() {
         return gamePhase;
     }
+
+    public abstract Move getNextMove(Move move);
 
     public void setGamePhase(enumPhase gamePhase) {
         this.gamePhase = gamePhase;
