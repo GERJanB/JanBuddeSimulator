@@ -1,9 +1,5 @@
 package Model;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.Predicate;
-
 public class Board {
     private Ring outerRing = new Ring();
     private Ring secondRing = new Ring();

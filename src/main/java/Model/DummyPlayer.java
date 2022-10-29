@@ -4,15 +4,15 @@ public class DummyPlayer extends Player {
 
     Board board;
 
-    public DummyPlayer(Boolean isHumanPlayer, Boolean isPlayerA, enumPhase phase) {
-        super(isHumanPlayer, isPlayerA, phase);
+    public DummyPlayer(Boolean isPlayerA, enumPhase phase) {
+        super(isPlayerA, phase);
         this.board = super.getBoard();
     }
 
     @Override
     public Move getNextMove(Move move) {
         if (move != null) {
-            this.movePiece(move);
+            super.movePiece(move);
         }
 
         Move mv = getMove();

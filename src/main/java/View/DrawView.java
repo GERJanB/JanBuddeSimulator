@@ -422,21 +422,6 @@ public class DrawView {
     }
 
     private void LoadAi() {
-        try {
-            File path = new File("Programms");
-            for (var item : path.listFiles()) {
-                URLClassLoader child = new URLClassLoader(
-                        new URL[] {item.toURI().toURL()},
-                        this.getClass().getClassLoader()
-                );
 
-                Class classToLoad = Class.forName("Model.DummyPlayer", true, child);
-                Object dummy = classToLoad.newInstance();
-                var ss = 0;
-            }
-
-        } catch (Exception e) {
-            System.out.println(e.getCause());
-        }
     }
 }

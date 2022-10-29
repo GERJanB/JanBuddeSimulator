@@ -22,15 +22,15 @@ public class MainPresenter implements IPresenter {
 
 
         if (pA.equals("Mensch")) {
-            playerA = new HumanPlayer(true, true, enumPhase.placing);
+            playerA = new HumanPlayer(true, enumPhase.placing);
         } else {
-            playerA = new DummyPlayer(false, true, enumPhase.placing);
+            playerA = new DummyPlayer(true, enumPhase.placing);
         }
 
         if (pB.equals("Mensch")) {
-            playerB = new HumanPlayer(true, false, enumPhase.placing);
+            playerB = new HumanPlayer( false, enumPhase.placing);
         } else {
-            playerB = new DummyPlayer(false, false, enumPhase.placing);
+            playerB = new DummyPlayer( false, enumPhase.placing);
         }
         referee = new Referee(playerA, playerB);
     }

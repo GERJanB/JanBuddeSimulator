@@ -3,30 +3,55 @@ package Model;
 import java.util.Stack;
 
 public abstract class Player {
-    private final Boolean isHumanPlayer;
-    private final Boolean isPlayerA;
-
+    private Board board;
+    private  Boolean isPlayerA;
     private enumPhase gamePhase;
 
-    private Board board;
     private Stack<Piece> pieces;
 
-    public Player(Boolean isHumanPlayer, Boolean isPlayerA, enumPhase phase) {
-        this.isHumanPlayer = isHumanPlayer;
-        this.isPlayerA = isPlayerA;
+    public Player(Boolean isPlayerA, enumPhase phase) {
         this.gamePhase = phase;
+        this.isPlayerA = isPlayerA;
 
         CreatePieces();
     }
 
-    public enumPhase getGamePhase() {
-        return gamePhase;
+    private void CreatePieces() {
+        pieces = new Stack<>();
+        for (int i = 0; i < 9; i++) {
+            Piece piece = new Piece(isPlayerA);
+            pieces.push(piece);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return isPlayerA ? "Schwarz" : "Weiß";
     }
 
     public abstract Move getNextMove(Move move);
 
-    public void setGamePhase(enumPhase gamePhase) {
-        this.gamePhase = gamePhase;
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public Boolean TakePiece(int ring, int position) {
+        if (board.getRing(ring).getFields()[position].getPiece().getBelongsPlayerA() == isPlayerA) {
+            return false;
+        } else {
+            board.getRing(ring).getFields()[position].setPiece(null);
+            board.getRing(ring).getFields()[position].setOccupied(false);
+
+            return true;
+        }
+    }
+
+    public int getPiecesCountBoard() {
+        return board.getPlayerPieces(this);
     }
 
     public Boolean isPlayerA() {
@@ -37,35 +62,12 @@ public abstract class Player {
         return pieces.isEmpty();
     }
 
-    public int getPiecesCountBoard() {
-        return board.getPlayerPieces(this);
+    public void setGamePhase(enumPhase gamePhase) {
+        this.gamePhase = gamePhase;
     }
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public void setBoard(Board board) {
-        this.board = board;
-    }
-
-    public void movePiece(Move move) {
-        if ((move.getFromRing() != move.getToRing() && move.getFromPosition() % 2 == 1) || getPiecesCountBoard() == 3) {
-            var fields = board.getRing(move.getToRing()).getFields();
-            var fieldsFrom = board.getRing(move.getFromRing()).getFields();
-
-            fieldsFrom[move.getFromPosition()].setOccupied(false);
-            fields[move.getToPosition()].setOccupied(true);
-            fields[move.getToPosition()].setPiece(fieldsFrom[move.getFromPosition()].getPiece());
-            fieldsFrom[move.getFromPosition()].setPiece(null);
-        } else {
-            var fields = board.getRing(move.getToRing()).getFields();
-
-            fields[move.getFromPosition()].setOccupied(false);
-            fields[move.getToPosition()].setOccupied(true);
-            fields[move.getToPosition()].setPiece(fields[move.getFromPosition()].getPiece());
-            fields[move.getFromPosition()].setPiece(null);
-        }
+    public enumPhase getGamePhase() {
+        return gamePhase;
     }
 
     public Move[] getPossibleMoves(int ring, int position) {
@@ -145,38 +147,29 @@ public abstract class Player {
         return moves;
     }
 
+    public void movePiece(Move move) {
+        if ((move.getFromRing() != move.getToRing() && move.getFromPosition() % 2 == 1) || getPiecesCountBoard() == 3) {
+            var fields = board.getRing(move.getToRing()).getFields();
+            var fieldsFrom = board.getRing(move.getFromRing()).getFields();
+
+            fieldsFrom[move.getFromPosition()].setOccupied(false);
+            fields[move.getToPosition()].setOccupied(true);
+            fields[move.getToPosition()].setPiece(fieldsFrom[move.getFromPosition()].getPiece());
+            fieldsFrom[move.getFromPosition()].setPiece(null);
+        } else {
+            var fields = board.getRing(move.getToRing()).getFields();
+
+            fields[move.getFromPosition()].setOccupied(false);
+            fields[move.getToPosition()].setOccupied(true);
+            fields[move.getToPosition()].setPiece(fields[move.getFromPosition()].getPiece());
+            fields[move.getFromPosition()].setPiece(null);
+        }
+    }
+
     public Boolean PlacePiece(Move move) {
         Piece piece = pieces.pop();
         boolean pieceAdded = board.AddPiece(piece, move.getToRing(), move.getToPosition());
         if (!pieceAdded) pieces.push(piece);
         return pieceAdded;
-    }
-
-    private void CreatePieces() {
-        pieces = new Stack<>();
-        for (int i = 0; i < 9; i++) {
-            Piece piece = new Piece(isPlayerA);
-            pieces.push(piece);
-        }
-    }
-
-    @Override
-    public String toString() {
-        if (isPlayerA) {
-            return "Schwarz";
-        } else {
-            return "Weiß";
-        }
-    }
-
-    public Boolean TakePiece(int ring, int position) {
-        if (board.getRing(ring).getFields()[position].getPiece().getBelongsPlayerA() == isPlayerA) {
-            return false;
-        } else {
-            board.getRing(ring).getFields()[position].setPiece(null);
-            board.getRing(ring).getFields()[position].setOccupied(false);
-
-            return true;
-        }
     }
 }
