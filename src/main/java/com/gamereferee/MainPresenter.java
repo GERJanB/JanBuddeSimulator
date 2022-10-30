@@ -47,9 +47,15 @@ public class MainPresenter implements IPresenter {
 
     public void movePiece(Move move) {
         if (move.getFromPosition() == -1 && move.getFromRing() == -1) {
-            referee.getCurrentPlayer().PlacePiece(move);
+            referee.getCurrentPlayer().PlacePiece(move, null);
+
+            var piece = referee.getCurrentPlayer().getBoard().getRing(move.getToRing()).getFields()[move.getToPosition()].getPiece();
+
+            referee.getOtherPlayer().PlacePiece(move, piece);
+
         } else {
             referee.getCurrentPlayer().movePiece(move);
+            referee.getOtherPlayer().movePiece(move);
         }
         if (pieceInMill(move.getToRing(), move.getToPosition())) {
             referee.getCurrentPlayer().setGamePhase(enumPhase.removing);

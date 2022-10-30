@@ -332,7 +332,11 @@ public class DrawView {
                             if (field != null && uip.getBoundsInParent().intersects(field.getBoundsInParent())) {
                                 uip.setCenterX(field.getCenterX());
                                 uip.setCenterY(field.getCenterY());
-                                presenter.movePiece(new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition()));
+
+                                Move move = new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition());
+                                presenter.movePiece(move);
+
+
                                 uip.setRing(currentMoves[i].getToRing());
                                 uip.setPosition(currentMoves[i].getToPosition());
                                 moved = true;
