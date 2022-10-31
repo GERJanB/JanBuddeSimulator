@@ -1,6 +1,7 @@
 package View;
 
 import Model.Move;
+import Model.Test;
 import Model.enumPhase;
 import com.gamereferee.IPresenter;
 import com.gamereferee.MainPresenter;
@@ -328,7 +329,6 @@ public class DrawView {
 
                                 Move move = new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition());
                                 presenter.movePiece(move);
-
 
                                 uip.setRing(currentMoves[i].getToRing());
                                 uip.setPosition(currentMoves[i].getToPosition());

@@ -142,7 +142,10 @@ public abstract class Player {
     }
 
     public void movePiece(Move move) {
-        if ((move.getFromRing() != move.getToRing() && move.getFromPosition() % 2 == 1) || getPiecesCountBoard() == 3) {
+        boolean fromOtherPlayer = board.getRing(move.getFromRing()).getFields()[move.getFromPosition()].getPiece().getBelongsPlayerA() != isPlayerA;
+
+        if ((move.getFromRing() != move.getToRing() && move.getFromPosition() % 2 == 1)
+                || (getPiecesCountBoard() == 3 || fromOtherPlayer)) {
             var fields = board.getRing(move.getToRing()).getFields();
             var fieldsFrom = board.getRing(move.getFromRing()).getFields();
 

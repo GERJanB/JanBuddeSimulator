@@ -3,6 +3,8 @@ package com.gamereferee;
 import Model.*;
 import javafx.application.Platform;
 
+import java.io.Console;
+
 public class MainPresenter implements IPresenter {
     Referee referee;
 
@@ -57,6 +59,14 @@ public class MainPresenter implements IPresenter {
             referee.getCurrentPlayer().movePiece(move);
             referee.getOtherPlayer().movePiece(move);
         }
+
+        IO.println();
+        IO.println(referee.getCurrentPlayer().toString());
+        Test.printBoard(referee.getCurrentPlayer().getBoard());
+        IO.println();
+        IO.println(referee.getOtherPlayer().toString());
+        Test.printBoard(referee.getOtherPlayer().getBoard());
+
         if (pieceInMill(move.getToRing(), move.getToPosition())) {
             referee.getCurrentPlayer().setGamePhase(enumPhase.removing);
             if (!referee.AllPiecesInMill()){
@@ -105,6 +115,13 @@ public class MainPresenter implements IPresenter {
     public void removePiece(int ring, int position) {
         referee.getCurrentPlayer().TakePiece(ring, position);
         referee.getOtherPlayer().TakePiece(ring, position);
+
+        IO.println();
+        IO.println(referee.getCurrentPlayer().toString());
+        Test.printBoard(referee.getCurrentPlayer().getBoard());
+        IO.println();
+        IO.println(referee.getOtherPlayer().toString());
+        Test.printBoard(referee.getOtherPlayer().getBoard());
 
         var otherPlayer = referee.getOtherPlayer();
         if (otherPlayer.isPiecesEmpty() && otherPlayer.getPiecesCountBoard() == 3)
