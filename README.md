@@ -26,3 +26,6 @@ gewinnen.
 4. Aufgabenblatt 4 vollständig bearbeitet
 5. Aufgabenblatt 5,6,7 nur eine Jar eines DummyPlayers erstellt, welcher den zuerst gefundenen Move zurückliefern würde
 6. Aufgabenblatt 7 → Status Updates werden unten links angezeigt
+
+# Welche Java Version wurde verwendet?
+- openjdk18
