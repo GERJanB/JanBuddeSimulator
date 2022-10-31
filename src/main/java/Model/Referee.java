@@ -1,22 +1,20 @@
 package Model;
 
 public class Referee {
-    private Board board = new Board();
+    private Board board;
     private Player currentPlayer;
 
     private Game game;
 
     public Referee(Player playerA, Player playerB) {
-        game = new Game(playerA, playerB, board, enumPhase.placing);
-        playerA.setBoard(board);
-        playerB.setBoard(board);
+        playerA.setBoard(new Board());
+        playerB.setBoard(new Board());
         currentPlayer = playerA;
-    }
 
-    public Board getBoard() {
-        return board;
-    }
+        board = currentPlayer.getBoard();
 
+        game = new Game(playerA, playerB, board, enumPhase.placing);
+    }
     public void SwitchPlayer() {
         if (currentPlayer.isPlayerA()) {
             currentPlayer = game.getPlayerB();
