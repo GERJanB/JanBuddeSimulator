@@ -435,6 +435,8 @@ public class DrawView {
 
         stop.setDisable(true);
         mStop.setDisable(true);
+
+        if (statusUpdates.getText().contains("gewonnen")) startGame();
     }
 
     @FXML

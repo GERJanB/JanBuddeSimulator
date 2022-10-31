@@ -23,6 +23,19 @@ public class DummyPlayer extends Player {
     }
 
     private Move getMove() {
+        for (int ring = 1; ring < 3; ring++) {
+            for (int pos = 0; pos < board.getRing(ring).getFields().length; pos++){
+                if (board.getRing(ring).getFields()[pos].getPiece().getBelongsPlayerA() == this.isPlayerA()) {
+                    var mvs = getPossibleMoves(ring,pos);
+                    for (int i = 0; i < mvs.length; i++){
+                        if (mvs[i] != null) {
+                            return mvs[i];
+                        }
+                    }
+                }
+            }
+        }
+
         return null;
     }
 

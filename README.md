@@ -20,14 +20,9 @@ um ein Feld verschoben werden darf. Er kann pro Zug einen Stein auf ein beliebig
 gewinnen.
 
 # Was funktioniert?
-1. Mensch gegen Mensch
-2. Ausgaben, welcher Spieler aktuell dran ist werden angezeigt
-3. Ein Spieler wird benachrichtigt, sobald dieser nur noch drei Steine hat und auf jedes freie Feld springen darf
-4. Es können mehrere Instanzen des Spiels geöffnet werden, welche unabhängig von einander ablaufen. Es werden alle
-Instanzen geschlossen, wenn in einer der offenen Instanzen das Spiel beendet wird
-5. Sobald ein Spiel gewonnen wurde, wird automatisch das UI resetet und es kann ein neues Spiel gestartet werden
-6. Accelatoren und Mnemonics funktionieren
-7. Wenn das Fenster zu klein für das Spielfeld wird, erscheinen Scrollbars mit denen über das Spielfeld gescrollt werden kann
-8. Beim anklicken einer Spielfigur werden alle mögliche Spielzüge angezeigt, Das Ausgangsfeld wird blau makiert
-9. Wenn ein falscher Spielzug ausgeführt wird, wird die Figur automatisch auf das Ausgangsfeld zurückgesetzt. 
-Dies passiert solange bis der Spieler einen gültigen Spielzug ausführt
+1. Aufgabenblatt 1 vollständig bearbeitet → alles funktioniert
+2. Aufgabenblatt 2 vollständig bearbeitet → Testprogramm wurde entfernt
+3. Aufgabenblatt 3 vollständig bearbeitet → alles funktioniert
+4. Aufgabenblatt 4 vollständig bearbeitet
+5. Aufgabenblatt 5,6,7 nur eine Jar eines DummyPlayers erstellt, welcher den zuerst gefundenen Move zurückliefern würde
+6. Aufgabenblatt 7 → Status Updates werden unten links angezeigt
