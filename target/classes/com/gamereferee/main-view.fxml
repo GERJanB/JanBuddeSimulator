@@ -20,8 +20,8 @@
                                     <items>
                                         <MenuItem accelerator="Shortcut+N" text="_Neues Spiel" onAction="#newWindow" />
                                         <SeparatorMenuItem />
-                                        <MenuItem accelerator="Shortcut+R" text="St_art" onAction="#startGame" />
-                                        <MenuItem accelerator="Shortcut+S" text="St_op" />
+                                        <MenuItem accelerator="Shortcut+R" text="St_art" onAction="#startGame" fx:id="mPlay"/>
+                                        <MenuItem accelerator="Shortcut+S" text="St_op" onAction="#finish" fx:id="mStop" disable="true"/>
                                         <MenuItem accelerator="Shortcut+Q" text="_Beenden" onAction="#quitGameClick"/>
                                     </items>
                                 </Menu>
@@ -51,14 +51,11 @@
                             <Button fx:id="new" onAction="#newWindow">
                                 <tooltip><Tooltip text="Neues Spiel" /> </tooltip>
                             </Button>
-                            <Button fx:id="print">
-                                <tooltip><Tooltip text="Spielfeld drucken" /> </tooltip>
-                            </Button>
                             <Separator />
                             <Button fx:id="play" onAction="#startGame">
                                 <tooltip><Tooltip text="Spiel starten" /> </tooltip>
                             </Button>
-                            <Button fx:id="stop" onAction="#finish">
+                            <Button fx:id="stop" onAction="#finish" disable="true">
                                 <tooltip><Tooltip text="Spiel beenden" /> </tooltip>
                             </Button>
                         </ToolBar>

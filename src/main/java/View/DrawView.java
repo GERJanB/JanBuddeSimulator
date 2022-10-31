@@ -9,10 +9,7 @@ import com.gamereferee.SceneManager;
 import com.gamereferee.UIPiece;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -35,6 +32,12 @@ public class DrawView {
     private ToggleGroup playerB;
     @FXML
     private Button play;
+    @FXML
+    private Button stop;
+    @FXML
+    private MenuItem mPlay;
+    @FXML
+    private MenuItem mStop;
 
     Region mainField = new Region();
     Region rect1 = new Region();
@@ -55,6 +58,11 @@ public class DrawView {
     @FXML
     protected void startGame() {
         play.setDisable(true);
+        mPlay.setDisable(true);
+
+        stop.setDisable(false);
+        mStop.setDisable(false);
+
         setFields();
 
         var pA = (RadioMenuItem) playerA.getSelectedToggle();
@@ -423,6 +431,10 @@ public class DrawView {
         boardPane.getChildren().add(piecePane);
         presenter.resetValues();
         play.setDisable(false);
+        mPlay.setDisable(false);
+
+        stop.setDisable(true);
+        mStop.setDisable(true);
     }
 
     @FXML
