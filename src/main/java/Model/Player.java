@@ -166,10 +166,10 @@ public abstract class Player {
         }
     }
 
-    public Boolean PlacePiece(Move move, Piece piece) {
-        piece = piece == null ? pieces.pop() : piece;
-        boolean pieceAdded = board.AddPiece(piece, move.getToRing(), move.getToPosition());
-        if (!pieceAdded) pieces.push(piece);
-        return pieceAdded;
+    public void PlacePiece(Move move, Piece piece) {
+        if (piece == null) {
+            piece = pieces.pop();
+        }
+        board.AddPiece(piece, move.getToRing(), move.getToPosition());
     }
 }

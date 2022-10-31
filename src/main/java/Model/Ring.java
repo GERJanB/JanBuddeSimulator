@@ -13,13 +13,11 @@ public class Ring {
         }
     }
 
-    public Boolean AddPiece(Piece piece, int position) {
+    public void AddPiece(Piece piece, int position) {
         if (!fields[position].isOccupied()) {
             fields[position].setPiece(piece);
             fields[position].setOccupied(true);
-            return true;
         }
-        return false;
     }
 
     public Field[] getFields() {

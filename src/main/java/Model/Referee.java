@@ -18,15 +18,10 @@ public class Referee {
     }
 
     public void SwitchPlayer() {
-        this.board = currentPlayer.getBoard();
         if (currentPlayer.isPlayerA()) {
             currentPlayer = game.getPlayerB();
-            currentPlayer.setBoard(board);
-            game.setPlayerB(currentPlayer);
         } else {
             currentPlayer = game.getPlayerA();
-            currentPlayer.setBoard(board);
-            game.setPlayerA(currentPlayer);
         }
     }
 
