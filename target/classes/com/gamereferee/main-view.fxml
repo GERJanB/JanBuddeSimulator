@@ -58,7 +58,7 @@
                             <Button fx:id="play" onAction="#startGame">
                                 <tooltip><Tooltip text="Spiel starten" /> </tooltip>
                             </Button>
-                            <Button fx:id="stop" onAction="#quitGameClick">
+                            <Button fx:id="stop" onAction="#finish">
                                 <tooltip><Tooltip text="Spiel beenden" /> </tooltip>
                             </Button>
                         </ToolBar>

@@ -9,6 +9,7 @@ import com.gamereferee.SceneManager;
 import com.gamereferee.UIPiece;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.ToggleGroup;
@@ -32,6 +33,8 @@ public class DrawView {
     private ToggleGroup playerA;
     @FXML
     private ToggleGroup playerB;
+    @FXML
+    private Button play;
 
     Region mainField = new Region();
     Region rect1 = new Region();
@@ -44,11 +47,14 @@ public class DrawView {
     UIPiece[] secondUIFields = new UIPiece[8];
     UIPiece[] innerUIFields = new UIPiece[8];
 
+    boolean lastWasRemoving = false;
+
 
     IPresenter presenter = new MainPresenter();
 
     @FXML
     protected void startGame() {
+        play.setDisable(true);
         setFields();
 
         var pA = (RadioMenuItem) playerA.getSelectedToggle();
@@ -250,8 +256,10 @@ public class DrawView {
 
                         if (!presenter.piecesEmpty()) {
                             presenter.setGamePhase(enumPhase.placing);
+                            lastWasRemoving = true;
                         } else {
                             presenter.setGamePhase(enumPhase.moving);
+                            lastWasRemoving = true;
                         }
 
                         presenter.switchPlayer();
@@ -285,87 +293,89 @@ public class DrawView {
         };
 
         EventHandler<MouseEvent> dropPiece = e -> {
-            UIPiece uip = (UIPiece) e.getSource();
+            if (!lastWasRemoving) {
+                UIPiece uip = (UIPiece) e.getSource();
 
-            switch (presenter.getGamePhase()) {
-                case placing:
-                case moving:
-                case threePieces:
-                    if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesEmpty() || (uip.getRing() == -1 && uip.getPosition() == -1))){
-                        switch (uip.getRing()) {
-                            case 1 -> outerUIFields[uip.getPosition()].setStroke(Color.TRANSPARENT);
-                            case 2 -> secondUIFields[uip.getPosition()].setStroke(Color.TRANSPARENT);
-                            case 3 -> innerUIFields[uip.getPosition()].setStroke(Color.TRANSPARENT);
-                        }
-                        var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
-
-                        for (int i = 0; i < currentMoves.length; i++) {
-                            if (currentMoves[i] == null)
-                                continue;
-
-                            switch (currentMoves[i].getToRing()) {
-                                case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
-                                case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
-                                case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                switch (presenter.getGamePhase()) {
+                    case placing:
+                    case moving:
+                    case threePieces:
+                        if ((uip.getBelongsPlayerA() == presenter.getCurrentPlayer()) && (presenter.piecesEmpty() || (uip.getRing() == -1 && uip.getPosition() == -1))) {
+                            switch (uip.getRing()) {
+                                case 1 -> outerUIFields[uip.getPosition()].setStroke(Color.TRANSPARENT);
+                                case 2 -> secondUIFields[uip.getPosition()].setStroke(Color.TRANSPARENT);
+                                case 3 -> innerUIFields[uip.getPosition()].setStroke(Color.TRANSPARENT);
                             }
-                        }
+                            var currentMoves = presenter.getMoves(uip.getRing(), uip.getPosition());
 
-                        boolean moved = false;
-                        for (int i = 0; i < currentMoves.length; i++) {
-                            if (currentMoves[i] == null) {
-                                continue;
-                            }
+                            for (int i = 0; i < currentMoves.length; i++) {
+                                if (currentMoves[i] == null)
+                                    continue;
 
-                            UIPiece field = null;
-                            switch (currentMoves[i].getToRing()) {
-                                case 1 -> field = outerUIFields[currentMoves[i].getToPosition()];
-                                case 2 -> field = secondUIFields[currentMoves[i].getToPosition()];
-                                case 3 -> field = innerUIFields[currentMoves[i].getToPosition()];
-                            }
-
-                            if (field != null && uip.getBoundsInParent().intersects(field.getBoundsInParent())) {
-                                uip.setCenterX(field.getCenterX());
-                                uip.setCenterY(field.getCenterY());
-
-                                Move move = new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition());
-                                presenter.movePiece(move);
-
-                                uip.setRing(currentMoves[i].getToRing());
-                                uip.setPosition(currentMoves[i].getToPosition());
-                                moved = true;
-
-                                if (presenter.getGamePhase() == enumPhase.threePieces) {
-                                    statusUpdates.setText(presenter.playerName() + ", du hast nur noch 3 Steine. Du kannst zu jedem freien Feld springen");
-                                } else if (presenter.getGamePhase() == enumPhase.removing) {
-                                    statusUpdates.setText(presenter.playerName() + ", nimm einen gegnerischen Stein vom Feld");
-                                } else {
-                                    statusUpdates.setText(presenter.playerName() + ", du bist am Zug");
+                                switch (currentMoves[i].getToRing()) {
+                                    case 1 -> outerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                                    case 2 -> secondUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
+                                    case 3 -> innerUIFields[currentMoves[i].getToPosition()].setStroke(Color.TRANSPARENT);
                                 }
-                                break;
-                            }
-                        }
-                        if (!moved) {
-                            if (uip.getBelongsPlayerA()) {
-                                uip.setCenterX(-200);
-                                uip.setCenterY(rect1.getHeight() / 2);
-                            } else {
-                                uip.setCenterX(rect1.getWidth() + 200);
-                                uip.setCenterY(rect1.getHeight() / 2);
                             }
 
-                            if (uip.getRing() != -1 && uip.getPosition() != -1) {
-                                var xy = getCoordinates(uip.getPosition() + 1, uip.getRing());
-                                uip.setCenterY(xy[1]);
-                                uip.setCenterX(xy[0]);
+                            boolean moved = false;
+                            for (int i = 0; i < currentMoves.length; i++) {
+                                if (currentMoves[i] == null) {
+                                    continue;
+                                }
+
+                                UIPiece field = null;
+                                switch (currentMoves[i].getToRing()) {
+                                    case 1 -> field = outerUIFields[currentMoves[i].getToPosition()];
+                                    case 2 -> field = secondUIFields[currentMoves[i].getToPosition()];
+                                    case 3 -> field = innerUIFields[currentMoves[i].getToPosition()];
+                                }
+
+                                if (field != null && uip.getBoundsInParent().intersects(field.getBoundsInParent())) {
+                                    uip.setCenterX(field.getCenterX());
+                                    uip.setCenterY(field.getCenterY());
+
+                                    Move move = new Move(uip.getRing(), currentMoves[i].getToRing(), uip.getPosition(), currentMoves[i].getToPosition());
+                                    presenter.movePiece(move);
+
+                                    uip.setRing(currentMoves[i].getToRing());
+                                    uip.setPosition(currentMoves[i].getToPosition());
+                                    moved = true;
+
+                                    if (presenter.getGamePhase() == enumPhase.threePieces) {
+                                        statusUpdates.setText(presenter.playerName() + ", du hast nur noch 3 Steine. Du kannst zu jedem freien Feld springen");
+                                    } else if (presenter.getGamePhase() == enumPhase.removing) {
+                                        statusUpdates.setText(presenter.playerName() + ", nimm einen gegnerischen Stein vom Feld");
+                                    } else {
+                                        statusUpdates.setText(presenter.playerName() + ", du bist am Zug");
+                                    }
+                                    break;
+                                }
+                            }
+                            if (!moved) {
+                                if (uip.getBelongsPlayerA()) {
+                                    uip.setCenterX(-200);
+                                    uip.setCenterY(rect1.getHeight() / 2);
+                                } else {
+                                    uip.setCenterX(rect1.getWidth() + 200);
+                                    uip.setCenterY(rect1.getHeight() / 2);
+                                }
+
+                                if (uip.getRing() != -1 && uip.getPosition() != -1) {
+                                    var xy = getCoordinates(uip.getPosition() + 1, uip.getRing());
+                                    uip.setCenterY(xy[1]);
+                                    uip.setCenterX(xy[0]);
+                                }
                             }
                         }
-                    }
-                    break;
-                case removing:
-                    break;
+                        break;
+                    case removing:
+                        break;
+                }
+            } else {
+                lastWasRemoving = false;
             }
-
-
         };
 
         for (int i = 0; i < 9; i++) {
@@ -405,12 +415,14 @@ public class DrawView {
         }
     }
 
+    @FXML
     private void finish() {
         boardPane.getChildren().remove(piecePane);
         piecePane = new Pane();
         piecePane.setMaxSize(750, 750);
         boardPane.getChildren().add(piecePane);
         presenter.resetValues();
+        play.setDisable(false);
     }
 
     @FXML
