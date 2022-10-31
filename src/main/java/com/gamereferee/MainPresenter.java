@@ -62,6 +62,10 @@ public class MainPresenter implements IPresenter {
             if (!referee.AllPiecesInMill()){
                 return;
             } else {
+                if (referee.getCurrentPlayer().getPiecesCountBoard() == 3) {
+                    referee.getCurrentPlayer().setGamePhase(enumPhase.threePieces);
+                    return;
+                }
                 if (referee.getCurrentPlayer().isPiecesEmpty()) {
                     referee.getCurrentPlayer().setGamePhase(enumPhase.moving);
                 } else {

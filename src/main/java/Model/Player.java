@@ -39,15 +39,9 @@ public abstract class Player {
         return board;
     }
 
-    public Boolean TakePiece(int ring, int position) {
-        if (board.getRing(ring).getFields()[position].getPiece().getBelongsPlayerA() == isPlayerA) {
-            return false;
-        } else {
-            board.getRing(ring).getFields()[position].setPiece(null);
-            board.getRing(ring).getFields()[position].setOccupied(false);
-
-            return true;
-        }
+    public void TakePiece(int ring, int position) {
+        board.getRing(ring).getFields()[position].setPiece(null);
+        board.getRing(ring).getFields()[position].setOccupied(false);
     }
 
     public int getPiecesCountBoard() {
