@@ -99,11 +99,12 @@ public class MainPresenter implements IPresenter {
     }
 
     public void removePiece(int ring, int position) {
-        if (referee.getCurrentPlayer().TakePiece(ring, position)) {
-            var otherPlayer = referee.getOtherPlayer();
-            if (otherPlayer.isPiecesEmpty() && otherPlayer.getPiecesCountBoard() == 3)
-                otherPlayer.setGamePhase(enumPhase.threePieces);
-        }
+        referee.getCurrentPlayer().TakePiece(ring, position);
+        referee.getOtherPlayer().TakePiece(ring, position);
+
+        var otherPlayer = referee.getOtherPlayer();
+        if (otherPlayer.isPiecesEmpty() && otherPlayer.getPiecesCountBoard() == 3)
+            otherPlayer.setGamePhase(enumPhase.threePieces);
     }
 
     public String playerName() {

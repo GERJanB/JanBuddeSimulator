@@ -4,11 +4,9 @@ public class Game {
     private Player playerA;
     private Player playerB;
 
-    public Game(Player playerA, Player playerB, Board board, enumPhase phase) {
+    public Game(Player playerA, Player playerB) {
         this.playerA = playerA;
         this.playerB = playerB;
-        playerA.setBoard(board);
-        playerB.setBoard(board);
     }
 
     public Player getPlayerA() {
@@ -17,13 +15,5 @@ public class Game {
 
     public Player getPlayerB() {
         return playerB;
-    }
-
-    public void setPlayerA(Player playerA) {
-        this.playerA = playerA;
-    }
-
-    public void setPlayerB(Player playerB) {
-        this.playerB = playerB;
     }
 }

@@ -13,7 +13,7 @@ public class Referee {
 
         board = currentPlayer.getBoard();
 
-        game = new Game(playerA, playerB, board, enumPhase.placing);
+        game = new Game(playerA, playerB);
     }
     public void SwitchPlayer() {
         if (currentPlayer.isPlayerA()) {
