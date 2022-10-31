@@ -1,7 +1,5 @@
 package View;
 
-import Model.DummyPlayer;
-import Model.Field;
 import Model.Move;
 import Model.enumPhase;
 import com.gamereferee.IPresenter;
@@ -19,11 +17,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.jar.JarInputStream;
-import java.util.jar.Manifest;
 
 public class DrawView {
     @FXML
